@@ -5,9 +5,9 @@
          v-on:click="toggleNav">
     </div>
     <div class="logo">
-      <img src="/img/logo.png"> 
+      <!--<img src="/img/logo.png"> -->
       Destination Unknown 
-      <img src="../assets/logo.svg">
+      <!--<img src="../assets/logo.svg">-->
     </div>
 
     <button class="languageButtonClass" v-on:click="switchLanguage">
@@ -54,8 +54,6 @@
     <p>När destinationen är officiell, ska du svara på två frågor kopplade till destinationen. Rätt svar på 1 fråga ger 1 poäng, rätt svar på 2 frågor ger 3 poäng. Den med flest poäng när spelet avslutas vinner!</p>
   </div>
 </div>
-
-
 </body>
 </template>
 
@@ -123,7 +121,7 @@ export default {
   .logo {
     text-transform: uppercase;
     letter-spacing: 0.25em;
-    font-size: 2.5rem;
+    font-size: 50px;
     color: white;
     padding-top:0.2em;
     text-align: center;
@@ -167,7 +165,7 @@ export default {
 
 .mainButtons {
   color: rgb(79, 80, 80);
-  font-weight: bold;
+  font-family: "futura";
   font-size: 30px;
   height: 120px;
   width: 300px;
@@ -186,11 +184,11 @@ export default {
   background: linear-gradient(5deg, #ad5c99, #fdc8ec);
 }
 .languageButtonClass{
-  color: rgb(79, 80, 80);
+  color: black;
   background: linear-gradient(5deg, #7fa8c3, #9f9ff2);
   border-radius: 15px;
-  font-weight: bold;
-  font-size: 15px;
+  font-family: "futura";
+  font-size: 17px;
   height: 80px;
   width:150px;
   justify-self: end;
