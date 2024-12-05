@@ -1,35 +1,51 @@
 <template>
+  <body>
   <header>
     <div v-bind:class="['hamburger', {'close': !hideNav}]" 
          v-on:click="toggleNav">
     </div>
     <div class="logo">
-      <img src="/img/logo.png">
-      Polly polling tool 
+      <img src="/img/logo.png"> 
+      Destination Unknown 
       <img src="../assets/logo.svg">
     </div>
-  </header>
-  <ResponsiveNav v-bind:hideNav="hideNav">
-    <button v-on:click="switchLanguage">
+
+    <button class="languageButtonClass" v-on:click="switchLanguage">
       {{ uiLabels.changeLanguage }}
     </button>
-    <router-link to="/create/">
-      {{ uiLabels.createPoll }}
-    </router-link>
-    <a href="">
-      {{ uiLabels.about }}
-    </a>
-    <a href="">FAQ</a>
-  </ResponsiveNav>
-  <h1>{{ uiLabels["sales-pitch"] }}</h1>
+  </header>
+  
+  
+
+  <!--<h1>{{ uiLabels["sales-pitch"] }}</h1>
   <h2>{{ uiLabels.subHeading }}</h2>
   <label>
     Write poll id: 
     <input type="text" v-model="newPollId">
   </label>
-  <router-link v-bind:to="'/lobby/' + newPollId">
-    {{ uiLabels.participatePoll }}
+  -->
+  <br>
+  <img class="imageOfWorld" src="/public/Jordglob.png">
+<br>
+  <router-link to="/create/">
+  <button class="mainButtons" id="createPollClass" >
+      {{ uiLabels.createPoll }}
+  </button>
   </router-link>
+
+  <router-link v-bind:to="'/lobby/' + newPollId">
+    <button class="mainButtons" id="participatePollClass">
+    {{ uiLabels.participatePoll }}
+    </button>
+  </router-link>
+  
+  <a href="">
+    <button class="mainButtons" id="aboutClass">
+      {{ uiLabels.about }}  
+    </button>
+  </a>
+  
+</body>
 </template>
 
 <script>
@@ -72,11 +88,18 @@ export default {
 }
 </script>
 <style scoped>
+  body{
+    background: linear-gradient(5deg, rgb(123, 168, 205), #d3d3f5);
+    height: 100%; 
+    min-height: 100vh;
+    width: 100%;  
+  }
   header {
-    background-color: gray;
+    background: linear-gradient(5deg, #d3d3f5), rgb(123, 168, 205);
     width: 100%;
     display: grid;
-    grid-template-columns: 2em auto;
+    grid-template-columns: 1fr auto 1fr;
+    align-items: center;
   }
   .logo {
     text-transform: uppercase;
@@ -84,6 +107,7 @@ export default {
     font-size: 2.5rem;
     color: white;
     padding-top:0.2em;
+    text-align: center;
   }
   .logo img {
     height:2.5rem;
@@ -91,7 +115,7 @@ export default {
     margin-right: 0.5rem; 
   }
   .hamburger {
-    color:white;
+    color:rgb(222, 223, 223);
     width:1em;
     display: flex;
     align-items: center;
@@ -121,4 +145,42 @@ export default {
     left:-12em;
   }
 }
+
+.mainButtons {
+  color: rgb(79, 80, 80);
+  font-weight: bold;
+  font-size: 30px;
+  height: 120px;
+  width: 300px;
+  border-radius: 20px;
+  margin: 70px 20px;
+  
+}
+#createPollClass {
+  background: linear-gradient(5deg, #ffa82f, #eaceaf);
+}
+
+#participatePollClass {
+  background: linear-gradient(5deg, #47a657, #bbf8bb);
+}
+#aboutClass {
+  background: linear-gradient(5deg, #ad5c99, #fdc8ec);
+}
+.languageButtonClass{
+  color: rgb(79, 80, 80);
+  background: linear-gradient(5deg, #7fa8c3, #9f9ff2);
+  border-radius: 15px;
+  font-weight: bold;
+  font-size: 15px;
+  height: 80px;
+  width:150px;
+  justify-self: end;
+  margin: 10px;
+}
+
+.imageOfWorld {
+height: 27%;
+width: 27%;
+}
+
 </style>
