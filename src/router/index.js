@@ -1,5 +1,7 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import StartView from '../views/StartView.vue'
+import RandomDestination from "../components/RandomDestination.vue";
+import ChooseDestination from "../components/ChooseDestination.vue";
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -28,7 +30,17 @@ const router = createRouter({
       path: '/result/:id',
       name: 'ResultView',
       component: () => import('../views/ResultView.vue')
-    }
+    },
+    {
+      path: '/random-destination',
+      name: 'RandomDestination',
+      component: RandomDestination, // Länkar till din komponent
+    },
+    {
+      path: '/choose-destination',
+      name: 'ChooseDestination',
+      component: ChooseDestination, // Länkar till din komponent
+    },
   ]
 })
 
