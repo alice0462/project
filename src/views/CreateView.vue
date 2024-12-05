@@ -106,7 +106,7 @@ body {
   align-items: center; /* Centrerar innehåll horisontellt */
   height: 100vh; /* Full höjd på sidan */
   margin: 0; /* Tar bort marginaler */
-  background: linear-gradient(5deg, #9b52d0, #c4afea); /* Bakgrundsgradient */
+  background: linear-gradient(5deg, #b99ff6, #8cb6ff); /* Bakgrundsgradient */
   background-size: cover; /* Se till att gradienten täcker hela skärmen */
   background-repeat: no-repeat; /* Förhindrar upprepning av gradienten */
 }
@@ -116,7 +116,6 @@ body {
   justify-content: center; /* Centrerar elementen horisontellt */
   gap: 80px; /* Lägger mellanrum mellan rutorna */
 }
-
 
 
 
@@ -161,7 +160,5 @@ body {
   transform: scale(1.1); /* Gör knappen större vid hovring */
   background-color: #7a42aa; /* Ändrar bakgrundsfärgen vid hovring */
 }
-
-
 
 </style>
