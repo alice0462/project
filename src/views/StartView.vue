@@ -214,6 +214,7 @@ width: 27%;
   display: flex;
   justify-content: center;
   align-items: center;
+  font-family: "futura";
 }
 
 .showRulesTextClass-content {
