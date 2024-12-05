@@ -219,7 +219,7 @@ width: 27%;
 }
 
 .showRulesTextClass-content {
-  background-color: #95b3bf; 
+  background-color: #d2e0e6; 
   padding: 20px;
   border-radius: 15px; 
   width: 60%; 
