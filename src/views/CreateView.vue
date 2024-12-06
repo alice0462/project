@@ -96,10 +96,10 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
 @import url('https://fonts.googleapis.com/css2?family=Agbalumo&family=Cormorant:wght@700&display=swap');
 
-body {
+.container {
   display: flex; /* Aktiverar flexbox för hela sidan */
   flex-direction: column; /* Låter barnen staplas vertikalt */
   justify-content: center; /* Centrerar innehåll vertikalt */
