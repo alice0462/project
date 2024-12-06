@@ -1,5 +1,5 @@
 <template>
-  <div class="wrapper" >
+  <div class="container-choose" >
     <header>Välj destination</header>
     <h1>Välj vilka resmål du vill åka till. Max 3 resor per spelomgång.</h1>
     <div class="grid">
@@ -61,7 +61,7 @@ import { useRouter } from 'vue-router';
         "New York",
         "Stockholm",
         "Helsingfors",
-        "München",
+        "Paris",
         "Kapstaden",
         "Hanoi",
         "Göteborg",
@@ -104,10 +104,10 @@ import { useRouter } from 'vue-router';
 <style scoped>
   @import url('https://fonts.googleapis.com/css2?family=Agbalumo&family=Cormorant:wght@700&display=swap');
 
-  .wrapper {
+  .container-choose {
     margin: 0;
     padding: 0;
-    background:linear-gradient(5deg, #b99ff6, #8cb6ff);
+    background:linear-gradient(to right, #d1e7ff, #d3bdf3);
     min-height: 100vh;
     font-family: 'Futura';
     display: flex;
@@ -145,7 +145,7 @@ import { useRouter } from 'vue-router';
   }
 
   button {
-  background-color: #f4d03f;
+  background-color: #ffe369;
   border: none;
   border-radius: 10px;
   padding: 20px;
@@ -157,7 +157,7 @@ import { useRouter } from 'vue-router';
 
 button.selected {
   background-color: #fff8d4; /* Ljusare gul färg */
-  border: 2px solid #cba935; /* Lägg till en kant för att markera */
+  border: 3px solid #cba935; /* Lägg till en kant för att markera */
 }
 
 button:hover {

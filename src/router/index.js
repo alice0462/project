@@ -3,6 +3,8 @@ import StartView from '../views/StartView.vue'
 import RandomDestination from "../components/RandomDestination.vue";
 import ChooseDestination from "../components/ChooseDestination.vue";
 import Level from '../components/Level.vue';
+import GameMasterCode from '../components/GameMasterCode.vue';
+
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -46,7 +48,12 @@ const router = createRouter({
       path: '/level',
       name: 'Level',
       component: Level,
-    }
+    },
+    {
+      path: "/game-master-code",
+      name: "GameMasterCode",
+      component: GameMasterCode,
+    },
   ]
 })
 

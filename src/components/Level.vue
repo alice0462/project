@@ -12,14 +12,14 @@
       </ul>-->
       <div class="level">
         <div class="level-easy">
-          <h2 class="easy-title">Lätt</h2>
-          <button type="button" v-on:click="printValues">
+          <button type="button" v-on:click="selectLevel">
+          <h2>Lätt</h2>
           <p>Varje fråga får man tre stycken svarsalternativ</p>
     </button>
         </div>
         <div class="level-hard">
-          <h2 class="hard-title"> Svår </h2>
-          <button type="button" v-on:click="printValues">
+          <button type="button" v-on:click="selectLevel">
+          <h2> Svår </h2>
           <p>Varje fråga ges utan svarsalternativ</p>
     </button>
         </div>
@@ -107,7 +107,11 @@
       },
       runQuestion: function () {
         socket.emit("runQuestion", {pollId: this.pollId, questionNumber: this.questionNumber})
-      }
+      },
+      selectLevel(level) {
+      // Skicka svårighetsgraden som en parameter (valfritt)
+      this.$router.push({ path: "/game-master-code", query: { difficulty: level } });
+    },
     }
   }
   </script>
@@ -119,7 +123,7 @@
     display: flex;
     align-items: center;
     flex-direction: column;
-    background: linear-gradient(5deg, #9b52d0, #c4afea);
+    background: linear-gradient(to right, #d1e7ff, #d3bdf3);
     background-size: cover; /* Se till att gradienten täcker hela skärmen */
     background-repeat: no-repeat; /* Förhindrar upprepning */
     margin: 0; /* Tar bort eventuell marginal */
@@ -139,6 +143,7 @@
     justify-content: space-around; /* Lika mycket utrymme mellan elementen */
     max-width: 800px; /* Begränsar maxbredden */
     text-align: center;
+    gap: 100px;
   }
   
   .level-easy {
@@ -170,6 +175,10 @@
     justify-content: center; /* Centrerar text horisontellt */
     align-items: center;
     text-align: center;
+
+    h2 {
+      font-weight: lighter;
+    }
   }
   
   .level-hard button {
@@ -185,6 +194,10 @@
     font-family: 'Futura';
     font-size: 26px;
     text-align: center;
+
+    h2 {
+      font-weight: lighter;
+    }
   }
   
   .level-easy button:hover {
@@ -196,36 +209,5 @@
     transform: scale(1.1); /* Gör knappen större vid hovring */
     background-color: #7a42aa; /* Ändrar bakgrundsfärgen vid hovring */
   }
-  
-  /* Specifik stil för "Lätt" */
-  .easy-title {
-    border: 2px solid #099902; /* Grön kant */
-    width: 325px;
-    height: 50px;
-    line-height: 50px; /* Matchar höjden för att centrera vertikalt */
-    background: linear-gradient(5deg, #63b65f, #bcedbe);
-    color: rgb(0, 48, 3); /* Mörkgrön text */
-    padding: 10px;
-    border-radius: 8px;
-    text-align: center;
-    font-size: 28px;
-    font-family: 'Futura';
-  }
-  
-  /* Specifik stil för "Svår" */
-  .hard-title {
-    border: 2px solid #a30e0e; /* Röd kant */
-    width: 325px;
-    height: 50px;
-    line-height: 50px; /* Matchar höjden för att centrera vertikalt */
-    background: linear-gradient(5deg, #a30e0e, #eaafaf);
-    color: rgb(78, 0, 0); /* Mörkröd text */
-    padding: 10px;
-    border-radius: 8px;
-    text-align: center;
-    font-size: 28px;
-    font-family: 'Futura';
-  }
-  
   </style>
   

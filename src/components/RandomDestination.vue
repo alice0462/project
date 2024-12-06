@@ -1,13 +1,173 @@
 <template>
-    <div>
-      <h1>Slumpad destination</h1>
-      <p>Här är din slumpmässiga destination!</p>
+  <div class="container-random">
+    <h1>Slumpa dina resmål</h1>
+    <p>Välj hur många resmål du vill slumpa:</p>
+    <div class="selection">
+      <button
+        v-for="number in [1, 2, 3]"
+        :key="number"
+        @click="setNumberOfTrips(number)"
+        :class="{ active: number === numberOfTrips }"
+      >
+        {{ number }}
+      </button>
     </div>
-  </template>
-  
-  <script>
-  export default {
-    name: "RandomDestination",
-  };
-  </script>
+    <button class="generate-button" :disabled="numberOfTrips === 0" @click="generateRandomDestinations">
+      Slumpa destinationer
+    </button>
+
+    <div v-if="randomDestinations.length > 0" class="results">
+      <h2>Du har fått destination{{ randomDestinations.length > 1 ? 'er' : '' }}</h2>
+      <ul>
+        <li v-for="(city, index) in randomDestinations" :key="index">{{ city }}</li>
+      </ul>
+      <div class="action-buttons">
+        <button @click="generateRandomDestinations">Generera nya destinationer</button> 
+        <button @click="acceptDestinations">Acceptera destinationer</button>
+      </div>
+    </div>
+  </div>
+</template>
+
+<script>
+export default {
+  name: "RandomDestination",
+  data() {
+    return {
+      cities: [
+        "Moskva",
+        "Lissabon",
+        "Seoul",
+        "Toronto",
+        "Tokyo",
+        "Barcelona",
+        "Linköping",
+        "New York",
+        "Stockholm",
+        "Helsingfors",
+        "Paris",
+        "Kapstaden",
+        "Hanoi",
+        "Göteborg",
+        "Buenos Aires",
+        "Rio de Janeiro",
+      ],
+      numberOfTrips: 0,
+      randomDestinations: [],
+    };
+  },
+  methods: {
+    setNumberOfTrips(number) {
+      this.numberOfTrips = number;
+    },
+    generateRandomDestinations() {
+      const shuffledCities = [...this.cities].sort(() => 0.5 - Math.random());
+      this.randomDestinations = shuffledCities.slice(0, this.numberOfTrips);
+    },
+    acceptDestinations() {
+      // Navigera vidare eller hantera valen
+      this.$router.push("/level"); // Exempel: Navigera till nästa sida
+    },
+  },
+};
+</script>
+
+<style scoped>
+@import url('https://fonts.googleapis.com/css2?family=Agbalumo&family=Cormorant:wght@700&display=swap');
+
+.container-random {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  background: linear-gradient(to right, #d1e7ff, #d3bdf3);
+  padding: 20px;
+  text-align: center;
+  font-family: 'Futura';
+}
+
+h1 {
+  font-size: 36px;
+  margin-bottom: 20px;
+  color: #333;
+}
+
+p {
+  color: #313131;
+}
+
+.selection {
+  display: flex;
+  gap: 20px;
+  margin-bottom: 20px;
+}
+
+button {
+  padding: 20px 30px;
+  font-size: 18px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+button:hover {
+  background-color: #c3e6f0;
+}
+
+button.active {
+  background-color: #0077cc;
+  color: white;
+}
+
+.generate-button {
+  background: linear-gradient(5deg, #fdff7d, #feffbd);
+  color: rgb(0, 0, 0);
+}
+
+.results {
+  margin-top: 30px;
+}
+
+.results h2 {
+  font-size: 28px;
+  margin-bottom: 20px;
+}
+
+ul {
+  list-style: none;
+  padding: 0;
+}
+
+li {
+  font-size: 20px;
+  margin-bottom: 10px;
+}
+
+.action-buttons {
+  display: flex;
+  gap: 20px;
+  margin-top: 30px;
+}
+
+.action-buttons button {
+  padding: 30px 40px;
+  font-size: 16px;
+  font-weight: bold;
+  border-radius: 15px;
+  cursor: pointer;
+}
+
+.action-buttons button:first-child {
+  background: linear-gradient(5deg, #639edd, #a9d2ff);
+  color: white;
+}
+
+.action-buttons button:last-child {
+  background: linear-gradient(5deg, #63b65f, #bcedbe);
+  color: white;
+}
+</style>
+
   
