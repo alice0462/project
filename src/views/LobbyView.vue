@@ -12,6 +12,15 @@
       {{ participants }}
   </div>
   </div>
+
+  <div v-if="!joined">
+  <input type="text" v-model="userName" placeholder="Enter your name">
+  <input type="text" v-model="pollId" placeholder="Enter poll ID">
+  <button v-on:click="participateInPoll">
+    {{ uiLabels.participateInPoll }}
+  </button>
+</div>
+  
 </template>
 
 <script>
