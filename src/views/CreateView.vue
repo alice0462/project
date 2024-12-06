@@ -106,7 +106,7 @@ export default {
   align-items: center; /* Centrerar innehåll horisontellt */
   height: 100vh; /* Full höjd på sidan */
   margin: 0; /* Tar bort marginaler */
-  background: linear-gradient(5deg, #b99ff6, #8cb6ff); /* Bakgrundsgradient */
+  background: linear-gradient(to right, #d1e7ff, #d3bdf3); /* Bakgrundsgradient */
   background-size: cover; /* Se till att gradienten täcker hela skärmen */
   background-repeat: no-repeat; /* Förhindrar upprepning av gradienten */
 }
