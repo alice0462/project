@@ -2,6 +2,7 @@ import { createRouter, createWebHistory } from 'vue-router'
 import StartView from '../views/StartView.vue'
 import RandomDestination from "../components/RandomDestination.vue";
 import ChooseDestination from "../components/ChooseDestination.vue";
+import Level from '../components/Level.vue';
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -41,6 +42,11 @@ const router = createRouter({
       name: 'ChooseDestination',
       component: ChooseDestination, // Länkar till din komponent
     },
+    {
+      path: '/level',
+      name: 'Level',
+      component: Level,
+    }
   ]
 })
 

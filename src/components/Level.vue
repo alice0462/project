@@ -1,8 +1,15 @@
 <template>
+  <div class="level-container">
     <header>
       <h1>Välj svårighetsgrad</h1>
     </header>
     <div class="container">
+      <!--<p>Dina valda destination:</p>
+      <ul>
+        <li v-for="(city, index) in selectedCities" :key="index">
+          {{ city }}
+        </li>
+      </ul>-->
       <div class="level">
         <div class="level-easy">
           <h2 class="easy-title">Lätt</h2>
@@ -17,6 +24,7 @@
     </button>
         </div>
       </div>
+  </div>
      <!-- 
       Poll link: 
       <input type="text" v-model="pollId">
@@ -53,10 +61,19 @@
   
   <script>
   import io from 'socket.io-client';
+  import { useRoute } from 'vue-router';
   const socket = io("localhost:3000");
   
   export default {
-    name: 'CreateView',
+    name: 'Level',
+    setup() {
+      const route = useRoute(); // Hämta router-objektet
+      const selectedCities = route.query.selectedCities?.split(',') || []; // Dela upp query-parametern till en array
+
+      return {
+        selectedCities,
+      };
+    },
     data: function () {
       return {
         lang: localStorage.getItem("lang") || "en",
@@ -95,10 +112,10 @@
   }
   </script>
   
-  <style>
+  <style scoped>
   @import url('https://fonts.googleapis.com/css2?family=Agbalumo&family=Cormorant:wght@700&display=swap');
   
-  body {
+  .level-container {
     display: flex;
     align-items: center;
     flex-direction: column;
