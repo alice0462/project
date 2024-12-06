@@ -14,8 +14,6 @@
       {{ uiLabels.changeLanguage }}
     </button>
   </header>
-  
-  
 
   <!--<h1>{{ uiLabels["sales-pitch"] }}</h1>
   <h2>{{ uiLabels.subHeading }}</h2>
@@ -33,7 +31,13 @@
   </button>
   </router-link>
 
-  <router-link v-bind:to="'/lobby/' + newPollId">
+ <!-- <router-link v-bind:to="'/lobby/' + newPollId">
+    <button class="mainButtons" id="participatePollClass">
+    {{ uiLabels.participatePoll }}
+    </button>
+  </router-link>-->
+
+  <router-link to="/lobby/">
     <button class="mainButtons" id="participatePollClass">
     {{ uiLabels.participatePoll }}
     </button>
