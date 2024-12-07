@@ -29,6 +29,7 @@
   </script>
   
   <style scoped>
+  @import url('https://fonts.googleapis.com/css2?family=Agbalumo&family=Cormorant:wght@700&display=swap');
   .game-master-container {
     display: flex;
     justify-content: space-between;

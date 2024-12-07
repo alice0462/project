@@ -15,13 +15,13 @@
           <button type="button" v-on:click="selectLevel">
           <h2>Lätt</h2>
           <p>Varje fråga får man tre stycken svarsalternativ</p>
-    </button>
+      </button>
         </div>
         <div class="level-hard">
           <button type="button" v-on:click="selectLevel">
           <h2> Svår </h2>
           <p>Varje fråga ges utan svarsalternativ</p>
-    </button>
+      </button>
         </div>
       </div>
   </div>

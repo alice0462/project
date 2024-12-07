@@ -25,11 +25,25 @@
   <br>
   <img class="imageOfWorld" src="/public/Jordglob.png">
 <br>
-  <router-link to="/create/">
-  <button class="mainButtons" id="createPollClass" >
-      {{ uiLabels.createPoll }}
-  </button>
+
+    <router-link to="/create/">
+    <button class="mainButtons" id="createPollClass">
+      {{ uiLabels.createPoll }}</button>
   </router-link>
+  <router-link to="/lobby/">
+    <button class="mainButtons" id="participatePollClass">
+      {{ uiLabels.participatePoll }}
+    </button>
+  </router-link>
+  <router-link to="/poll/">
+    <button class="mainButtons" id="screenViewerClass">
+      {{ uiLabels.screenViewer }}
+    </button>
+  </router-link>
+  <button class="mainButtons" id="aboutClass">
+    {{ uiLabels.about }}</button>
+
+
 
  <!-- <router-link v-bind:to="'/lobby/' + newPollId">
     <button class="mainButtons" id="participatePollClass">
@@ -37,16 +51,10 @@
     </button>
   </router-link>-->
 
-  <router-link to="/lobby/">
-    <button class="mainButtons" id="participatePollClass">
-    {{ uiLabels.participatePoll }}
-    </button>
-  </router-link>
+
+
   
-  
-    <button class="mainButtons" id="aboutClass" @click.prevent="showRulesText = true">
-      {{ uiLabels.about }}  
-    </button>
+
 
 
 <div v-if="showRulesText" class="showRulesTextClass">
@@ -81,7 +89,8 @@ export default {
       somePollId: "",
       lang: localStorage.getItem( "lang") || "en",
       hideNav: true,
-      showRulesText: false
+      showRulesText: false,
+      pollId:""
     }
   },
   created: function () {
@@ -187,6 +196,9 @@ export default {
 #aboutClass {
   background: linear-gradient(5deg, #ad5c99, #fdc8ec);
 }
+#screenViewerClass {
+  background: linear-gradient(5deg, #4a90e2, #a4d3f8); /* Anpassa färger */
+}
 .languageButtonClass{
   color: black;
   background: linear-gradient(5deg, #7fa8c3, #9f9ff2);
@@ -203,8 +215,6 @@ export default {
 height: 27%;
 width: 27%;
 }
-
-
 
 
 .showRulesTextClass {
