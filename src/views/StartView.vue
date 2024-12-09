@@ -40,9 +40,8 @@
       {{ uiLabels.screenViewer }}
     </button>
   </router-link>
-  <button class="mainButtons" id="aboutClass">
+  <button class="mainButtons" id="rulesClass" @click="showRulesText = true" >
     {{ uiLabels.about }}</button>
-
 
 
  <!-- <router-link v-bind:to="'/lobby/' + newPollId">
@@ -50,11 +49,6 @@
     {{ uiLabels.participatePoll }}
     </button>
   </router-link>-->
-
-
-
-  
-
 
 
 <div v-if="showRulesText" class="showRulesTextClass">
@@ -193,7 +187,7 @@ export default {
 #participatePollClass {
   background: linear-gradient(5deg, #47a657, #bbf8bb);
 }
-#aboutClass {
+#rulesClass {
   background: linear-gradient(5deg, #ad5c99, #fdc8ec);
 }
 #screenViewerClass {
