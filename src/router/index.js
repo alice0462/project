@@ -54,6 +54,11 @@ const router = createRouter({
       name: "GameMasterCode",
       component: GameMasterCode,
     },
+    /*{
+      path: "/pollview",
+      name: "PollView",
+      views: PollView,
+    },*/
   ]
 })
 

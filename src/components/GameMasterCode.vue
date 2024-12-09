@@ -17,8 +17,17 @@
   </template>
   
   <script>
+import { useRoute } from 'vue-router';
+
   export default {
     name: "GameMasterCode",
+    setup () {
+      const route = useRoute ();
+      const selectedLevel = route.query.selectedLevels || 'Ingen nivå vald';
+      return {
+        selectedLevel,
+      };
+    },
     methods: {
       startGame() {
         // Logik för att starta spelet (kan navigera till nästa sida)
