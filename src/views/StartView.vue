@@ -1,18 +1,25 @@
 <template>
   <body>
   <header>
-    <div v-bind:class="['hamburger', {'close': !hideNav}]" 
-         v-on:click="toggleNav">
-    </div>
+    <button class="languageButtonClass" v-on:click="switchLanguage">
+      <img :src="languageFlag" alt="Switch Language" />
+    </button>
+    
+
     <div class="logo">
       <!--<img src="/img/logo.png"> -->
       Destination Unknown 
       <!--<img src="../assets/logo.svg">-->
     </div>
+    
 
-    <button class="languageButtonClass" v-on:click="switchLanguage">
-      {{ uiLabels.changeLanguage }}
-    </button>
+    <button class="ruleButton" @click="showRulesText = true" >
+      {{ uiLabels.about }}</button>
+
+      <div v-bind:class="['hamburger', {'close': !hideNav}]" 
+         v-on:click="toggleNav">
+    </div>
+
   </header>
 
   <!--<h1>{{ uiLabels["sales-pitch"] }}</h1>
@@ -40,8 +47,8 @@
       {{ uiLabels.screenViewer }}
     </button>
   </router-link>
-  <button class="mainButtons" id="rulesClass" @click="showRulesText = true" >
-    {{ uiLabels.about }}</button>
+  <!-- */<button class="mainButtons" id="rulesClass" @click="showRulesText = true" >
+    {{ uiLabels.about }}</button>-->
 
 
  <!-- <router-link v-bind:to="'/lobby/' + newPollId">
@@ -88,6 +95,13 @@ export default {
   created: function () {
     socket.on( "uiLabels", labels => this.uiLabels = labels );
     socket.emit( "getUILabels", this.lang );
+  },
+  computed:{
+    languageFlag () {
+      return this.lang === "en"
+      ? "/public/svensk-flagga.png"
+      : "/public/brittisk-flagga.png";
+    }
   },
   methods: {
     switchLanguage: function() {
@@ -175,7 +189,7 @@ export default {
   height: 120px;
   width: 300px;
   border-radius: 20px;
-  margin: 70px 20px;
+  margin: 0 20px 20px;
   cursor: pointer;
 }
 
@@ -191,21 +205,25 @@ export default {
 #screenViewerClass {
   background: linear-gradient(5deg, #4a90e2, #a4d3f8); /* Anpassa färger */
 }
-.languageButtonClass{
-  color: black;
-  background: linear-gradient(5deg, #7fa8c3, #9f9ff2);
-  border-radius: 15px;
-  font-family: "futura";
-  font-size: 17px;
-  height: 80px;
-  width:150px;
-  justify-self: end;
-  margin: 10px;
+
+.languageButtonClass {
+  padding: 10px; /* Tar bort inre mellanrum */
+  margin: 0; /* Tar bort yttre mellanrum */
+  overflow: hidden; /* Förhindrar att innehållet sticker ut */
+  border: none; /* Tar bort standardkant */
+  width: 100px; /* Ställ in knappens bredd */
+  height: 60px; /* Ställ in knappens höjd */
+  display: flex; /* Gör det till en flexbehållare */
+  align-items: center;
+  justify-content: center;
   cursor: pointer;
+  background: none; /* Tar bort bakgrundsfärg */
 }
+
 .imageOfWorld {
 height: 27%;
 width: 27%;
+margin-bottom: 60px;
 }
 
 
@@ -244,4 +262,25 @@ width: 27%;
   right: 10px;
   cursor: pointer;
 }
+.languageButtonClass img {
+  width: 100%;
+  height: 100%;
+
+  object-fit: cover;
+}
+
+.ruleButton {
+  color: rgb(79, 80, 80);
+  font-family: "futura";
+  font-size: 14px;
+  height: 50px;
+  width: 120px;
+  border-radius: 5px;
+  margin: 15px;
+  cursor: pointer;
+  background: linear-gradient(5deg, #fae0fad8, #fdc8ecb1);
+  justify-self: end;
+}
+
+
 </style>
