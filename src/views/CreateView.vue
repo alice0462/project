@@ -1,14 +1,14 @@
 <template>
   <div class="container">
     <div class="destination">
-      <div class="destination-choose">
+      <div class="destination-buttons" id="chooseDestination">
         <button type="button" v-on:click="goToChooseDestination">
-        <p>Välj egen destination</p>
+        {{ uiLabels.chooseDestination }}
   </button>
       </div>
-      <div class="destination-random">
+      <div class="destination-buttons" id="randomDestination">
         <button type="button" v-on:click="goToRandomDestination">
-        <p>Slumpa destination</p>
+        {{ uiLabels.randomDestination }}
   </button>
       </div>
     </div>
@@ -48,6 +48,7 @@
 
 <script>
 import io from 'socket.io-client';
+import RandomDestination from '../components/RandomDestination.vue';
 const socket = io("localhost:3000");
 
 export default {
@@ -100,12 +101,11 @@ export default {
 @import url('https://fonts.googleapis.com/css2?family=Agbalumo&family=Cormorant:wght@700&display=swap');
 
 .container {
-  display: flex; /* Aktiverar flexbox för hela sidan */
+  display: flex;
   flex-direction: column; /* Låter barnen staplas vertikalt */
   justify-content: center; /* Centrerar innehåll vertikalt */
   align-items: center; /* Centrerar innehåll horisontellt */
   height: 100vh; /* Full höjd på sidan */
-  margin: 0; /* Tar bort marginaler */
   background: linear-gradient(to right, #d1e7ff, #d3bdf3); /* Bakgrundsgradient */
   background-size: cover; /* Se till att gradienten täcker hela skärmen */
   background-repeat: no-repeat; /* Förhindrar upprepning av gradienten */
@@ -113,52 +113,42 @@ export default {
 
 .destination {
   display: flex; /* Gör att elementen placeras horisontellt */
-  justify-content: center; /* Centrerar elementen horisontellt */
   gap: 80px; /* Lägger mellanrum mellan rutorna */
 }
 
-
-
-.destination-choose button {
-  width: 400px; /* Gör knappen bredare */
-  height: 400px; /* Gör knappen högre */
-  font-size: 18px; /* Större textstorlek */
-  background: linear-gradient(5deg, #50aee5, #bce2ed);
-  color: rgb(0, 48, 3); /* Vit textfärg */
-  border: 2px solid #006caf; /* Grön kant */
-  border-radius: 70px; /* Rundade hörn */
-  cursor: pointer; /* Ändrar muspekaren vid hovring */
-  transition: transform 0.2s, background-color 0.2s; /* Smooth hovringseffekt */
-  font-family: 'Futura';
-  font-size: 32px;
-  justify-content: center; /* Centrerar text horisontellt */
+.destination-buttons button {
+  width: 400px; 
+  height: 400px; 
+  border-radius: 70px; 
+  cursor: pointer; 
+  transition: transform 0.2s, background-color 0.2s; 
+  font-family: 'Futura', sans-serif;
+  font-size: 30px;
+  justify-content: center; 
   align-items: center;
   text-align: center;
+  line-height: normal;
+}
+#chooseDestination button{
+  background: linear-gradient(5deg, #50aee5, #bce2ed);
+  color: rgb(0, 48, 3); 
+  border: 2px solid #006caf; 
 }
 
-.destination-random button {
-  width: 400px; /* Gör knappen bredare */
-  height: 400px; /* Gör knappen högre */
-  font-size: 18px; /* Större textstorlek */
+#randomDestination button {
   background: linear-gradient(5deg, #63b65f, #bcedbe);
-  color: rgb(78, 0, 0); /* Vit textfärg */
-  border: 2px solid #00720f; /* Röd kant */
-  border-radius: 70px; /* Rundade hörn */
-  cursor: pointer; /* Ändrar muspekaren vid hovring */
-  transition: transform 0.2s, background-color 0.2s; /* Smooth hovringseffekt */
-  font-family: 'Futura';
-  font-size: 32px;
-  text-align: center;
+  color: rgb(78, 0, 0); 
+  border: 2px solid #00720f; 
 }
 
-.destination-choose button:hover {
+.destination-buttons button:hover {
   transform: scale(1.1); /* Gör knappen större vid hovring */
   background-color: #7a42aa; /* Ändrar bakgrundsfärgen vid hovring */
 }
 
-.destination-random button:hover {
-  transform: scale(1.1); /* Gör knappen större vid hovring */
-  background-color: #7a42aa; /* Ändrar bakgrundsfärgen vid hovring */
+button font{
+  padding: 0px;
+  margin: 0px;
 }
 
 </style>

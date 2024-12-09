@@ -54,6 +54,7 @@
 <div v-if="showRulesText" class="showRulesTextClass">
   <div class="showRulesTextClass-content">
     <span class="close" @click="closeRulesText">&times;</span>
+    <h3> {{ uiLabels.rulesTitle }}</h3>
     {{ uiLabels.rules }}
   </div>
 </div>

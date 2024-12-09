@@ -7,8 +7,13 @@
 	"question": "Fråga",
 	"changeLanguage": "English",
 	"about": "Spelregler",
-	"participateInPoll": "Delta i enkäten",
+	"participateInPoll": "Anslut till spel",
 	"screenViewer":"Spelskärm",
-	"rules": "Spelregler: Vi besöker en okänd destination, en stad i världen, och ditt jobb är att lista ut vart vi är påväg! Du får höra ett antal ledtrådar värda 10p, 8p, 6p, 4p och 2p. Uppe i högra hörnet ser du en timer och du måste svara inom den givna tiden. När du tror du vet destinationen, drar du i nödbromsen och skriver in ditt svar! När destinationen är officiell, ska du svara på två frågor kopplade till destinationen. Rätt svar på 1 fråga ger 1 poäng, rätt svar på 2 frågor ger 3 poäng. Den med flest poäng när spelet avslutas vinner!"
-
+	"rulesTitle": "Spelregler",
+	"rules": "Vi besöker en okänd destination, en stad i världen, och ditt jobb är att lista ut vart vi är påväg! Du får höra ett antal ledtrådar värda 10p, 8p, 6p, 4p och 2p. Uppe i högra hörnet ser du en timer och du måste svara inom den givna tiden. När du tror du vet destinationen, drar du i nödbromsen och skriver in ditt svar! När destinationen är officiell, ska du svara på två frågor kopplade till destinationen. Rätt svar på 1 fråga ger 1 poäng, rätt svar på 2 frågor ger 3 poäng. Den med flest poäng när spelet avslutas vinner!",
+	"chooseDestination": "Välj egen destination",
+	"randomDestination": "Slumpa destination",
+	"enterName": "Skriv in ditt namn:",
+	"participateDescription": "Fiska fram spelkoden från spelledaren och skriv in den här för att hoppa in i spelet!",
+	"waitingForHost": "Väntar på att värden ska starta spelet..."
 }

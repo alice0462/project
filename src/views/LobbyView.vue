@@ -9,17 +9,17 @@
       </button>
     </div>-->
     <div v-if="joined">
-      <p>Waiting for host to start poll</p>
+      <p>{{ uiLabels.waitingForHost }}</p>
       {{ participants }}
   </div>
 
 
   <div v-if="!joined">
-  <h1>Anslut till spel</h1>
-  Skriv in ditt namn:
-  <input type="text" class="usernameBox" v-model="userName" placeholder="Enter your name">
+  <h1>{{ uiLabels.participateInPoll }}</h1>
+  <p>{{ uiLabels.enterName }}</p>
+  <input type="text" class="usernameBox" v-model="userName">
   <br>
-  <p>Fiska fram spelkoden från spelledaren och skriv in den här för att hoppa in i spelet!</p>
+  <p>{{ uiLabels.participateDescription }}</p>
   <div class="poll-id-container">
   <!--<input type="text" v-model="pollId" placeholder="Enter poll ID">-->
   <input type="text" maxlength="1" class="poll-id-box" id="box1" v-model="boxes[0]" @input="moveFocus(1)">
@@ -88,20 +88,25 @@ body{
   background: linear-gradient(5deg, #eaca49, #eae2af);
 }
 h1{
-  margin: 0px;
-  padding: 40px 0 20px;
-  font-size: 50px;
+  margin: 0px 0px 40px 0px;
+  padding: 90px 0 20px;
+  font-size: 55px;
   color: rgb(75, 76, 76);
 }
 h1, p{
   font-family: 'Futura';
   color: rgb(75, 76, 76);
+  margin-bottom: 20px;
 }
+p {
+  font-size: 20px;
+}
+
 .usernameBox{
   height: 30px;
   width: 130px;
   border-radius: 8px;
-  margin-bottom: 25px;
+  margin-bottom: 40px;
 }
 .poll-id-container {
   display: flex;
@@ -129,6 +134,7 @@ button{
   font-family: 'Futura';
   font-size: 15px;
   background: linear-gradient(5deg, #63b65f, #bcedbe);
+  margin-top: 30px;
 }
 
 </style>
