@@ -54,10 +54,7 @@
 <div v-if="showRulesText" class="showRulesTextClass">
   <div class="showRulesTextClass-content">
     <span class="close" @click="closeRulesText">&times;</span>
-    <h3>Spelregler</h3>
-    <p>Vi besöker en okänd destination, en stad i världen, och ditt jobb är att lista ut vart vi är påväg!</p>
-    <p>Du får höra ett antal ledtrådar ledtrådar värda 10p, 8p, 6p, 4p och 2p. Uppe i högra hörnet ser du en timer och du måste svara inom den givna tiden. När du tror du vet destinationen, drar du i nödbromsen och skriver in ditt svar!</p>
-    <p>När destinationen är officiell, ska du svara på två frågor kopplade till destinationen. Rätt svar på 1 fråga ger 1 poäng, rätt svar på 2 frågor ger 3 poäng. Den med flest poäng när spelet avslutas vinner!</p>
+    {{ uiLabels.rules }}
   </div>
 </div>
 </body>
