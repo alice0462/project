@@ -124,6 +124,15 @@ Data.prototype.submitAnswer = function(pollId, answer) {
   }
 }
 
+Data.prototype.addCities = function(pollId, data) {
+  this.polls[pollId] = { pollId: pollId }; // Skapar en ny objektstruktur
+  this.polls[pollId]["cities"] = data.cities; // Tilldelar cities till objektet
+  this.polls[pollId]["levels"] = data.levels;
+  console.log("INFO!!!!:", data)
+};
+
+
+
 export { Data };
 
 

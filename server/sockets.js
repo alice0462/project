@@ -37,6 +37,18 @@ function sockets(io, socket, data) {
     data.submitAnswer(d.pollId, d.answer);
     io.to(d.pollId).emit('submittedAnswersUpdate', data.getSubmittedAnswers(d.pollId));
   }); 
+
+  socket.on("sendCities", (data) => {
+    console.log("Mottagna städer:", data);
+    // Broadcast till alla anslutna klienter
+    io.emit("selectedCities", data);
+  });
+
+  socket.on("sendLevel", (data) => {
+    console.log("Mottagen nivå:", data);
+    // Broadcast till alla anslutna klienter
+    io.emit("selectedLevel", data);
+  });
 }
 
 export { sockets };

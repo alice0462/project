@@ -30,10 +30,13 @@
 </template>
 
 <script>
+import { io } from "socket.io-client";
+const socket = io("http://localhost:3000"); 
+
 export default {
-  name: "RandomDestination",
   data() {
     return {
+      name: "RandomDestination",
       cities: [
         "Moskva",
         "Lissabon",
@@ -54,8 +57,12 @@ export default {
       ],
       numberOfTrips: 0,
       randomDestinations: [],
+      data: {},
     };
   },
+  created: function() {},
+   
+
   methods: {
     setNumberOfTrips(number) {
       this.numberOfTrips = number;
@@ -63,8 +70,10 @@ export default {
     generateRandomDestinations() {
       const shuffledCities = [...this.cities].sort(() => 0.5 - Math.random());
       this.randomDestinations = shuffledCities.slice(0, this.numberOfTrips);
+      this.data = {"name" :this.name, "destination" :this.randomDestinations};
     },
     acceptDestinations() {
+      socket.emit("sendCities", this.data) //Skapar ett rop som vi kommer behöva lyssna på, med ropet skickar vi med data (städer)
       // Navigera vidare eller hantera valen
       this.$router.push("/level"); // Exempel: Navigera till nästa sida
     },

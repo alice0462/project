@@ -73,7 +73,6 @@
     const socket = io("localhost:3000");
     
     export default {
-      name: 'Level',
       setup() {
         const route = useRoute(); // Hämta router-objektet
         const selectedCities = route.query.selectedCities?.split(',') || []; // Dela upp query-parametern till en array
@@ -84,6 +83,7 @@
       },
       data: function () {
         return {
+          name: 'Level',
           lang: localStorage.getItem("lang") || "en",
           pollId: "",
           question: "",
@@ -95,9 +95,15 @@
                     "Svår"],
           selectedLevels: [],
           showModal: false, 
+          selectedCities: [],
         }
       },
       created: function () {
+        socket.on("selectedCities", (data) => {
+        console.log("Mottagna städer:", data);
+          // Spara städerna i data
+        this.selectedCities = data.destination; 
+        });
         socket.on( "uiLabels", labels => this.uiLabels = labels );
         socket.on( "pollData", data => this.pollData = data );
         socket.on( "participantsUpdate", p => this.pollData.participants = p );
@@ -131,10 +137,15 @@
           this.showModal = false;
         },
         confirmSelection () {
+          const payload = {
+            levels: this.selectedLevels, // Valda nivåer
+            cities: this.selectedCities, // Valda städer
+          };
+          socket.emit("sendLevel", payload)
         /*this.showModal = false;*/
           this.$router.push({
             path: 'game-master-code',
-            query: {selectedLevels: this.selectedLevels[0]},
+            //query: {selectedLevels: this.selectedLevels[0]},   
           });
         },
         toggleSelection(level) {

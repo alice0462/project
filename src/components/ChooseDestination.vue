@@ -32,11 +32,12 @@
 </template>
   
 <script>
+import { io } from "socket.io-client";
+const socket = io("http://localhost:3000"); 
 
 import { useRouter } from 'vue-router';
 
   export default {
-    name: "ChooseDestination",
     setup() {
       const router = useRouter();
       const confirmSelection = () => {
@@ -49,6 +50,7 @@ import { useRouter } from 'vue-router';
 
     data() {
     return {
+      name: "ChooseDestination",
       // Lista med destinationer
       cities: [
         "Moskva",
@@ -70,8 +72,11 @@ import { useRouter } from 'vue-router';
       ],
       selectedCities: [],
       showModal: false, 
+      data: {},
       }
     },
+    created: function() {},
+
     methods: {
     toggleSelection(city) {
       if (this.selectedCities.includes(city)) {
@@ -81,6 +86,8 @@ import { useRouter } from 'vue-router';
         // Lägg till staden om färre än 3 är valda
         this.selectedCities.push(city);
       }
+      this.data = {"name" :this.name, "destination" :this.selectedCities};
+
     },
     openModal() {
       this.showModal = true;
@@ -89,6 +96,8 @@ import { useRouter } from 'vue-router';
       this.showModal = false;
     },
     confirmSelection () {
+      socket.emit("sendCities", this.data) //Skapar ett rop som vi kommer behöva lyssna på, med ropet skickar vi med data (städer)
+
       /*this.showModal = false;*/
       this.$router.push({
         path: 'level',

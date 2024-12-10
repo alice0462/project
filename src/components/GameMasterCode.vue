@@ -18,6 +18,8 @@
   
   <script>
 import { useRoute } from 'vue-router';
+import io from 'socket.io-client';
+const socket = io("localhost:3000");
 
   export default {
     name: "GameMasterCode",
@@ -28,6 +30,13 @@ import { useRoute } from 'vue-router';
         selectedLevel,
       };
     },
+    created: function () {
+        socket.on("selectedLevel", (data) => {
+        console.log("Mottagen nivå:", data);
+          // Spara städerna i data
+        this.selectedLevel = data.level; 
+        });
+      },
     methods: {
       startGame() {
         // Logik för att starta spelet (kan navigera till nästa sida)
