@@ -8,13 +8,13 @@
         {{ this.uiLabels.participateInPoll }}
       </button>
     </div>-->
-    <div v-if="joined">
+    <!--<div v-if="joined">
       <p>{{ uiLabels.waitingForHost }}</p>
       {{ participants }}
-  </div>
+  </div>-->
 
 
-  <div v-if="!joined">
+  <div>
   <h1>{{ uiLabels.participateInPoll }}</h1>
   <p>{{ uiLabels.enterName }}</p>
   <input type="text" class="usernameBox" v-model="userName">
@@ -40,7 +40,7 @@ import io from 'socket.io-client';
 const socket = io("localhost:3000");
 
 export default {
-  name: 'LobbyView',
+  name: 'PreLobby',
   data: function () {
     return {
       userName: "",
@@ -55,7 +55,6 @@ export default {
   created: function () {
     this.pollId = this.$route.params.id;
     socket.on( "uiLabels", labels => this.uiLabels = labels );
-    socket.on( "participantsUpdate", p => this.participants = p );
     socket.on( "startPoll", () => this.$router.push("/poll/" + this.pollId) );
     socket.emit( "joinPoll", this.pollId );
     socket.emit( "getUILabels", this.lang );
@@ -74,7 +73,7 @@ export default {
     participateInPoll: function () {
       if(this.pollId.length === 4) {
       socket.emit( "participateInPoll", {pollId: this.pollId, name: this.userName} )
-      this.joined = true;
+      this.$router.push("/lobby/" + this.pollId);
       }
     }
   }

@@ -16,7 +16,7 @@ function Data() {
     ],
     answers: [],
     currentQuestion: 0,
-    participants: []
+    participants: [],
   }
 }
 
@@ -45,7 +45,9 @@ Data.prototype.createPoll = function(pollId, lang="en") {
     poll.questions = [];
     poll.answers = [];
     poll.participants = [];
-    poll.currentQuestion = 0;              
+    poll.currentQuestion = 0;
+    poll.cities = [],
+    poll.level = "",              
     this.polls[pollId] = poll;
     console.log("poll created", pollId, poll);
   }
@@ -62,15 +64,17 @@ Data.prototype.getPoll = function(pollId) {
 Data.prototype.participateInPoll = function(pollId, name) {
   console.log("participant will be added to", pollId, name);
   if (this.pollExists(pollId)) {
-    this.polls[pollId].participants.push({name: name, answers: []})
+    this.polls[pollId].participants.push({name: name})
   }
 }
+
 
 Data.prototype.getParticipants = function(pollId) {
   const poll = this.polls[pollId];
   console.log("participants requested for", pollId);
   if (this.pollExists(pollId)) { 
-    return this.polls[pollId].participants
+    console.log(this.polls[pollId].participants);
+    return this.polls[pollId].participants;
   }
   return [];
 }
@@ -125,13 +129,19 @@ Data.prototype.submitAnswer = function(pollId, answer) {
 }
 
 Data.prototype.addCities = function(pollId, data) {
-  this.polls[pollId] = { pollId: pollId }; // Skapar en ny objektstruktur
-  this.polls[pollId]["cities"] = data.cities; // Tilldelar cities till objektet
-  this.polls[pollId]["levels"] = data.levels;
+  console.log(data);
+  //this.polls[pollId] = { pollId: pollId }; // Skapar en ny objektstruktur
+  this.polls[pollId].cities = data.cities; // Tilldelar cities till objektet
   console.log("INFO!!!!:", data)
 };
 
-
+Data.prototype.setLevel = function(pollId, data) {
+  console.log(data);
+  //this.polls[pollId] = { pollId: pollId }; // Skapar en ny objektstruktur
+  this.polls[pollId].level = data.level;
+  console.log("INFO!!!!:", data);
+  console.log(this.polls[pollId])
+};
 
 export { Data };
 

@@ -38,16 +38,17 @@ function sockets(io, socket, data) {
     io.to(d.pollId).emit('submittedAnswersUpdate', data.getSubmittedAnswers(d.pollId));
   }); 
 
-  socket.on("sendCities", (data) => {
-    console.log("Mottagna städer:", data);
+  socket.on("sendCities", (d) => {
+    console.log("Mottagna städer:", d);
+    data.addCities(d.pollId, d.data);
     // Broadcast till alla anslutna klienter
-    io.emit("selectedCities", data);
+    //io.to(d.pollId).emit("selectedCities", d);//
   });
 
-  socket.on("sendLevel", (data) => {
-    console.log("Mottagen nivå:", data);
+  socket.on("sendLevel", (d) => {
+    console.log("Mottagen nivå:", d);
+    data.setLevel(d.pollId, d.data);
     // Broadcast till alla anslutna klienter
-    io.emit("selectedLevel", data);
   });
 }
 

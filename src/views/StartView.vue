@@ -33,17 +33,16 @@
   <img class="imageOfWorld" src="/public/Jordglob.png">
 <br>
 
-    <router-link to="/create/">
-    <button class="mainButtons" id="createPollClass">
+    <button class="mainButtons" id="createPollClass" v-on:click="createPoll">
       {{ uiLabels.createPoll }}</button>
-  </router-link>
-  <router-link to="/lobby/">
-    <button class="mainButtons" id="participatePollClass">
+
+
+    <button class="mainButtons" id="participatePollClass" v-on:click="participatePoll">
       {{ uiLabels.participatePoll }}
     </button>
-  </router-link>
+
   <router-link to="/poll/">
-    <button class="mainButtons" id="screenViewerClass">
+    <button class="mainButtons" id="screenViewerClass" v-on:click="screenViewer">
       {{ uiLabels.screenViewer }}
     </button>
   </router-link>
@@ -119,6 +118,18 @@ export default {
     },
     closeRulesText () {
       this.showRulesText = false;
+    },
+    createPoll: function () {
+      this.pollId = Math.floor(1000 + Math.random() * 9000);
+      console.log(this.pollId);
+      socket.emit("createPoll", {pollId: this.pollId, lang: this.lang });
+      this.$router.push("/create/" + this.pollId);
+    },
+    participatePoll: function() {
+      this.$router.push("/prelobby/");
+    },
+    screenViewer: function() {
+
     }
   }
 }

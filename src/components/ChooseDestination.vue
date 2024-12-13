@@ -38,16 +38,6 @@ const socket = io("http://localhost:3000");
 import { useRouter } from 'vue-router';
 
   export default {
-    setup() {
-      const router = useRouter();
-      const confirmSelection = () => {
-        router.push('/level');
-      };
-      return {
-        confirmSelection
-      };
-    },
-
     data() {
     return {
       name: "ChooseDestination",
@@ -73,9 +63,12 @@ import { useRouter } from 'vue-router';
       selectedCities: [],
       showModal: false, 
       data: {},
+      pollId: "",
       }
     },
-    created: function() {},
+    created: function() {
+      this.pollId = this.$route.params.id;
+    },
 
     methods: {
     toggleSelection(city) {
@@ -86,7 +79,7 @@ import { useRouter } from 'vue-router';
         // Lägg till staden om färre än 3 är valda
         this.selectedCities.push(city);
       }
-      this.data = {"name" :this.name, "destination" :this.selectedCities};
+      this.data = {name :this.name, cities :this.selectedCities, pollId: this.pollId};
 
     },
     openModal() {
@@ -96,13 +89,18 @@ import { useRouter } from 'vue-router';
       this.showModal = false;
     },
     confirmSelection () {
-      socket.emit("sendCities", this.data) //Skapar ett rop som vi kommer behöva lyssna på, med ropet skickar vi med data (städer)
+      console.log(this.data);
+      console.log(this.data.cities);
+      socket.emit("sendCities", {data: this.data, pollId: this.pollId}); //Skapar ett rop som vi kommer behöva lyssna på, med ropet skickar vi med data (städer)
 
       /*this.showModal = false;*/
-      this.$router.push({
+
+      // lagt till:
+      this.$router.push("/level/" + this.pollId);
+      /*this.$router.push({
         path: 'level',
         query: {selectedCities: this.selectedCities.join(', ')},
-      });
+      });*/
     },
   },
 

@@ -23,7 +23,7 @@
       <div v-if="showModal" class="modal-overlay">
         <div class="modal">
           <h2>Bekräfta val</h2>
-          <p>Du har valt: {{ selectedLevels.join ("") }}</p>
+          <p>Du har valt: {{ selectedLevels }}</p>
           <div class="modal-buttons">
             <button class="cancel-button" @click="closeModal">Avbryt</button>
             <button class="confirm-button" @click="confirmSelection"> Bekräfta</button>
@@ -73,14 +73,6 @@
     const socket = io("localhost:3000");
     
     export default {
-      setup() {
-        const route = useRoute(); // Hämta router-objektet
-        const selectedCities = route.query.selectedCities?.split(',') || []; // Dela upp query-parametern till en array
-
-        return {
-          selectedCities,
-        };
-      },
       data: function () {
         return {
           name: 'Level',
@@ -93,16 +85,19 @@
           uiLabels: {},
           levels: [ "Lätt", 
                     "Svår"],
-          selectedLevels: [],
+          selectedLevels: "",
           showModal: false, 
           selectedCities: [],
         }
       },
       created: function () {
+        this.pollId = this.$route.params.id;
+        
         socket.on("selectedCities", (data) => {
         console.log("Mottagna städer:", data);
           // Spara städerna i data
-        this.selectedCities = data.destination; 
+        this.selectedCities = data.data.cities; 
+        console.log(this.selectedCities);
         });
         socket.on( "uiLabels", labels => this.uiLabels = labels );
         socket.on( "pollData", data => this.pollData = data );
@@ -138,24 +133,28 @@
         },
         confirmSelection () {
           const payload = {
-            levels: this.selectedLevels, // Valda nivåer
-            cities: this.selectedCities, // Valda städer
+            level: this.selectedLevels, // Valda nivåer
+            //cities: this.selectedCities, // Valda städer
           };
-          socket.emit("sendLevel", payload)
+          socket.emit("sendLevel", {data: payload, pollId: this.pollId});
         /*this.showModal = false;*/
-          this.$router.push({
+        console.log(this.pollId);
+        console.log(this.data);
+
+        //lagt till
+          this.$router.push("/lobby/" + this.pollId);
+          /*this.$router.push({
             path: 'game-master-code',
             //query: {selectedLevels: this.selectedLevels[0]},   
-          });
+          });*/
         },
         toggleSelection(level) {
-        if (this.selectedLevels.includes(level)) {
-          // Ta bort staden om den redan är vald
-          this.selectedLevels = this.selectedLevels.filter((c) => c !== level);
-        } else if (this.selectedLevels.length < 1) {
-          // Lägg till staden om färre än 3 är valda
-          this.selectedLevels.push(level);
-        }
+          if (this.selectedLevels === level) {
+            this.selectedLevels = "";
+          } else {// Sätt det valda alternativet
+            this.selectedLevels = level;
+          }
+          this.data = {name :this.name, cities :this.selectedCities, pollId: this.pollId, level: this.selectedLevels};
       },
         
       }

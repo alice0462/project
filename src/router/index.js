@@ -20,12 +20,12 @@ const router = createRouter({
       component: () => import('../views/PollView.vue')
     },
     {
-      path: '/lobby/',
-      name: 'LobbyView',
-      component: () => import('../views/LobbyView.vue')
+      path: '/prelobby/',
+      name: 'PreLobby',
+      component: () => import('../views/PreLobby.vue')
     },
     {
-      path: '/create/',
+      path: '/create/:id',
       name: 'CreateView',
       component: () => import('../views/CreateView.vue')
     },
@@ -35,24 +35,24 @@ const router = createRouter({
       component: () => import('../views/ResultView.vue')
     },
     {
-      path: '/random-destination',
+      path: '/random-destination/:id',
       name: 'RandomDestination',
       component: RandomDestination, // Länkar till din komponent
     },
     {
-      path: '/choose-destination',
+      path: '/choose-destination/:id',
       name: 'ChooseDestination',
       component: ChooseDestination, // Länkar till din komponent
     },
     {
-      path: '/level',
+      path: '/level/:id',
       name: 'Level',
       component: Level,
     },
     {
-      path: "/game-master-code",
-      name: "GameMasterCode",
-      component: GameMasterCode,
+      path: "/lobby/:id",
+      name: "Lobby",
+      component: () => import('../views/Lobby.vue')
     },
     /*{
       path: "/pollview",

@@ -7,7 +7,7 @@
   </button>
       </div>
       <div class="destination-buttons" id="randomDestination">
-        <button type="button" v-on:click="goToRandomDestination">
+        <button type="button" v-on:click="goToRandomDestination ">
         {{ uiLabels.randomDestination }}
   </button>
       </div>
@@ -65,6 +65,7 @@ export default {
     }
   },
   created: function () {
+    this.pollId = this.$route.params.id;
     socket.on( "uiLabels", labels => this.uiLabels = labels );
     socket.on( "pollData", data => this.pollData = data );
     socket.on( "participantsUpdate", p => this.pollData.participants = p );
@@ -72,6 +73,7 @@ export default {
   },
   methods: {
     createPoll: function () {
+    
       socket.emit("createPoll", {pollId: this.pollId, lang: this.lang })
       socket.emit("joinPoll", this.pollId);
     },
@@ -88,10 +90,11 @@ export default {
       socket.emit("runQuestion", {pollId: this.pollId, questionNumber: this.questionNumber})
     },
     goToChooseDestination() {
-      this.$router.push("/choose-destination");
+      console.log(this.pollId)
+      this.$router.push("/choose-destination/" + this.pollId);
     },
     goToRandomDestination() {
-      this.$router.push("/random-destination");
+      this.$router.push("/random-destination/" + this.pollId);
     },
   }
 }
