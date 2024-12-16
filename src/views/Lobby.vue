@@ -45,6 +45,8 @@ const socket = io("localhost:3000");
         this.selectedLevel = data.level; 
         this.selectedCities = data.cities;
         });
+        socket.emit("joinPoll", this.pollId);
+        socket.emit("getParticipants", this.pollId);
       },
     methods: {
       startGame() {
