@@ -60,6 +60,11 @@ const router = createRouter({
       name: "ParticipantAnswer",
       component: () => import('../views/ParticipantAnswer.vue')
     },
+    {
+      path: "/game/:id",
+      name: "Game",
+      component: () => import('../views/Game.vue')
+    },
     /*{
       path: "/pollview",
       name: "PollView",

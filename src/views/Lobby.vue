@@ -51,7 +51,7 @@ const socket = io("localhost:3000");
     methods: {
       startGame() {
         // Logik för att starta spelet (kan navigera till nästa sida)
-        this.$router.push("/game");
+        this.$router.push("/game/" + this.pollId);
       },
     },
   };
