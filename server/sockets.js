@@ -50,6 +50,10 @@ function sockets(io, socket, data) {
     data.setLevel(d.pollId, d.data);
     // Broadcast till alla anslutna klienter
   });
+
+  socket.on("getParticipants", pollId => {
+    io.to(pollId).emit('participantsUpdate', data.getParticipants(pollId))
+  });
 }
 
 export { sockets };
