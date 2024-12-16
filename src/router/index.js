@@ -54,6 +54,11 @@ const router = createRouter({
       name: "Lobby",
       component: () => import('../views/Lobby.vue')
     },
+    {
+    path: "/game/:id",
+    name: "Game",
+    component: () => import('../views/Game.vue')
+    },
     /*{
       path: "/pollview",
       name: "PollView",
