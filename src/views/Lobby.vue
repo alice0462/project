@@ -3,11 +3,10 @@
       <div class="lobby-info">
         <h1>Spelkod: <span class="pollId"> {{ this.pollId }} </span></h1>
         <h2>Deltagare:</h2>
-        {{ this.participants }}
+        <!--{{ this.participants }} TROR INTE DENNA BEHÖVS FÖR VI HAR JU DEN NUMRERAD PÅ RAD 9--> 
         <!-- HÄR SKA VI KOPPLA IHOP DE NAMN SOM SKRIVS IN I PLAYERS!!!!-->
-        <ol>
-            <li>{{this.participants}}</li>
-        </ol>
+        <p v-for="(participant, index) in participants" :key="index">
+              {{ participant.name }}</p>
       </div>
       <div class="game-visual">
         <img src="https://www.wallquotes.com/sites/default/files/kids0017-18.png" 

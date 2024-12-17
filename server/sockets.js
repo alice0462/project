@@ -54,6 +54,15 @@ function sockets(io, socket, data) {
   socket.on("getParticipants", pollId => {
     io.to(pollId).emit('participantsUpdate', data.getParticipants(pollId))
   });
+
+  socket.on("getCurrentParticipant", (d) => {
+    
+  })
+
+  socket.on("answerSubmit", (d) => {
+    console.log("Mottog answerSubmit med data:", d);
+    data.destinationAnswer(d.user, d.pollId, d.guess)
+  });
 }
 
 export { sockets };

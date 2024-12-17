@@ -47,7 +47,8 @@ Data.prototype.createPoll = function(pollId, lang="en") {
     poll.participants = [];
     poll.currentQuestion = 0;
     poll.cities = [],
-    poll.level = "",              
+    poll.level = "",
+    poll.guesses = [],              
     this.polls[pollId] = poll;
     console.log("poll created", pollId, poll);
   }
@@ -142,6 +143,33 @@ Data.prototype.setLevel = function(pollId, data) {
   console.log("INFO!!!!:", data);
   console.log(this.polls[pollId])
 };
+
+Data.prototype.destinationAnswer = function(user, pollId, guess) {
+  console.log("Sparar svar för:", user, pollId, guess);
+
+  if (this.pollExists(pollId)) {
+    const poll = this.polls[pollId];
+
+    // Kontrollera att guesses finns
+    if (!poll.guesses) {
+      poll.guesses = [];
+    }
+
+    // Kontrollera om användaren redan har skickat ett svar
+    const existingAnswer = poll.guesses.find(g => g.name === user);
+    if (existingAnswer) {
+      existingAnswer.guess = guess; // Uppdatera tidigare svar
+      console.log("Svar uppdaterat för:", user, guess);
+    } else {
+      poll.guesses.push({ name: user, guess: guess });
+      console.log("Nytt svar sparat för:", user, guess);
+    }
+  } else {
+    console.log("Poll finns inte:", pollId);
+  }
+};
+
+
 
 export { Data };
 

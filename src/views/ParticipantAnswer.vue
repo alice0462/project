@@ -38,12 +38,18 @@ export default {
       finalAnswer: null,
       pollId:"",
       lang: localStorage.getItem( "lang") || "en",
+      user: localStorage.getItem( "participantName") || "unknownParticipant",
     }
   },
   created: function () {
     this.pollId = this.$route.params.id;
+    console.log("Användarnamn från sessionStorage:", this.user); // Loggar användarnamnet här
     socket.on( "uiLabels", labels => this.uiLabels = labels );
     socket.emit( "getUILabels", this.lang );
+    socket.emit("joinPoll", this.pollId);
+    socket.emit("getCurrentParticipant", (data) => {
+      this.participantName=data.name;
+    });
   },
   methods: {
     submitDestination(){
@@ -53,7 +59,9 @@ export default {
         this.finalAnswer = this.answerDestination;
         this.submitAnswer = false;
         console.log("Svaret är låst:", this.finalAnswer);
+        socket.emit("answerSubmit", {user: this.user, pollId: this.pollId, guess: this.finalAnswer })
       }
+      console.log("Svar skickat:", {user: this.user, pollId: this.pollId, guess: this.finalAnswer});
     },
   },
   };
