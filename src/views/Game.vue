@@ -6,7 +6,7 @@
             </div>
         </div>
         <div class="clues" v-if="showClues">
-        <h2>Ledtråd:</h2>
+        <h2>{{ currentPoint }}</h2>
       <p>{{ currentClue }}</p>
     </div>
     
@@ -25,20 +25,22 @@ import io from 'socket.io-client';
 const socket = io("localhost:3000");
 import cluesSv from '@/assets/clues-sv.json';
 import questionsSv from '@/assets/questions-sv.json';
+import cluesPoints from '@/assets/cluesPoints.json';
 
   export default {
     name: "Game",
     data: function () {
         return {
             pollId: "",
-            timer: 3,
+            timer: 30,
             cities: [],
             currentCityIndex: 0, // Vilken stad vi är på
             currentClueIndex: 0, // Vilken ledtråd i staden vi är på
             clues: {}, // Håller ledtrådarna för den aktuella staden
             showFinalCityMessage: false,
             showClues: true,
-            showQuestions: false
+            showQuestions: false,
+            thisPoint: 10
         };
     },
 
@@ -57,6 +59,9 @@ import questionsSv from '@/assets/questions-sv.json';
     currentQuestions(){
         const cityQuestions = questionsSv.fragor[this.currentCity] || [];
         return cityQuestions
+    },
+    currentPoint() {
+        return cluesPoints.points[this.thisPoint] || "Okända poäng";
     }
 },
 
@@ -93,7 +98,7 @@ import questionsSv from '@/assets/questions-sv.json';
                 }
             });*/
             startCountdown () {
-            this.timer = 3; 
+            this.timer = 30; 
 
             this.intervalId = setInterval (() => {
                 if (this.timer > 0) {
@@ -109,30 +114,36 @@ import questionsSv from '@/assets/questions-sv.json';
             if (
                 this.currentClueIndex < cluesSv["ledtradar"][this.currentCity].length - 1
             ) {
-                this.currentClueIndex++; // visa nästa ledtråd från samma stad
+                this.currentClueIndex++;
+                this.nextPoint(); // visa nästa ledtråd från samma stad
             //} else if (this.currentCityIndex < this.selectedCities.length - 1) {
               //this.currentCityIndex++; // går till nästa stad
                // this.currentClueIndex = 0; // Börja med första ledtråden i nästa stad
             } 
             else {  // Alla städer och ledtrådar är visade
                 this.showClues = false;
-                this.showFinalCityMessage = true; 
+                this.showFinalCityMessage = true;
+                 
                 
                 clearInterval(this.intervalId);
             }
             
-            this.timer = 3;
+            this.timer = 30;
         },
         showCity(){
             return `Vi har kommit till ${this.currentCity}`;
-        }
         },
-        
         showQuestions(){
             this.showFinalCityMessage = false
-        }
-        
-
+        },
+        nextPoint(){
+            if (this.showClues && this.thisPoint > 2) {
+            this.thisPoint -= 2;      
+    }
+        },
+       
+ 
+    }
 };
 </script>
 
