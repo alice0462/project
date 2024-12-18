@@ -141,6 +141,7 @@
         /*this.showModal = false;*/
         console.log(this.pollId);
         console.log(this.data);
+        localStorage.setItem("role", "admin"); //Säkerställer att vi har kvar rollen admin (så att startaknappen finns)
         console.log(localStorage.getItem("role"));
         //lagt till
           this.$router.push("/lobby/" + this.pollId);
