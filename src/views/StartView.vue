@@ -92,6 +92,7 @@ export default {
     }
   },
   created: function () {
+    localStorage.removeItem("role");  //Nollställer rollerna så att alla startar på nytt
     socket.on( "uiLabels", labels => this.uiLabels = labels );
     socket.emit( "getUILabels", this.lang );
   },
@@ -122,10 +123,12 @@ export default {
     createPoll: function () {
       this.pollId = Math.floor(1000 + Math.random() * 9000);
       console.log(this.pollId);
+      localStorage.setItem("role", "admin");
       socket.emit("createPoll", {pollId: this.pollId, lang: this.lang });
       this.$router.push("/create/" + this.pollId);
     },
     participatePoll: function() {
+      localStorage.setItem("role", "player");
       this.$router.push("/prelobby/");
     },
     screenViewer: function() {

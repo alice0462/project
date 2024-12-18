@@ -75,6 +75,21 @@ function sockets(io, socket, data) {
     console.log("Mottog answerSubmit med data:", d);
     data.destinationAnswer(d.user, d.pollId, d.guess)
   });
+
+  socket.on("startGame", pollId => {
+    io.to(pollId).emit("gameStarted");
+  });
+  
+  socket.on("registerScreen", () => {
+    console.log("Storskärm registrerad:", socket.id);
+    socket.join("screens"); // Lägg storskärmen i ett unikt rum
+  });
+
+  socket.on("updateScreen", pollId => {
+    io.to("screens").emit("goToLobby", pollId);
+  });
+
+
 }
 
 

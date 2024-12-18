@@ -11,7 +11,7 @@
       <div class="game-visual">
         <img src="https://www.wallquotes.com/sites/default/files/kids0017-18.png" 
         alt="All Aboard!" class="train-image" />
-        <button class="start-button" @click="startGame">Starta spel</button>
+        <button v-if="role === 'admin'" class="start-button" @click="startGame">Starta spel</button>
       </div>
     </div>
   </template>
@@ -31,10 +31,21 @@ const socket = io("localhost:3000");
             participants: [],
             selectedLevel: "",
             selectedCities: [],
+            role: localStorage.getItem("role"), //Hämtar den tilldelade rollen som bestäms startView
         }
     },
     created: function () {
         this.pollId = this.$route.params.id;
+        socket.on("gameStarted", () => {
+          console.log("Din roll är:", this.role);
+          if (this.role === "admin") {
+            this.$router.push("/answers/" + this.pollId);
+          } else if (this.role === "player") {
+            this.$router.push("/participant-answer/" + this.pollId);
+          } else if (this.role === "screen"){
+            this.$router.push("/game/" + this.pollId);
+          }
+        });
         socket.on('participantsUpdate', (p) => {
             console.log("mottagna deltagare:", p);
             this.participants = p; });
@@ -49,11 +60,14 @@ const socket = io("localhost:3000");
       },
     methods: {
       startGame() {
-        // Logik för att starta spelet (kan navigera till nästa sida)
-        this.$router.push("/game/" + this.pollId);
-      },
+        socket.emit("startGame", this.pollId);
+      }
     },
-  };
+  }
+
+
+
+
   </script>
   
   <style scoped>

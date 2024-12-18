@@ -137,12 +137,14 @@
             //cities: this.selectedCities, // Valda städer
           };
           socket.emit("sendLevel", {data: payload, pollId: this.pollId});
+          socket.emit("updateScreen", this.pollId); //Tillagt för att få storskärm att gå till lobby
         /*this.showModal = false;*/
         console.log(this.pollId);
         console.log(this.data);
-
+        console.log(localStorage.getItem("role"));
         //lagt till
           this.$router.push("/lobby/" + this.pollId);
+
           /*this.$router.push({
             path: 'game-master-code',
             //query: {selectedLevels: this.selectedLevels[0]},   

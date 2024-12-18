@@ -15,6 +15,31 @@
 </template>
 
 <script>
+import io from 'socket.io-client';
+const socket = io("localhost:3000");
+
+export default {
+    name: "Lobby",
+    data: function () {
+        return {
+            pollId: "",
+            uiLabels: {},
+            lang: localStorage.getItem("lang") || "en",
+            participants: [],
+            selectedLevel: "",
+            selectedCities: [],
+            role: localStorage.getItem("role"), //Hämtar den tilldelade rollen som bestäms startView
+        }
+    },
+    created: function () {
+      socket.on("goToLobby", pollId => {
+        localStorage.setItem("role", "screen");
+        this.$router.push("/lobby/" + pollId);
+      });
+      socket.emit("registerScreen");
+    }
+}
+
 /*
 // @ is an alias to /src
 import QuestionComponent from '@/components/QuestionComponent.vue';

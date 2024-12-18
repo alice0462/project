@@ -66,7 +66,7 @@ const router = createRouter({
       component: () => import('../views/Game.vue')
     },
     {
-      path: "/answers/",
+      path: "/answers/:id",
       name: "Answers",
       component: () => import('../views/Answers.vue')
     },

@@ -19,6 +19,24 @@
 <script>
 import io from 'socket.io-client';
 const socket = io("localhost:3000");
+export default {
+    name: "Answers",
+    data: function () {
+        return {
+            pollId: "",
+            uiLabels: {},
+            lang: localStorage.getItem("lang") || "en",
+            participants: [],
+            selectedLevel: "",
+            selectedCities: [],
+            role: localStorage.getItem("role"), //Hämtar den tilldelade rollen som bestäms startView
+        }
+    },
+    created: function () {
+    this.pollId = this.$route.params.id;
+  }
+  }
+
 
 
 </script>
