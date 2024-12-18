@@ -8,8 +8,8 @@
       v-for="(city, index) in cities"
         :key="index"
         :id="'city-' + index"
-        :class="{ selected: selectedCities.includes(city) }"
-        @click="toggleSelection(city)"
+        :class="{ selected: selectedCities.some(c => c.name === city) }"
+        @click="toggleSelection(city, index)"
       >
         {{ city }}
       </button>
@@ -21,7 +21,7 @@
     <div v-if="showModal" class="modal-overlay">
       <div class="modal">
         <h2>Bekräfta val</h2>
-        <p>Du har valt: {{ selectedCities.join (", ") }}</p>
+        <p>Du har valt: {{ selectedCities.map(c => c.name).join(", ") }}</p>
         <div class="modal-buttons">
           <button class="cancel-button" @click="closeModal">Avbryt</button>
           <button class="confirm-button" @click="confirmSelection"> Bekräfta</button>
@@ -71,13 +71,15 @@ import { useRouter } from 'vue-router';
     },
 
     methods: {
-    toggleSelection(city) {
-      if (this.selectedCities.includes(city)) {
+    toggleSelection(city, index) {
+      const selectedCity = { name: city, index: index };
+
+      if (this.selectedCities.some((c) => c.name === city)) {
         // Ta bort staden om den redan är vald
-        this.selectedCities = this.selectedCities.filter((c) => c !== city);
+        this.selectedCities = this.selectedCities.filter((c) => c.name !== city);
       } else if (this.selectedCities.length < 3) {
         // Lägg till staden om färre än 3 är valda
-        this.selectedCities.push(city);
+        this.selectedCities.push(selectedCity);
       }
       this.data = {name :this.name, cities :this.selectedCities, pollId: this.pollId};
 
@@ -90,17 +92,10 @@ import { useRouter } from 'vue-router';
     },
     confirmSelection () {
       console.log(this.data);
-      console.log(this.data.cities);
+      //localStorage.setItem("selectedCities", JSON.stringify(this.selectedCities));
+      //console.log(this.data.cities);
       socket.emit("sendCities", {data: this.data, pollId: this.pollId}); //Skapar ett rop som vi kommer behöva lyssna på, med ropet skickar vi med data (städer)
-
-      /*this.showModal = false;*/
-
-      // lagt till:
       this.$router.push("/level/" + this.pollId);
-      /*this.$router.push({
-        path: 'level',
-        query: {selectedCities: this.selectedCities.join(', ')},
-      });*/
     },
   },
 

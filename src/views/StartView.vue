@@ -82,7 +82,7 @@ export default {
   },
   data: function () {
     return {
-      uiLabels: {},
+      uiLabels: {}, 
       newPollId: "",
       somePollId: "",
       lang: localStorage.getItem( "lang") || "en",
@@ -111,7 +111,7 @@ export default {
         this.lang = "en"
       }
       localStorage.setItem( "lang", this.lang );
-      socket.emit( "getUILabels", this.lang );
+      socket.emit( "getUILabels", this.lang ); 
     },
     toggleNav: function () {
       this.hideNav = ! this.hideNav;

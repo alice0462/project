@@ -39,8 +39,9 @@ function sockets(io, socket, data) {
   }); 
 
   socket.on("sendCities", (d) => {
-    console.log("Mottagna städer:", d);
+    console.log("Valda städer:", d);
     data.addCities(d.pollId, d.data);
+    socket.emit('chosenCities', data.getCities(d.pollId))
     // Broadcast till alla anslutna klienter
     //io.to(d.pollId).emit("selectedCities", d);//
   });
@@ -54,6 +55,20 @@ function sockets(io, socket, data) {
   socket.on("getParticipants", pollId => {
     io.to(pollId).emit('participantsUpdate', data.getParticipants(pollId))
   });
+
+  socket.on("requestCities", pollId => {
+    socket.emit('chosenCities', data.getCities(pollId))
+  })
+
+
+
+  //socket.on("sendCities", (d) => {
+    //console.log("Mottagna städer med index:", d.data.cities);
+    //data.addCities(d.pollId, d.data); // Spara datan (städer med index)
+  //});
+
 }
+
+
 
 export { sockets };

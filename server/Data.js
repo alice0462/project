@@ -143,6 +143,17 @@ Data.prototype.setLevel = function(pollId, data) {
   console.log(this.polls[pollId])
 };
 
+Data.prototype.getCities = function(pollId, data) {
+  const poll = this.polls[pollId];
+  console.log("cities requested for:", pollId);
+  if (this.pollExists(pollId)) {
+    console.log(this.polls[pollId].cities);
+    return this.polls[pollId].cities;
+  }
+  return [];
+}
+
+
 export { Data };
 
 

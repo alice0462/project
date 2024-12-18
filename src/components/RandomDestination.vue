@@ -12,14 +12,14 @@
         {{ number }}
       </button>
     </div>
-    <button class="generate-button" :disabled="numberOfTrips === 0" @click="generateRandomDestinations">
+    <button class="generate-button" :disabled="numberOfTrips === 0" @click="generateRandomDestinations" v-if="generateButton">
       Slumpa destinationer
     </button>
 
     <div v-if="randomDestinations.length > 0" class="results">
       <h2>Du har fått destination{{ randomDestinations.length > 1 ? 'er' : '' }}</h2>
       <ul>
-        <li v-for="(city, index) in randomDestinations" :key="index">{{ city }}</li>
+        <li v-for="(city, index) in randomDestinations" :key="index">{{ city.name }}</li>
       </ul>
       <div class="action-buttons">
         <button @click="generateRandomDestinations">Generera nya destinationer</button> 
@@ -59,6 +59,7 @@ export default {
       randomDestinations: [],
       data: {},
       pollId: "",
+      generateButton: true,
     };
   },
   created: function() {
@@ -72,10 +73,12 @@ export default {
     },
     generateRandomDestinations() {
       const shuffledCities = [...this.cities].sort(() => 0.5 - Math.random());
-      this.randomDestinations = shuffledCities.slice(0, this.numberOfTrips);
-      this.data = {name :this.name, cities :this.randomDestinations};
+      this.randomDestinations = shuffledCities.slice(0, this.numberOfTrips).map(city => ({ name: city }));
+      this.data = {name :this.name, cities: this.randomDestinations, pollId: this.pollId};
+      this.generateButton = false;
     },
     acceptDestinations() {
+      console.log(this.data);
       socket.emit("sendCities",{data: this.data, pollId: this.pollId}) //Skapar ett rop som vi kommer behöva lyssna på, med ropet skickar vi med data (städer)
       
       // Navigera vidare eller hantera valen
