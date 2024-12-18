@@ -10,8 +10,12 @@
       <p>{{ currentClue }}</p>
     </div>
     
-    <div class="final-city" v-if="showFinalCityMessage">
+    <button class="final-city" v-if="showFinalCityMessage" @click="showQuestions = true">
     {{ showCity() }}
+    </button>
+
+    <div class="city-questions" v-if="showQuestions" >
+        {{ currentQuestions }}>
     </div>
     </div>
 </template>
@@ -20,6 +24,7 @@
 import io from 'socket.io-client';
 const socket = io("localhost:3000");
 import cluesSv from '@/assets/clues-sv.json';
+import questionsSv from '@/assets/questions-sv.json';
 
   export default {
     name: "Game",
@@ -33,6 +38,7 @@ import cluesSv from '@/assets/clues-sv.json';
             clues: {}, // Håller ledtrådarna för den aktuella staden
             showFinalCityMessage: false,
             showClues: true,
+            showQuestions: false
         };
     },
 
@@ -47,6 +53,11 @@ import cluesSv from '@/assets/clues-sv.json';
       const cityClues = cluesSv.ledtradar[this.currentCity] || [];
       return cityClues[this.currentClueIndex] || "Inga fler ledtrådar.";
     },
+
+    currentQuestions(){
+        const cityQuestions = questionsSv.fragor[this.currentCity] || [];
+        return cityQuestions
+    }
 },
 
 //HEJSSANANNNNNANNADNND
@@ -106,6 +117,7 @@ import cluesSv from '@/assets/clues-sv.json';
             else {  // Alla städer och ledtrådar är visade
                 this.showClues = false;
                 this.showFinalCityMessage = true; 
+                
                 clearInterval(this.intervalId);
             }
             
@@ -116,6 +128,9 @@ import cluesSv from '@/assets/clues-sv.json';
         }
         },
         
+        showQuestions(){
+            this.showFinalCityMessage = false
+        }
         
 
 };

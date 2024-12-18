@@ -1,0 +1,64 @@
+{ 
+    "fragor": {
+        "Linköping":[
+            "Linköpings domkryka",
+            "Saab"
+    ],
+        "Stockholm": [
+             "Utö",
+             "Södermalm"
+    ],
+       "Paris": [
+            "Louvren",
+            "Champs-Élysées"
+       ],
+       "Moskva": [
+            "Vasilijkatedralen (eller Den helige Vasilius katedral)",
+            "Moskva-floden"
+       ],
+       "Lissabon": [
+            "Torre de Belém (Belémtornet)",
+            "Spårvagn 28 (Eléctrico 28)"
+       ],
+       "Toronto": [
+            "CN Towe",
+            "Lake Ontario (Ontariosjön)"
+       ],
+       "Tokyo": [
+            "Akihabara",
+            "Tsukiji-marknaden (numera flyttad och ersatt av Toyosu-marknaden, men Tsukiji är fortfarande berömt)"
+       ],
+       "Barcelona": [
+            "Park Güell",
+            "Camp Nou"
+       ],
+       "New York": [
+            "Ellis Island",
+            "The High Line"
+       ],
+       "Helsingfors": [
+            "Tempelplatsens kyrka (Temppeliaukion kirkko).",
+            "Sveaborg (Suomenlinna)"
+       ],
+       "Kapstaden": [
+            "Taffelberget (Table Mountain)",
+            "Robben Island"
+       ],
+       "Hanoi": [
+            "Hoàn Kiếm-sjön (Sword Lake)",
+            "Banh mi"
+       ],
+       "Göteborg": [
+            "Avenyn (Kungsportsavenyn)",
+            "Haga"
+       ],
+       "Buenos Aires": [
+            "La Boca",
+            "Teatro Colón"
+       ],
+       "Rio de Janiro": [
+            "Kristus Frälsaren (Cristo Redentor)",
+            "Copacabana"
+       ]
+    }
+}

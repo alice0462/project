@@ -1,0 +1,77 @@
+{ 
+    "fragor": {
+        "Linköping":[
+            "Vad heter den stora kyrkan i Linköping som är en av Sveriges bäst bevarade medeltida katedraler och ett ikoniskt landmärke i staden?",
+            "Vilket flyg- och försvarsföretag, känt för bland annat stridsflygplan, har sitt huvudkontor i Linköping?"
+    ],
+        "Stockholm": [
+             "Vilken ö i Stockholms skärgård är känd för sina rika hällristningar från bronsåldern och sitt marina forskningscenter?",
+             "I vilken stadsdel i Stockholm hittar man den historiska plats där Gustav Vasa valdes till kung 1523?"
+    ],
+       "Paris": [
+            "Vilken ikonisk byggnad i Paris fungerade tidigare som ett kungligt palats och är idag ett av världens största konstmuseer?",
+            "Vilken välkänd gata i Paris sträcker sig från Place de la Concorde till Triumfbågen och är berömd för sina butiker och kaféer?"
+       ],
+       "Moskva": [
+            "Vad heter den ikoniska byggnaden på Röda torget i Moskva som är känd för sina färgglada lökkupoler och ofta förväxlas med Kreml?",
+            "Vilken flod rinner genom Moskva och har samma namn som staden?"
+
+       ],
+       "Lissabon": [
+            "Vad heter det historiska tornet i Lissabon, byggt som en del av stadens försvar under 1500-talet, som nu är ett UNESCO-världsarv?",
+            "Vad heter den berömda spårvagnslinjen i Lissabon som slingrar sig genom stadens branta och smala gator och är en populär turistattraktion?"
+
+       ],
+       "Toronto": [
+            "Vad heter det ikoniska tornet i Toronto som en gång var världens högsta fristående struktur och som idag erbjuder spektakulär utsikt över staden?",
+            "Vilken stor insjö ligger vid Torontos kust och är en del av de stora sjöarna i Nordamerika?"
+
+       ],
+       "Tokyo": [
+            "Vilken stadsdel i Tokyo är känd som världens teknik- och spelmecka, där man hittar mängder av elektronikbutiker och animekultur?",
+            "Vilken välkänd fiskmarknad i Tokyo är känd för sin tonfiskauktion och sitt utbud av färsk sushi?"
+
+       ],
+       "Barcelona": [
+            "Vilken stor park i Barcelona, designad av Antoni Gaudí, är känd för sina mosaikdekorationer och sin ikoniska bänk med utsikt över staden?",
+            "Vilket stadion i Barcelona är Europas största fotbollsarena och hemmaplan för FC Barcelona?"
+
+       ],
+
+       "New York": [
+            "Vad heter ön i New York som var den huvudsakliga porten för immigranter till USA mellan 1892 och 1954 och som idag är ett museum för invandringshistoria?",
+            "Vilken smal park i New York, byggd på en övergiven järnvägslinje ovanför marken, sträcker sig genom stadsdelarna Meatpacking District och Chelsea?"
+
+       ],
+       "Helsingfors": [
+            "Vad heter den berömda kyrkan i Helsingfors som är insprängd i ett klippblock och är känd för sin unika arkitektur och fantastiska akustik?",
+            "Vilken känd ögrupp, som är ett UNESCO-världsarv, ligger utanför Helsingfors och har en historisk sjöfästning?"
+
+       ],
+       "Kapstaden": [
+            "Vad heter det ikoniska berg som reser sig bakom Kapstaden och är en av stadens mest kända landmärken?",
+            "Vad heter det historiska fängelset på en ö utanför Kapstaden där Nelson Mandela satt fängslad i 18 år?"
+
+       ],
+       "Hanoi": [
+            "Vad heter sjön i centrala Hanoi som enligt en legend är kopplad till ett magiskt svärd som återlämnades till en gyllene sköldpadda?",
+            "Vad heter den vietnamesiska baguettesmörgåsen som ofta fylls med en kombination av kött, picklade grönsaker, koriander och ibland chili?"
+
+       ],
+       "Göteborg": [
+            "Vilken lång gata i centrala Göteborg, ofta kallad Göteborgs paradgata, sträcker sig från Kungsportsplatsen till Götaplatsen?",
+            "Vad heter den kända stadsdelen i Göteborg som är känd för sina välbevarade landshövdingehus och sitt kafé- och restaurangliv?"
+
+       ],
+       "Buenos Aires": [
+            "Vad heter det färgglada område i Buenos Aires, känt för sina charmiga hus, konstnärliga atmosfär och koppling till tangon?",
+            "Vad heter det historiska fängelset på en ö utanför Kapstaden där Nelson Mandela satt fängslad i 18 år?"
+
+       ],
+       "Rio de Janerio": [
+            "Vad heter den ikoniska statyn som står på toppen av berget Corcovado och är en av världens mest kända symboler för Brasilien?",
+            "Vad heter den berömda stranden i Rio de Janeiro som är känd för sin vita sand, sina höga hotell och den ikoniska mosaikpromenaden?"
+
+       ]
+    }
+}
