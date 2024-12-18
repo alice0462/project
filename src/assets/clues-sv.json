@@ -6,17 +6,111 @@
             "Duk- och sängklädsmaterial inleder i vår stad som har ett stort sportligt chokladcentrum. Musikaliskt segrande vattendrag har sina rötter i denna universitetsstad.",
             "Vreta var en flink ö-pingla i gammalt kloster. På tur på Roxen gjorde hon ett cykelinköp, inget dumt beslut för då slipper hon att linka hem.",
             "I östra delen av Götaland handlas det med lin, inte med lid."
-    ],
+        ],
         "Stockholm": [
             "Vi lämnar färsk udde i färjad stad och reser norrut mot Quercus robur och vårt resmål är skönt när det är grönt. Klockkarl och elpippi för tankarna till hit.",
             "Stor zoologisk hage och märr finns i staden som omges av såväl sunda som soliga enheter. Och på resmålet som också är en drottning tar drottning Elizabeth och Ingrid Bergman sig ett dopp.",
             "Vi fortsätter resan mot en fura på fall där gruvprodukt finns i alla väderstreck och på tal om väder så finns ett soligt sådant på duk, och kanske glimmar solen blank och trind?",
             "Italiensk gondolstad kan kopplas samman med staden i Lasse Berghagens hjärta. Vi är snart framme i stad vid mälaren med eget syndrom och stor vit sfär.",
             "Vi har tagit oss fram över stock och holme och nu är vi framme i staden med egen skärgård och här ligger både Gröna Lund och Vasamuseet."
-    ],
+        ],
        "Paris": [
-            " "
-
-       ]
+            "Vi lämnar smilande säderslag och åker mot modern grek i V-republik. Rollo triumferade här en gång i tiden liksom Tarzan.",
+            "I vår delade stad flödar kulturen och stadens röda kvarn och viss Amelie blev 2001 en film. Känd Hugo och vår fru blev en klassiker, ringer det en klocka?",
+            "Två och två åker vi skridskor på spegelblankt vatten och här hölls den första freden. 1889 jubilerades det och känd utställning sågs av hela världen. Fästning stormades och huvuden rullade, historien var blodig men idag ler man i vår stad.",
+            "Törnrosa, Aladdin och Kalle Anka är här, vem hade du walt? Ett museum-besök är ett måste, louvrar du att gå dit? Slut på frågor, vi är i vinande land på väg mot ettan.",
+            "Bienvenue á notre ville. Asiatisk basföda avslutar resan. Om du parar ihop ledtrådarna är du rätt, det är Ejfel."
+        ],
+        "Moskva": [
+            "Vi lämnar före detta huvudstad vid europeisk etta och reser inledande mot muslimsk helgedom och målet är en annan etta. Svansjöarna är kända liksom GUM.",
+            "1610 intogs staden faktiskt av svenskar men stadens invånare var inte duma och mosade snart inkräktarna. 1555 byggdes här en förskräckligt fin katedral, en av många.",
+            "Folkets palats, ja så kallas vår marmorprydda metro. Ringlekar är centralt här och i den bojkottade segrade Coe men även vår egen Baron.",
+            "Färgen i staden är klart röd och på torget vilar kommunistisk stamfader, hans kamrat stal sedan showen. Jag undrar avslutande, nu vet du vilken staden är va.",
+            "Staden är jätten i östs etta och hyser 10 miljoner invånare. Kreml, röda torget och Vasilijkatedralen, nu är det mos!"
+        ],
+        "Lissabon": [
+            "Vi lämnar sport och sjöfartsstad och reser söderut mot stad där svenskt stål är centralt.",
+            "Pessoas budskap är att vaska gamar på upptäcktsresa i land tillhörande Selmas kejsare. Mitt är att sjunga fado och besöka Gulbekian och Torre de Belem .",
+            "1755 vibrerade staden och 74 revolutionerade nejlikan landet. Tuppsyssla avslutar P-märkt samhälle av uran ger er en ledtråd till landet och Kuliss AB ondsinte chef ger er staden.",
+            "Europesikt fördrag skrevs här i fdenna iberiska huvudstad . Estoril är i närheten men Melissa Bonnevi bor inte där.",
+            "Regeringen är inte rödgrön men färgerna präglar ändå detta västeuropeiska land. -Vem kommer? - En polis sa bonnen?"
+        ],
+        "Seoul": [
+            "Vi lämnar stad som det osar hett kring först 2018 och åker västerut genom ett parktätt land som leds av en hon men i vår stad är han en vattenbärare.",
+            "Danssjuka och sjukt populär dans är ledtrådar till land respektive stad och här är visst biffen billig.",
+            "Bågskytte och shorttrack leder er till denna högteknologiska tiger som arrangerat både OS och fotbolls-VM och tittar vi noga på inledningen kan vi se vilken stad vi söker. ",
+            "LG och Samsung har liksom Ban Ki-moon sina rötter i vårt sydliga kimchi-land söder om 38:e breddgraden.",
+            "Vi får nu se om ni kan se vilken staden som börjar med se är. Det är Sydkoreas huvudstad vi nu rullar in i."
+        ],
+        "Toronto": [
+            "Vi lämnar d-stad på dekis och ger oss initialt av på en tur och retur resa men avslutningen är utan retur.",
+            "I vår mycket mångkulturella stad är man verkligen på tå och här är det inte lönt att vara puckad. Kan o:n, trippla sådana leda er rätt?",
+            "Trots över 70 år på nacken är stadens rockikon ständigt ung. Isedal och Modéen kan tor det eller vara ledtrådar till denna original six-stad.",
+            "Sundin och Salming är älskade i vår CN-Tower-town och här i Ontario finns kärlek och mycket löv. Säger jag Niagara, fallen det på plats då?",
+            "Vi rullar nu in i Kanadas största stad och här har Tor ont o är i behov av en hjälpande hand."
+        ],
+        "Tokyo": [
+            "Vi lämnar gammal huvudstad på avtalad tid och reser mot ny, från den västra till den östra. Resan går i soluppgången och på slutmålet går vi och shoppar i sveriges bästa skivbutik.",
+            "Vi fortsätter denna skakiga resa i mycket hög fart, på vägen passerar vi Natrium-ara och Just-In-Time imperium. Att vara stor här har varit en hit, det fick även monstret från havet erfara.",
+            "Trots hög levnadsstandard och god ekonomi är landet inte prickfritt, icke sa nikkei. 1968 var ett riktigt kanotår för blågula, undra vad det blir 2020, kanske inte sumomånga guld men det osar i alla fall medaljer.",
+            "Korosawa mängder film har gjorts i detta ö-rike, manga är tecknade och många har blivit westernkopior. Avancerat handbollsnummer och klassiskt jerring-referat tar er till landet vars huvudstad vi snart är framme i.",
+            "Vi söker en stad i Japan med sushi, sumo och många blinkande skyltar."
+        ],
+        "Barcelona": [
+            "Vi lämnar bergigt furstendöme och reser med medelklass söderut mot inledande vattenhål vid kusten, där väntar heliga familjen.",
+            "Kadaverfattig frälsare kan inte gå på vatten men både måla och trolla. Tänk på fordonstillverkare och du se att tysk kärra med G format staden.",
+            "2014 valdes sista utposten bort liksom moderlandet. Svenskt storband är härifrån liksom kyparen som inget vet, men vi vet att det evigt gröna trädet blev guldfärgat här 1992, jovisst!",
+            "Kampen på fotbollsstadion där europeiskt topplag huserar har fått många få fall men mest ramblar man på paradgatan i denna gigantiska turiststad vid medelhavets kust.",
+            "Vi är nu framme i Kataloniens huvudstad och iberiska halvöns tvåa. Stadens bar får ej belona sig, nej endast celona."
+        ],
+        "New York": [
+            "Vi lämnar religiös ost och åker norrut mot stor frukt. Liberal holländare har en historisk prägel i vår femstjärniga jorvik.",
+            "En maskulin huvudbonad har central plats i staden och teaterscen ligger på den breda vägen. Reuterswärds revolver fredar Guterres högkvarter.",
+            "I centrum av vår nya världstad finns fyrkantig trädgård. Tempererat klimat till trots så kan du åka skridsko hos Rockefeller men skrapa först. ",
+            "Vid vårt inlopp möts vi av frihet om du inte landar på JFK. King Kong klättrade här på en empirisk byggnad och ekonomin sköts från Vallgatan.",
+            "Här äter vi äpplen och gillar skyskrapor"
+        ],
+        "Helsingfors": [
+            "Vi lämnar bebyggelse vi vattendrag med gasen i botten och reser som ett spjut österut mot lejonens hemmaborg. På resvägen passerar vi ett svenskt rockpalindrom.",
+            "Landsfadern grundade staden som med stark prägel av en Ängel blivit kallad Nordens vita stad. Ja, här gäller det att ta arkitekturen på allvar.",
+            "Vi färdas genom land där både många ryssar och svenskar rest för att vinna mark, sedan 1999 är det euro som gäller. Landet är av ny karaktär både regionalt och nationellt. ",
+            "Vi är snart framme i detta sjörikes etta men först ska vi passera en mobil jätte med bra grepp på vägen. Ishockey är populärt här men man blir inte kaxi för att komma tvåa.",
+            "Lennart Helsing for söderut från denna blåvita huvudstad vid finska vikens norra strand men innan vi hann stanna, helsinki också."
+        ],
+        "Kapstaden": [
+            "Vi lämnar apostelstad i norr och färdas mot Moderstad i sydväst. Resan går från huvudstad till huvudstad i land som präglats av långvarig schackmatch.",
+            "Det är lätt att ta fel på berget i vår stad där det inte boer många Hottentotter kvar. Inköpen här är däremot alltid bra.",
+            "Trafalgar hjälte och bränd marknadsgodis är en fängslande ledtråd på en bolltrillande holländares ö. Landets namn ger en geografisk vägledning.",
+            "En egenskap staden har är att det finns goda hopp att få se glasögonpingviner. Trots engelsk och holländsk dominans i landet var det spanjorerna som segrade i fotbolls VM 2010.",
+            "Vi är på väg mot den s.k. apstaden i sydligaste Afrika."
+        ],
+        "Hanoi": [
+            "Denna stad, belägen vid Röda floden, är huvudstaden i ett land känt för sitt pho, sina rismarker och sin långa historia av koloniala influenser. Stadens namn betyder ungefär inom flodornas böj.",
+            "Denna stad, som är en av de äldsta kontinuerligt bebodda huvudstäderna i Sydostasien, är känd för sitt historiska gamla kvarter, sitt ikoniska Hoan Kiem-sjöområde och som porten till den berömda Ha Long-bukten.",
+            "I denna stad kan du besöka mausoleet för en av landets mest älskade ledare, Ho Chi Minh. Staden är också känd för sin franska koloniala arkitektur och för att vara en kulturell och politisk knutpunkt i Vietnam.",
+            "Staden är huvudstaden i Vietnam och är känd för sina traditionella vattendockteaterföreställningar och det livliga gatulivet med mopeder och gatuförsäljare.",
+            "Vietnams huvudstad, som börjar på 'H' och slutar på 'oi'."
+        ],
+        "Göteborg": [
+            "Vi lämnar majestätisk reversering för resa norrut mot plats befäst av han som var en stor pöt. Resmålet är en rik stad och här finns lager på lager, somliga riktigt roliga.",
+            "Sachenbacher-Stehle i fårakläder finns i både ny och gammal upplaga i staden, fast här är inte gammal äldst. Förste amerikanen i omloppsbana och jazzig orkesterledare är namn som för tankarna till resmålet med avslutande liptonbefästning.",
+            "Vi, alltså både ni och jag rullar vidare mot ort där populära gummistövlar är ett landmärke. Trots dåliga varvtider är just varvet större än någonsin.",
+            "Åbo och Vasa är bra gissningar men vi fiskar efter spårvagnsstaden vid Göta älvs mynning,",
+            "Vi är nu framme i Lilla London och sveriges tvåa där det är göt att leva och det mesta glennser."
+        ],
+        "Buenos Aires": [
+            "Vi åker längs silverflodens milonga stränder och söker staden med den goda luften. Resan går i sydlig riktning från ett soligt land till annat, mustachen är rabatterad här.",
+            "Blågula juniorer bugar och bocar, helst vill de platta till konkurrenten, som fått namn efter floden. Landets historia har varit bråkig, nu är det lugnt men man är fortfarande arg. Kriget var smutsigt och konflikten handlade om jaktfågels ö-rike.",
+            "Stadens namn är två-delat, här säger man B före A. Presidentens palats är rosa, Elaine Paiges och Madonnas e vita. Spanjorerna kom hit på 1500-talet, tyska flyktingar 1945.",
+            "Med pampas och ståt dansar Fritiof Andersson med Carmencita i denna kulturstad där päronen haft stor betydelse. Herrens näve frälste fotbollstokigt land 86. Dagens stjärna är inte Messias men väl världens bästa.",
+            "En arg Tina är ett anagram till landets och tangons huvudstad vid Rio de la Platas strand."
+        ],
+        "Rio de Janeiro": [
+            "Vi lämnar landets etta och reser norrut mot godisberg. Om du vill besöka vårt resmål är perioden januari bra.",
+            "Målvakts-Kalle ger er inledningen av vår storstad. Ari o Dejan e ironiska när de säger att 21 är ett viktigt tal i min agenda.",
+            "Olympiska spelen hålls här 2016, arenan är maracana, men kommer capoeira vara en gren? Gör inget dumt i denna staden för Cristo Redentor ser allt.",
+            "På karnevalen dansar man samba och på Ipanema lirar man boll, vi är i gammal portugisk koloni. Komisk Brännström är en ledtråd.",
+            "Zico, Ronaldo och Romario har alla solat på Copacabana. Här är vintern varm och i denna period e jane i ropet."
+        ]
     }
 }
