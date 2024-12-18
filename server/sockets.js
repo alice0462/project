@@ -67,6 +67,14 @@ function sockets(io, socket, data) {
     //data.addCities(d.pollId, d.data); // Spara datan (städer med index)
   //});
 
+  socket.on("getCurrentParticipant", (d) => {
+    
+  })
+
+  socket.on("answerSubmit", (d) => {
+    console.log("Mottog answerSubmit med data:", d);
+    data.destinationAnswer(d.user, d.pollId, d.guess)
+  });
 }
 
 

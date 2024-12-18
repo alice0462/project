@@ -58,6 +58,9 @@ export default {
     socket.on( "startPoll", () => this.$router.push("/poll/" + this.pollId) );
     socket.emit( "joinPoll", this.pollId );
     socket.emit( "getUILabels", this.lang );
+    socket.on('participantsUpdate', (p) => {
+      console.log("mottagna deltagare:", p);
+      this.participants = p; });
   },
   methods: {
     moveFocus(currentBox) {
@@ -71,9 +74,10 @@ export default {
       this.pollId = this.boxes.join("");
     },
     participateInPoll: function () {
-      if(this.pollId.length === 4) {
-      socket.emit( "participateInPoll", {pollId: this.pollId, name: this.userName} )
-      this.$router.push("/lobby/" + this.pollId);
+      if(this.pollId.length === 4 && !this.participants.some(participant => participant.name === this.userName)) {
+        localStorage.setItem( "participantName", this.userName)
+        socket.emit( "participateInPoll", {pollId: this.pollId, name: this.userName} )
+        this.$router.push("/lobby/" + this.pollId);
       }
     }
   }

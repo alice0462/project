@@ -54,10 +54,21 @@ const router = createRouter({
       name: "Lobby",
       component: () => import('../views/Lobby.vue')
     },
+
     {
-    path: "/game/:id",
-    name: "Game",
-    component: () => import('../views/Game.vue')
+      path: "/participant-answer/:id",
+      name: "ParticipantAnswer",
+      component: () => import('../views/ParticipantAnswer.vue')
+    },
+    {
+      path: "/game/:id",
+      name: "Game",
+      component: () => import('../views/Game.vue')
+    },
+    {
+      path: "/answers/",
+      name: "Answers",
+      component: () => import('../views/Answers.vue')
     },
     /*{
       path: "/pollview",
@@ -66,7 +77,5 @@ const router = createRouter({
     },*/
   ]
 })
-
-
 
 export default router
