@@ -48,7 +48,8 @@ Data.prototype.createPoll = function(pollId, lang="en") {
     poll.currentQuestion = 0;
     poll.cities = [],
     poll.level = "",
-    poll.guesses = [],              
+    poll.guesses = [],  
+    poll.startTime = null,            
     this.polls[pollId] = poll;
     console.log("poll created", pollId, poll);
   }
@@ -153,8 +154,8 @@ Data.prototype.getCities = function(pollId, data) {
   }
   return [];
 }
-Data.prototype.destinationAnswer = function(user, pollId, guess) {
-  console.log("Sparar svar för:", user, pollId, guess);
+Data.prototype.destinationAnswer = function(user, pollId, guess, points) {
+  console.log("Sparar svar för:", user, pollId, guess, points);
 
   if (this.pollExists(pollId)) {
     const poll = this.polls[pollId];
@@ -168,10 +169,11 @@ Data.prototype.destinationAnswer = function(user, pollId, guess) {
     const existingAnswer = poll.guesses.find(g => g.name === user);
     if (existingAnswer) {
       existingAnswer.guess = guess; // Uppdatera tidigare svar
-      console.log("Svar uppdaterat för:", user, guess);
+      existingAnswer.points = points;
+      console.log("Svar uppdaterat för:", user, guess, points);
     } else {
-      poll.guesses.push({ name: user, guess: guess });
-      console.log("Nytt svar sparat för:", user, guess);
+      poll.guesses.push({ name: user, guess: guess, points: points });
+      console.log("Nytt svar sparat för:", user, guess, points);
     }
   } else {
     console.log("Poll finns inte:", pollId);
@@ -182,17 +184,26 @@ Data.prototype.getSubmittedAnswers = function(pollId) {
 
   // Kontrollera om omröstningen existerar i datalagret
   if (this.pollExists(pollId)) {
-    const poll = this.polls[pollId];
-    console.log("Hittade omröstning:", poll);
+    console.log("Hittade omröstning:", this.polls[pollId]);
 
     // Returnera listan av guesses om den existerar, annars en tom array
-    return poll.guesses || [];
+    return this.polls[pollId].guesses;
   } else {
     console.log("Poll finns inte för getSubmittedAnswers:", pollId);
     return [];
   }
 };
 
+Data.prototype.startTime = function (pollId) {
+  if (this.pollExists(pollId)) {
+    if (!this.polls[pollId].startTime){
+      this.polls[pollId].startTime = Date.now(); //Sparar akturell tid i millisekunder
+      console.log("Starttid är satt för pollId:", pollId, this.polls[pollId].startTime);
+    }
+    return this.polls[pollId].startTime;
+  }
+  return null;
+};
 
 export { Data };
 

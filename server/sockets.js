@@ -58,7 +58,8 @@ function sockets(io, socket, data) {
 
   socket.on("requestCities", pollId => {
     socket.emit('chosenCities', data.getCities(pollId))
-  })
+  });
+
 
 
 
@@ -72,7 +73,7 @@ function sockets(io, socket, data) {
 
   socket.on("answerSubmit", (d) => {
     console.log("Mottog answerSubmit med data:", d);
-    data.destinationAnswer(d.user, d.pollId, d.guess)
+    data.destinationAnswer(d.user, d.pollId, d.guess, d.points)
     const updatedAnswers = data.getSubmittedAnswers(d.pollId);
     io.to(d.pollId).emit('submittedAnswersUpdate', data.getSubmittedAnswers(d.pollId));
     console.log("Uppdaterade svar som skickas:", updatedAnswers, d.pollId);
@@ -80,7 +81,9 @@ function sockets(io, socket, data) {
   });
 
   socket.on("startGame", pollId => {
-    io.to(pollId).emit("gameStarted");
+    data.startTime(pollId);
+    io.to(pollId).emit("gameStarted", data.startTime(pollId));
+    console.log("Spelet startade för pollId:", pollId, "med starttid:", data.startTime(pollId));
   });
   
   socket.on("registerScreen", () => {
@@ -90,6 +93,10 @@ function sockets(io, socket, data) {
 
   socket.on("updateScreen", pollId => {
     io.to("screens").emit("goToLobby", pollId);
+  });
+
+  socket.on("requestStartTime", pollId => {
+    socket.emit('gameStarted', data.startTime(pollId))
   });
 
 

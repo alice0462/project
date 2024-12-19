@@ -39,20 +39,60 @@ export default {
       pollId:"",
       lang: localStorage.getItem( "lang") || "en",
       user: localStorage.getItem( "participantName") || "unknownParticipant",
+      timer: 30, //Tid kvar i sekunder för poängen
+      points: 10, //Startpoäng
+      intervalId: null, //Timer-ID
+      timeElapsed: 0,
     }
   },
   created: function () {
     this.pollId = this.$route.params.id;
     console.log("Användarnamn från sessionStorage:", this.user); // Loggar användarnamnet här
+    socket.on("gameStarted", (startTime) => {
+      console.log("starttid mottagen:", startTime);
+      this.startTimer(startTime);
+    });
     socket.on( "uiLabels", labels => this.uiLabels = labels );
     socket.emit( "getUILabels", this.lang );
     socket.emit("joinPoll", this.pollId);
     socket.emit("getCurrentParticipant", (data) => {
       this.participantName=data.name;
     });
+    socket.emit("requestStartTime", this.pollId);
+    //this.startTimer();
     
   },
   methods: {
+    startTimer(startTime) {
+      this.timeElapsed = Math.floor((Date.now() - startTime) / 1000);
+      this.timer = 30 - (this.timeElapsed % 30);
+
+      this.intervalId = setInterval(() => {
+        if (this.timer > 0) {
+          this.timer--;
+        } else {
+          if (this.points > 2) {
+            this.points -= 2;
+            console.log("Nu är vi på nivå för:", this.points, "poäng")
+            this.timer = 30; //Återställ timern
+          } else if(!this.finalAnswer){
+            this.stopTimer();
+            this.missingAnswer();
+          }
+          
+        }
+      }, 1000); //Uppdatera varje sekund
+    },
+    stopTimer() {
+      clearInterval(this.intervalId); //SToppar timern
+    },
+    missingAnswer() {
+      socket.emit("answerSubmit", {user: this.user, pollId: this.pollId, guess: "Inget svar", points: 0 });
+      console.log("inget svar registrerat för spelare:", this.user)
+
+    },
+
+
     submitDestination(){
       if(this.answerDestination === "") {
         alert("Du måste skriva in ett svar innan du kan låsa in det!")
@@ -60,12 +100,18 @@ export default {
         
         this.finalAnswer = this.answerDestination;
         this.submitAnswer = false;
+
+        this.stopTimer();
+
         console.log("Svaret är låst:", this.finalAnswer);
-        socket.emit("answerSubmit", {user: this.user, pollId: this.pollId, guess: this.finalAnswer })
+        socket.emit("answerSubmit", {user: this.user, pollId: this.pollId, guess: this.finalAnswer, points: this.points })
       }
-      console.log("Svar skickat:", {user: this.user, pollId: this.pollId, guess: this.finalAnswer});
+      console.log("Svar skickat:", {user: this.user, pollId: this.pollId, guess: this.finalAnswer, points: this.points});
     },
   },
+
+
+
   };
 </script>
 

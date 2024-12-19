@@ -35,8 +35,7 @@ const socket = io("localhost:3000");
         }
     },
     created: function () {
-      
-      this.pollId = this.$route.params.id;
+        this.pollId = this.$route.params.id;
         socket.on("gameStarted", () => {
           console.log("Din roll är:", this.role);
           if (this.role === "admin") {
@@ -58,7 +57,6 @@ const socket = io("localhost:3000");
         });
         socket.emit("joinPoll", this.pollId);
         socket.emit("getParticipants", this.pollId);
-        
       },
     methods: {
       startGame() {

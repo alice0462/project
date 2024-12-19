@@ -40,7 +40,9 @@ import cluesPoints from '@/assets/cluesPoints.json';
             showFinalCityMessage: false,
             showClues: true,
             showQuestions: false,
-            thisPoint: 10
+            thisPoint: 10,
+            timeElapsed: 0,
+            intervalId: null,
         };
     },
 
@@ -74,10 +76,15 @@ import cluesPoints from '@/assets/cluesPoints.json';
             this.cities = c;
             //this.startCountdown();
         }); // admin väljer när allt ska skickas ut
+        socket.on("gameStarted", (startTime) => {
+            console.log("Starttid mottagen:", startTime);
+            this.startTimer(startTime);
+        })
         socket.emit("joinPoll", this.pollId);
         socket.emit("requestCities", this.pollId); // jag ber om informationen när jag går med i Game
+        socket.emit("requestStartTime", this.pollId);
         //this.loadClues();
-        this.startCountdown();
+        //this.startCountdown();
         },
   
      methods: {
@@ -97,17 +104,19 @@ import cluesPoints from '@/assets/cluesPoints.json';
                     this.clues[city.name] = cluesSv.ledtrådar[city.name];
                 }
             });*/
-            startCountdown () {
-            this.timer = 30; 
+            startTimer(startTime) {
+                this.timeElapsed = Math.floor((Date.now() - startTime) / 1000) //Tid från när vi startade och nu i sek
+                this.timer = 30 - (this.timeElapsed % 30); 
 
-            this.intervalId = setInterval (() => {
-                if (this.timer > 0) {
-                    this.timer--; 
-                } else {
-                    this.nextClueOrCity()
-                }
+                this.intervalId = setInterval (() => {
+                    if (this.timer > 0) {
+                        this.timer--; 
+                    } else {
+                        this.nextClueOrCity()
+                        this.timer = 30;
+                    }
                 }, 1000); 
-        },
+            },
         nextClueOrCity() {
             console.log(cluesSv)
             console.log(this.currentCity)
@@ -127,8 +136,6 @@ import cluesPoints from '@/assets/cluesPoints.json';
                 
                 clearInterval(this.intervalId);
             }
-            
-            this.timer = 30;
         },
         showCity(){
             return `Vi har kommit till ${this.currentCity}`;

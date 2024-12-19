@@ -1,14 +1,16 @@
 <template>
   <body>
-    <div v-if="currentAnswer">
+    <div v-if="answers.length > 0">
       <h1>Godkänn eller Neka svar</h1>
-      <div class="answer-box">
-        <p>{{ currentAnswer.text }}</p>
-      </div>
+      <div v-for="(answer, index) in answers" :key="index" class="answer-box">
+        <p><strong>Namn:</strong> {{ answer.name }} 
+          <strong>Gissning:</strong> {{ answer.guess }}
+          <strong>Poäng:</strong> {{ answer.points }}</p>
       <div class="buttons">
-        <button class="approve-btn" @click="approveAnswer">Godkänn</button>
-        <button class="reject-btn" @click="rejectAnswer">Neka</button>
+        <button class="approve-btn" @click="approveAnswer(index)">Godkänn</button>
+        <button class="reject-btn" @click="rejectAnswer(index)">Neka</button>
       </div>
+    </div>
     </div>
     <div v-else>
       <h2>Alla svar har granskats!</h2>
@@ -20,6 +22,8 @@
 import io from 'socket.io-client';
 const socket = io("localhost:3000");
 
+
+//HALLOJI STUGAN
 export default {
     name: "Answers",
     data: function () {
@@ -31,7 +35,7 @@ export default {
             selectedLevel: "",
             selectedCities: [],
             role: localStorage.getItem("role"), //Hämtar den tilldelade rollen som bestäms startView
-            currentAnswer: null
+            answers: []
         }
     },
     created: function () {
@@ -39,47 +43,54 @@ export default {
     console.log("hejhej")
     
     socket.on("submittedAnswersUpdate", (answers) => {
-      console.log("hejhej")
-      if (answers.length > 0) {
+      console.log("hejsvejs")
+      console.log("inkommande svar:", answers);
+      this.answers = answers;
+      
+      /*if (answers.length > 0) {
         this.currentAnswer = answers[0];
+        console.log(this.currentAnswer);
       } else {
         this.currentAnswer = null;
-      }
+      }*/
     });
+    socket.emit("joinPoll", this.pollId);
     
-
     // Begär befintliga svar för denna omröstning
     socket.emit("getSubmittedAnswers", this.pollId);
   },
   methods: {
-    approveAnswer() {
-      if (this.currentAnswer) {
+    approveAnswer(index) {
+      //if (this.currentAnswer) {
+        const answer = this.answers[index]
         // Logik för att godkänna svaret
-        console.log("Godkände svar:", this.currentAnswer);
+        console.log("Godkände svar:", answer);
         socket.emit("approveAnswer", {
           pollId: this.pollId,
-          answer: this.currentAnswer,
+          answer: this.answer,
         });
 
         // Uppdatera visningen
         this.currentAnswer = null;
-      }
-    },
-    rejectAnswer() {
-      if (this.currentAnswer) {
+      },
+
+    rejectAnswer(index) {
+      //if (this.currentAnswer) {
+        const answer = this.answers[index]
         // Logik för att neka svaret
-        console.log("Nekade svar:", this.currentAnswer);
+        console.log("Nekade svar:", answer);
         socket.emit("rejectAnswer", {
           pollId: this.pollId,
-          answer: this.currentAnswer,
+          answer: this.answer,
         });
 
         // Uppdatera visningen
         this.currentAnswer = null;
       }
     },
-  },
-}
+  }
+  //},
+//}
   
 
 
