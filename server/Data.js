@@ -177,7 +177,21 @@ Data.prototype.destinationAnswer = function(user, pollId, guess) {
     console.log("Poll finns inte:", pollId);
   }
 };
+Data.prototype.getSubmittedAnswers = function(pollId) {
+  console.log("Hämtar svar för pollId:", pollId);
 
+  // Kontrollera om omröstningen existerar i datalagret
+  if (this.pollExists(pollId)) {
+    const poll = this.polls[pollId];
+    console.log("Hittade omröstning:", poll);
+
+    // Returnera listan av guesses om den existerar, annars en tom array
+    return poll.guesses || [];
+  } else {
+    console.log("Poll finns inte för getSubmittedAnswers:", pollId);
+    return [];
+  }
+};
 
 
 export { Data };

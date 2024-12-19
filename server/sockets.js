@@ -68,12 +68,15 @@ function sockets(io, socket, data) {
   //});
 
   socket.on("getCurrentParticipant", (d) => {
-    
   })
 
   socket.on("answerSubmit", (d) => {
     console.log("Mottog answerSubmit med data:", d);
     data.destinationAnswer(d.user, d.pollId, d.guess)
+    const updatedAnswers = data.getSubmittedAnswers(d.pollId);
+    io.to(d.pollId).emit('submittedAnswersUpdate', data.getSubmittedAnswers(d.pollId));
+    console.log("Uppdaterade svar som skickas:", updatedAnswers, d.pollId);
+
   });
 
   socket.on("startGame", pollId => {

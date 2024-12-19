@@ -19,6 +19,7 @@
 <script>
 import io from 'socket.io-client';
 const socket = io("localhost:3000");
+
 export default {
     name: "Answers",
     data: function () {
@@ -30,12 +31,56 @@ export default {
             selectedLevel: "",
             selectedCities: [],
             role: localStorage.getItem("role"), //Hämtar den tilldelade rollen som bestäms startView
+            currentAnswer: null
         }
     },
     created: function () {
     this.pollId = this.$route.params.id;
-  }
-  }
+    console.log("hejhej")
+    
+    socket.on("submittedAnswersUpdate", (answers) => {
+      console.log("hejhej")
+      if (answers.length > 0) {
+        this.currentAnswer = answers[0];
+      } else {
+        this.currentAnswer = null;
+      }
+    });
+    
+
+    // Begär befintliga svar för denna omröstning
+    socket.emit("getSubmittedAnswers", this.pollId);
+  },
+  methods: {
+    approveAnswer() {
+      if (this.currentAnswer) {
+        // Logik för att godkänna svaret
+        console.log("Godkände svar:", this.currentAnswer);
+        socket.emit("approveAnswer", {
+          pollId: this.pollId,
+          answer: this.currentAnswer,
+        });
+
+        // Uppdatera visningen
+        this.currentAnswer = null;
+      }
+    },
+    rejectAnswer() {
+      if (this.currentAnswer) {
+        // Logik för att neka svaret
+        console.log("Nekade svar:", this.currentAnswer);
+        socket.emit("rejectAnswer", {
+          pollId: this.pollId,
+          answer: this.currentAnswer,
+        });
+
+        // Uppdatera visningen
+        this.currentAnswer = null;
+      }
+    },
+  },
+}
+  
 
 
 

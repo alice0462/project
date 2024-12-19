@@ -11,7 +11,7 @@
         <h2> Vart tror du att vi är på väg?</h2>
         <br>
         <input type="text" class="answerText" v-model="answerDestination" placeholder="Skriv destinationen här..."/>
-        <button v-on:click="submitDestination" class="submitDestinationButton">Lås in ditt svar</button>
+        <button v-on:click="submitDestination()" class="submitDestinationButton">Lås in ditt svar</button>
       </div>
     </div>
     <div v-if="finalAnswer" class="writeAnswer">
@@ -50,12 +50,14 @@ export default {
     socket.emit("getCurrentParticipant", (data) => {
       this.participantName=data.name;
     });
+    
   },
   methods: {
     submitDestination(){
       if(this.answerDestination === "") {
         alert("Du måste skriva in ett svar innan du kan låsa in det!")
       } else {
+        
         this.finalAnswer = this.answerDestination;
         this.submitAnswer = false;
         console.log("Svaret är låst:", this.finalAnswer);
