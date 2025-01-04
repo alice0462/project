@@ -39,7 +39,7 @@ export default {
       pollId:"",
       lang: localStorage.getItem( "lang") || "en",
       user: localStorage.getItem( "participantName") || "unknownParticipant",
-      timer: 30, //Tid kvar i sekunder för poängen
+      timer: 5, //Tid kvar i sekunder för poängen
       points: 10, //Startpoäng
       intervalId: null, //Timer-ID
       timeElapsed: 0,
@@ -65,7 +65,7 @@ export default {
   methods: {
     startTimer(startTime) {
       this.timeElapsed = Math.floor((Date.now() - startTime) / 1000);
-      this.timer = 30 - (this.timeElapsed % 30);
+      this.timer = 5 - (this.timeElapsed % 5);
 
       this.intervalId = setInterval(() => {
         if (this.timer > 0) {
@@ -74,7 +74,7 @@ export default {
           if (this.points > 2) {
             this.points -= 2;
             console.log("Nu är vi på nivå för:", this.points, "poäng")
-            this.timer = 30; //Återställ timern
+            this.timer = 5; //Återställ timern
           } else if(!this.finalAnswer){
             this.stopTimer();
             this.missingAnswer();

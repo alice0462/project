@@ -15,6 +15,7 @@
     <div v-else>
       <h2>Alla svar har granskats!</h2>
     </div>
+      <button class="questionButton" @click="goToQuestions">Gå vidare till frågorna om staden</button>
   </body>
 </template>
 
@@ -86,6 +87,9 @@ export default {
 
         // Uppdatera visningen
         this.currentAnswer = null;
+      },
+      goToQuestions() {
+        socket.emit("startQuestions", this.pollId);
       }
     },
   }

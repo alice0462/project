@@ -1,6 +1,7 @@
 <template>
+    <body>
     <div class="gameSite">
-        <div class="circle">
+        <div class="circle" v-if="!showQuestions">
             <div class="startTimer">
                 {{ timer }}
             </div>
@@ -10,14 +11,18 @@
       <p>{{ currentClue }}</p>
     </div>
     
-    <button class="final-city" v-if="showFinalCityMessage" @click="showQuestions = true">
+    <div class="final-city" v-if="showFinalCityMessage">
     {{ showCity() }}
-    </button>
+    </div>
 
-    <div class="city-questions" v-if="showQuestions" >
-        {{ currentQuestions }}>
+    <div class="city-questions" v-if="showQuestions">
+        <div v-for="(question, index) in currentQuestions" :key="index">
+            <h3>Fråga {{ index + 1 }}</h3>
+            <p>{{ question }}</p>
+        </div>
     </div>
     </div>
+</body>
 </template>
 
 <script>
@@ -32,7 +37,7 @@ import cluesPoints from '@/assets/cluesPoints.json';
     data: function () {
         return {
             pollId: "",
-            timer: 30,
+            timer: 5,
             cities: [],
             currentCityIndex: 0, // Vilken stad vi är på
             currentClueIndex: 0, // Vilken ledtråd i staden vi är på
@@ -79,6 +84,11 @@ import cluesPoints from '@/assets/cluesPoints.json';
         socket.on("gameStarted", (startTime) => {
             console.log("Starttid mottagen:", startTime);
             this.startTimer(startTime);
+        });
+        socket.on("showQuestions", pollId => {
+            this.showQuestions = true;
+            this.showClues = false;
+            this.showFinalCityMessage = false;
         })
         socket.emit("joinPoll", this.pollId);
         socket.emit("requestCities", this.pollId); // jag ber om informationen när jag går med i Game
@@ -106,14 +116,14 @@ import cluesPoints from '@/assets/cluesPoints.json';
             });*/
             startTimer(startTime) {
                 this.timeElapsed = Math.floor((Date.now() - startTime) / 1000) //Tid från när vi startade och nu i sek
-                this.timer = 30 - (this.timeElapsed % 30); 
+                this.timer =5 - (this.timeElapsed % 5); 
 
                 this.intervalId = setInterval (() => {
                     if (this.timer > 0) {
                         this.timer--; 
                     } else {
                         this.nextClueOrCity()
-                        this.timer = 30;
+                        this.timer = 5;
                     }
                 }, 1000); 
             },
@@ -155,11 +165,20 @@ import cluesPoints from '@/assets/cluesPoints.json';
 </script>
 
 <style scoped>
-
+html, body {
+    margin: 0px;
+    padding: 0px;
+    height: 100%;
+}
 .gameSite {
+    display: flex;
+    align-items: center;
+    justify-content: center;
     height: 100vh;
     background: linear-gradient(pink, rgb(246, 157, 199)) ;
+    
 }
+
 
 .clues {
     background-color: #d2e0e6; 
@@ -193,11 +212,31 @@ import cluesPoints from '@/assets/cluesPoints.json';
 }
 
 .final-city{
-    background-color: #fad02a; 
-    width: 300px; 
-    height: 300px;
+    width: auto; 
+    height: auto;
     color: black;
     font-size: 30px;
+    text-align: center;
     
 }
+.city-questions {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 30px; /* Lägger till mellanrum mellan rutorna */
+}
+
+.city-questions div {
+    background-color: #d9f1ff; /* Ljusblå färg */
+    margin: 20px auto;
+    padding: 20px;
+    border-radius: 15px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+    max-width: 600px;
+    text-align: center;
+    font-size: 1.2rem;
+    font-family: 'Futura';
+    color: #333;
+}
+
 </style>

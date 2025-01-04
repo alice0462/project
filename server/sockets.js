@@ -99,6 +99,10 @@ function sockets(io, socket, data) {
     socket.emit('gameStarted', data.startTime(pollId))
   });
 
+  socket.on("startQuestions", pollId => {
+    io.to(pollId).emit("showQuestions", pollId);
+  })
+
 
 }
 
