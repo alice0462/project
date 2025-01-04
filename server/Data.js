@@ -154,6 +154,17 @@ Data.prototype.getCities = function(pollId, data) {
   }
   return [];
 }
+
+Data.prototype.getLevel = function(pollId, data) {
+  const poll = this.polls[pollId];
+  console.log("level requested for:", pollId);
+  if(this.pollExists(pollId)) {
+    console.log(this.polls[pollId].level);
+    return this.polls[pollId].level;
+  }
+  return [];
+}
+
 Data.prototype.destinationAnswer = function(user, pollId, guess, points) {
   console.log("Sparar svar för:", user, pollId, guess, points);
 

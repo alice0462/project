@@ -49,6 +49,7 @@ function sockets(io, socket, data) {
   socket.on("sendLevel", (d) => {
     console.log("Mottagen nivå:", d);
     data.setLevel(d.pollId, d.data);
+    socket.emit("selectedLevel", data.getLevel(d.pollId));
     // Broadcast till alla anslutna klienter
   });
 
@@ -58,6 +59,15 @@ function sockets(io, socket, data) {
 
   socket.on("requestCities", pollId => {
     socket.emit('chosenCities', data.getCities(pollId))
+  });
+
+  socket.on("requestLevel", pollId => {
+    socket.emit('selectedLevel', data.getLevel(pollId))
+  });
+
+  socket.on("currentCity", (d) => {
+    console.log("Aktuell stad skickas:", d.currentCity, "för pollId:", d.pollId);
+    io.to(d.pollId).emit("updateCurrentCity", { currentCity: d.currentCity });
   });
 
 

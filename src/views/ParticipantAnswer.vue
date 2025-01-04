@@ -1,5 +1,6 @@
 <template>
 <body>
+  <div v-if="!cityQuestion">
     <button type="button" class="answer-button" @click="submitAnswer = true">
         <img 
             src="/public/nodbroms.png"
@@ -21,6 +22,38 @@
         <p class="lockedAnswer"> {{ finalAnswer }}</p>
       </div>
     </div>
+  </div>
+
+  <div v-if="cityQuestion" class="questionsView">
+    <div v-if="level === 'Svår'">
+      <h2>Frågor om {{ currentCity }}</h2>
+      <!-- Fråga 1 -->
+      <div class="answerRow">
+        <h3>Fråga 1</h3>
+        <input 
+          type="text" 
+          class="answerInput" 
+          v-model="answer1" 
+          placeholder="Skriv ditt svar här..." 
+        />
+      </div>
+
+      <!-- Fråga 2 -->
+      <div class="answerRow">
+        <h3>Fråga 2</h3>
+        <input 
+          type="text" 
+          class="answerInput" 
+          v-model="answer2" 
+          placeholder="Skriv ditt svar här..." 
+        />
+      </div>
+  </div>
+
+    </div>
+
+
+
 </body>
 </template>
 
@@ -43,6 +76,9 @@ export default {
       points: 10, //Startpoäng
       intervalId: null, //Timer-ID
       timeElapsed: 0,
+      cityQuestion: false,
+      level: null,
+      currentCity: null,
     }
   },
   created: function () {
@@ -52,16 +88,30 @@ export default {
       console.log("starttid mottagen:", startTime);
       this.startTimer(startTime);
     });
+    socket.on('selectedLevel', (l) => {
+            console.log("Vald nivå mottagen:", l);
+            this.level = l;});
     socket.on( "uiLabels", labels => this.uiLabels = labels );
+    socket.on("showQuestions", pollId => {
+            this.cityQuestion = true;
+        });
+    socket.on("updateCurrentCity", (data) => {
+      if (data.currentCity) {
+        this.currentCity = data.currentCity;
+        console.log("Mottagen stad:", this.currentCity);
+      }
+    });
     socket.emit( "getUILabels", this.lang );
     socket.emit("joinPoll", this.pollId);
     socket.emit("getCurrentParticipant", (data) => {
       this.participantName=data.name;
     });
     socket.emit("requestStartTime", this.pollId);
+    socket.emit("requestLevel", this.pollId); 
     //this.startTimer();
     
   },
+
   methods: {
     startTimer(startTime) {
       this.timeElapsed = Math.floor((Date.now() - startTime) / 1000);
@@ -120,6 +170,12 @@ export default {
         height:100%;
         min-height: 100vh;
         background: linear-gradient(5deg, #eaca49, #eae2af);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-family: 'Futura';
+        font-size: 20px;
+        color: #333;
     }
     button{
         border:none;
@@ -174,5 +230,30 @@ export default {
       font-size: 20px;
       font-family: 'Futura';
     }
+
+  .questionsView {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin:20px;
+    text-align: center;
+  }
+
+  .answerRow {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 50px 0;
+  gap: 20px;
+}
+
+.answerInput {
+  padding: 10px;
+  font-size: 17px;  
+  border-radius: 10px;
+  width: 500px;
+}
+
+
 
 </style>

@@ -130,6 +130,7 @@ import cluesPoints from '@/assets/cluesPoints.json';
         nextClueOrCity() {
             console.log(cluesSv)
             console.log(this.currentCity)
+            socket.emit("currentCity", { currentCity: this.currentCity, pollId: this.pollId });
             if (
                 this.currentClueIndex < cluesSv["ledtradar"][this.currentCity].length - 1
             ) {
