@@ -165,8 +165,8 @@ Data.prototype.getLevel = function(pollId, data) {
   return [];
 }
 
-Data.prototype.destinationAnswer = function(user, pollId, guess, points) {
-  console.log("Sparar svar för:", user, pollId, guess, points);
+Data.prototype.destinationAnswer = function(user, pollId, type, guess, points) {
+  console.log("Sparar svar för:", user, pollId, type, guess, points);
 
   if (this.pollExists(pollId)) {
     const poll = this.polls[pollId];
@@ -177,19 +177,42 @@ Data.prototype.destinationAnswer = function(user, pollId, guess, points) {
     }
 
     // Kontrollera om användaren redan har skickat ett svar
-    const existingAnswer = poll.guesses.find(g => g.name === user);
+    const existingAnswer = poll.guesses.find(g => g.name === user && g.type === "destination");
     if (existingAnswer) {
       existingAnswer.guess = guess; // Uppdatera tidigare svar
       existingAnswer.points = points;
-      console.log("Svar uppdaterat för:", user, guess, points);
+      console.log("Destinationssvar uppdaterat för:", user, guess, points);
     } else {
-      poll.guesses.push({ name: user, guess: guess, points: points });
+      poll.guesses.push({ name: user, type: "destination", guess: guess, points: points });
       console.log("Nytt svar sparat för:", user, guess, points);
     }
   } else {
     console.log("Poll finns inte:", pollId);
   }
 };
+
+Data.prototype.submitQuestionAnswers = function (user, pollId, answers) {
+  if (this.pollExists(pollId)) {
+    const poll = this.polls[pollId];
+
+    if (!poll.guesses) {
+      poll.guesses = [];
+    }
+
+    const userAnswers = poll.guesses.find(g => g.name === user && g.type === "questions");
+
+    if (userAnswers) {
+      userAnswers.answers = answers; // Uppdatera befintliga svar
+    } else {
+      poll.guesses.push({
+        name: user,
+        type: "questions",
+        answers: answers,
+      });
+    }
+  }
+};
+
 Data.prototype.getSubmittedAnswers = function(pollId) {
   console.log("Hämtar svar för pollId:", pollId);
 
@@ -204,6 +227,7 @@ Data.prototype.getSubmittedAnswers = function(pollId) {
     return [];
   }
 };
+
 
 Data.prototype.startTime = function (pollId) {
   if (this.pollExists(pollId)) {

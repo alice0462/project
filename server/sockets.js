@@ -81,13 +81,25 @@ function sockets(io, socket, data) {
   socket.on("getCurrentParticipant", (d) => {
   })
 
-  socket.on("answerSubmit", (d) => {
+  /*socket.on("answerSubmit", (d) => {
     console.log("Mottog answerSubmit med data:", d);
-    data.destinationAnswer(d.user, d.pollId, d.guess, d.points)
+    data.destinationAnswer(d.user, d.pollId, d.type, d.guess, d.points)
     const updatedAnswers = data.getSubmittedAnswers(d.pollId);
     io.to(d.pollId).emit('submittedAnswersUpdate', data.getSubmittedAnswers(d.pollId));
     console.log("Uppdaterade svar som skickas:", updatedAnswers, d.pollId);
 
+  });*/
+
+  socket.on("answerSubmit", (d) => {
+    console.log("Mottog answerSubmit med data:", d);
+    if (d.type === "destination") {
+      data.destinationAnswer(d.user, d.pollId, d.type, d.guess, d.points);
+    } else if (d.type === "questions") {
+        data.submitQuestionAnswers(d.user, d.pollId, d.answers);
+      
+    }
+    const updatedAnswers = data.getSubmittedAnswers(d.pollId);
+    io.to(d.pollId).emit("submittedAnswersUpdate", updatedAnswers);
   });
 
   socket.on("startGame", pollId => {

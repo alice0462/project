@@ -16,6 +16,7 @@
     </div>
 
     <div class="city-questions" v-if="showQuestions">
+    <h1>Frågor om {{ this.currentCity }}</h1>
         <div v-for="(question, index) in currentQuestions" :key="index">
             <h3>Fråga {{ index + 1 }}</h3>
             <p>{{ question }}</p>
@@ -179,6 +180,11 @@ html, body {
     background: linear-gradient(pink, rgb(246, 157, 199)) ;
     
 }
+h1 {
+    font-family: 'Futura';
+    color:#333;
+    margin-top: 0px;
+}
 
 
 .clues {
@@ -229,7 +235,7 @@ html, body {
 
 .city-questions div {
     background-color: #d9f1ff; /* Ljusblå färg */
-    margin: 20px auto;
+    margin: 5px auto 20px;
     padding: 20px;
     border-radius: 15px;
     box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);

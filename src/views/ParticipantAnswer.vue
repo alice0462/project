@@ -33,7 +33,7 @@
         <input 
           type="text" 
           class="answerInput" 
-          v-model="answer1" 
+          v-model="questionAnswers[0]" 
           placeholder="Skriv ditt svar här..." 
         />
       </div>
@@ -44,10 +44,17 @@
         <input 
           type="text" 
           class="answerInput" 
-          v-model="answer2" 
+          v-model="questionAnswers[1]" 
           placeholder="Skriv ditt svar här..." 
         />
       </div>
+          <!-- Knapp för att låsa in frågesvar -->
+    <button 
+      class="submitDestinationButton" 
+      @click="submitQuestionAnswers()"
+    >
+      Lås in dina svar
+    </button>
   </div>
 
     </div>
@@ -69,6 +76,7 @@ export default {
       submitAnswer: false,
       answerDestination: "",
       finalAnswer: null,
+      questionAnswers: ["", ""],
       pollId:"",
       lang: localStorage.getItem( "lang") || "en",
       user: localStorage.getItem( "participantName") || "unknownParticipant",
@@ -154,10 +162,21 @@ export default {
         this.stopTimer();
 
         console.log("Svaret är låst:", this.finalAnswer);
-        socket.emit("answerSubmit", {user: this.user, pollId: this.pollId, guess: this.finalAnswer, points: this.points })
+        socket.emit("answerSubmit", {user: this.user, pollId: this.pollId, type: 'destination', guess: this.finalAnswer, points: this.points })
       }
       console.log("Svar skickat:", {user: this.user, pollId: this.pollId, guess: this.finalAnswer, points: this.points});
     },
+    submitQuestionAnswers() {
+      socket.emit("answerSubmit", {
+        user: this.user,
+        pollId: this.pollId,
+        type: "questions",
+        answers: [
+          { questionNumber: 1, guess: this.questionAnswers[0] },
+          { questionNumber: 2, guess: this.questionAnswers[1] },
+        ],
+      });
+    }
   },
 
 
