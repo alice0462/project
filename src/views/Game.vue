@@ -31,7 +31,12 @@ import io from 'socket.io-client';
 const socket = io("localhost:3000");
 import cluesSv from '@/assets/clues-sv.json';
 import questionsSv from '@/assets/questions-sv.json';
-import cluesPoints from '@/assets/cluesPoints.json';
+import cluesEn from '@/assets/clues-en.json';
+import questionsEn from '@/assets/questions-en.json';
+import cluesPointsSv from '@/assets/cluesPoints-sv.json';
+import cluesPointsEn from '@/assets/cluesPoints-en.json';
+
+
 
   export default {
     name: "Game",
@@ -49,27 +54,44 @@ import cluesPoints from '@/assets/cluesPoints.json';
             thisPoint: 10,
             timeElapsed: 0,
             intervalId: null,
+            lang: localStorage.getItem( "lang") || "en",
         };
     },
 
     computed: {
     currentCity() {
       // Hämta namnet på den aktuella staden
-      return this.cities[this.currentCityIndex]?.name || "Okänd stad";
+      return this.cities[this.currentCityIndex]?.name || "Unkown city";
 
     },
     currentClue() {
       // Hämta aktuell ledtråd baserat på stad och index
-      const cityClues = cluesSv.ledtradar[this.currentCity] || [];
-      return cityClues[this.currentClueIndex] || "Inga fler ledtrådar.";
+      
+      //INNAN NYTT CARRO 7/1
+      //const cityClues = cluesSv.ledtradar[this.currentCity] || [];
+      //return cityClues[this.currentClueIndex] || "Inga fler ledtrådar.";
+
+      //NYTT CARRO 7/1
+      const cityClues = this.lang === "sv" ? cluesSv.ledtradar : cluesEn.clues;
+      return cityClues[this.currentCity]?.[this.currentClueIndex] || "No more clues.";
     },
 
     currentQuestions(){
-        const cityQuestions = questionsSv.fragor[this.currentCity] || [];
-        return cityQuestions
+        //INNAN NYTT CARRO 7/1
+        //const cityQuestions = questionsSv.fragor[this.currentCity] || [];
+        //return cityQuestions
+
+        //NYTT CARRO 7/1
+        const cityQuestions = this.lang === "sv" ? questionsSv.fragor : questionsEn.questions;
+        return cityQuestions[this.currentCity] || [];
+
     },
     currentPoint() {
-        return cluesPoints.points[this.thisPoint] || "Okända poäng";
+        //return cluesPointsSv.poang[this.thisPoint] || "Okända poäng";
+        //NYTT CARRO 7/1
+        const points = this.lang === "sv" ? cluesPointsSv.points : cluesPointsEn.points;
+        return points[this.thisPoint] || (this.lang === "sv" ? "Okända poäng" : "Unknown points");
+        
     }
 },
 
@@ -156,12 +178,10 @@ import cluesPoints from '@/assets/cluesPoints.json';
             this.showFinalCityMessage = false
         },
         nextPoint(){
-            if (this.showClues && this.thisPoint > 2) {
-            this.thisPoint -= 2;      
-    }
-        },
-       
- 
+                if (this.showClues && this.thisPoint > 2) {
+                    this.thisPoint -= 2;
+                }
+            }
     }
 };
 </script>
