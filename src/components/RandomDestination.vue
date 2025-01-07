@@ -1,7 +1,7 @@
 <template>
   <div class="container-random">
-    <h1>Slumpa dina resmål</h1>
-    <p>Välj hur många resmål du vill slumpa:</p>
+    <h1>{{uiLabels.randomize}}</h1>
+    <p>{{uiLabels.howManyDestinations}}</p>
     <div class="selection">
       <button
         v-for="number in [1, 2, 3]"
@@ -13,17 +13,17 @@
       </button>
     </div>
     <button class="generate-button" :disabled="numberOfTrips === 0" @click="generateRandomDestinations" v-if="generateButton">
-      Slumpa destinationer
+      {{ uiLabels.randomizeDestinations }}
     </button>
 
     <div v-if="randomDestinations.length > 0" class="results">
-      <h2>Du har fått destination{{ randomDestinations.length > 1 ? 'er' : '' }}</h2>
+      <h2> {{uiLabels.givenDestination}} {{ randomDestinations.length > 1 ? 'er' : '' }}</h2>
       <ul>
         <li v-for="(city, index) in randomDestinations" :key="index">{{ city.name }}</li>
       </ul>
       <div class="action-buttons">
-        <button @click="generateRandomDestinations">Generera nya destinationer</button> 
-        <button @click="acceptDestinations">Acceptera destinationer</button>
+        <button @click="generateRandomDestinations">{{uiLabels.generateNewDestination}}</button> 
+        <button @click="acceptDestinations">{{uiLabels.confirm}}</button>
       </div>
     </div>
   </div>
@@ -32,12 +32,14 @@
 <script>
 import { io } from "socket.io-client";
 const socket = io("http://localhost:3000"); 
+import gameMasterSv from '@/assets/gameMaster-sv.json';
+import gameMasterEn from '@/assets/gameMaster-en.json';
 
 export default {
   data() {
     return {
       name: "RandomDestination",
-      cities: [
+      /*cities: [
         "Moskva",
         "Lissabon",
         "Seoul",
@@ -54,7 +56,7 @@ export default {
         "Göteborg",
         "Buenos Aires",
         "Rio de Janeiro",
-      ],
+      ],*/
       numberOfTrips: 0,
       randomDestinations: [],
       data: {},
@@ -64,6 +66,16 @@ export default {
   },
   created: function() {
     this.pollId = this.$route.params.id;
+  },
+
+  computed: {
+      uiLabels() {
+        return this.lang === "sv" ? gameMasterSv : gameMasterEn; // Dynamiskt välj språk
+      },
+      cities() {
+      // Dynamiskt hämta städernas namn från labels
+        return Object.keys(this.uiLabels.cities).map((key) => this.uiLabels.cities[key]);
+      },
   },
    
 

@@ -1,7 +1,7 @@
 <template>
   <div class="container-choose" >
-    <header>Välj destination</header>
-    <h1>Välj vilka resmål du vill åka till. Max 3 resor per spelomgång.</h1>
+    <header>{{uiLabels.youChooseDestination}}</header>
+    <h1>{{uiLabels.maxThreeDestinations}}</h1>
     <div class="grid">
       <!-- Dynamiskt generera knappar baserat på destinationerna -->
       <button
@@ -16,15 +16,15 @@
     </div>
 
     <button class="submit-btn" :disabled="selectedCities.length === 0" @click="openModal">
-      Välj
+      {{ uiLabels.choose }}
     </button>
     <div v-if="showModal" class="modal-overlay">
       <div class="modal">
-        <h2>Bekräfta val</h2>
-        <p>Du har valt: {{ selectedCities.map(c => c.name).join(", ") }}</p>
+        <h2>{{uiLabels.confirm}}</h2>
+        <p>{{ uiLabels.youChoose }}: {{ selectedCities.map(c => c.name).join(", ") }}</p>
         <div class="modal-buttons">
-          <button class="cancel-button" @click="closeModal">Avbryt</button>
-          <button class="confirm-button" @click="confirmSelection"> Bekräfta</button>
+          <button class="cancel-button" @click="closeModal">{{uiLabels.cancel}}</button>
+          <button class="confirm-button" @click="confirmSelection">{{uiLabels.confirm}}</button>
         </div>
       </div>
     </div>
@@ -34,6 +34,8 @@
 <script>
 import { io } from "socket.io-client";
 const socket = io("http://localhost:3000"); 
+import gameMasterSv from '@/assets/gameMaster-sv.json';
+import gameMasterEn from '@/assets/gameMaster-en.json';
 
 import { useRouter } from 'vue-router';
 
@@ -42,7 +44,7 @@ import { useRouter } from 'vue-router';
     return {
       name: "ChooseDestination",
       // Lista med destinationer
-      cities: [
+      /*cities: [
         "Moskva",
         "Lissabon",
         "Seoul",
@@ -59,15 +61,26 @@ import { useRouter } from 'vue-router';
         "Göteborg",
         "Buenos Aires",
         "Rio de Janeiro",
-      ],
+      ],*/
       selectedCities: [],
       showModal: false, 
       data: {},
       pollId: "",
+      lang: localStorage.getItem("lang") || "en",
       }
     },
     created: function() {
       this.pollId = this.$route.params.id;
+    },
+
+    computed: {
+      uiLabels() {
+        return this.lang === "sv" ? gameMasterSv : gameMasterEn; // Dynamiskt välj språk
+      },
+      cities() {
+      // Dynamiskt hämta städernas namn från labels
+        return Object.keys(this.uiLabels.cities).map((key) => this.uiLabels.cities[key]);
+      },
     },
 
     methods: {

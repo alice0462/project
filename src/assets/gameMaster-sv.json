@@ -1,0 +1,40 @@
+{
+    "youChooseDestination": "Välj destination",
+    "maxThreeDestinations":"Välj vilka resmål du vill åka till. Max 3 resor per spelomgång.",
+    "choose":"Välj",
+    "confirm":"Bekräfta val",
+    "youChoose": "Du har valt",
+    "cancel":"Neka val",
+    "cities": {
+        "Moscow": "Moskva",
+        "Lisbon": "Lissabon",
+        "Seoul": "Seoul",
+        "Toronto": "Toronto",
+        "Tokyo": "Tokyo",
+        "Barcelona": "Barcelona",
+        "Linköping": "Linköping",
+        "New York": "New York",
+        "Stockholm": "Stockholm",
+        "Helsinki": "Helsingfors",
+        "Paris": "Paris",
+        "Cape Town": "Kapstaden",
+        "Hanoi": "Hanoi",
+        "Gothenburg": "Göteborg",
+        "Buenos Aires": "Buenos Aires",
+        "Rio de Janeiro": "Rio de Janeiro"
+    },
+    "randomize":"Slumpa dina resmål",
+    "howManyDestinations":"Välj hur många resmål du vill slumpa:",
+    "randomizeDestinations":"Slumpa destinationer",
+    "givenDestination": "Du har fått destination",
+    "generateNewDestination":"Generera nya destinationer",
+
+
+    "chooseLevel":"Välj svårighetsgrad",
+    "choose2":"Välj",
+    "confirm2":"Bekräfta val",
+    "youChoose2": "Du har valt",
+    "cancel2":"Avbryt",
+    "confirming": "Bekräfta",
+    "level":["Lätt", "Svårt"]
+}   

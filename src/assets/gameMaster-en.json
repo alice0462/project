@@ -1,0 +1,40 @@
+{
+    "youChooseDestination": "Choose destination",
+	"maxThreeDestinations":"Choose which destinations you want to travel to. Max 3 trips per game round.",
+	"choose":"Choose",
+	"confirm":"Confirm selection",
+	"youChoose": "You have chosen",
+	"cancel":"Cancel selection",
+    "cities": {
+        "Moscow": "Moscow",
+        "Lisbon": "Lisbon",
+        "Seoul": "Seoul",
+        "Toronto": "Toronto",
+        "Tokyo": "Tokyo",
+        "Barcelona": "Barcelona",
+        "Linköping": "Linköping",
+        "New York": "New York",
+        "Stockholm": "Stockholm",
+        "Helsinki": "Helsinki",
+        "Paris": "Paris",
+        "Cape Town": "Cape Town",
+        "Hanoi": "Hanoi",
+        "Gothenburg": "Gothenburg",
+        "Buenos Aires": "Buenos Aires",
+        "Rio de Janeiro": "Rio de Janeiro"
+    },
+    "randomize":"Randomize your destinations",
+    "howManyDestinations":"Choose how many destinations you want to randomize:",
+    "randomizeDestinations": "Randomize destinations",
+    "givenDestination":"You have been assigned a destination",
+    "generateNewDestination":"Generate new destination",
+    
+    "chooseLevel":"Choose level",
+    "choose2":"Choose",
+    "confirm2":"Confirm selection",
+    "youChoose2": "You have chosen",
+    "cancel2":"Cancel",
+    "confirming":"Confirm",
+    "level":["Easy", "Hard"]
+      
+}
