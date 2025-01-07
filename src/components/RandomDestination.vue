@@ -39,24 +39,6 @@ export default {
   data() {
     return {
       name: "RandomDestination",
-      /*cities: [
-        "Moskva",
-        "Lissabon",
-        "Seoul",
-        "Toronto",
-        "Tokyo",
-        "Barcelona",
-        "Linköping",
-        "New York",
-        "Stockholm",
-        "Helsingfors",
-        "Paris",
-        "Kapstaden",
-        "Hanoi",
-        "Göteborg",
-        "Buenos Aires",
-        "Rio de Janeiro",
-      ],*/
       numberOfTrips: 0,
       randomDestinations: [],
       data: {},

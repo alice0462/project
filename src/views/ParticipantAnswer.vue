@@ -25,8 +25,9 @@
   </div>
 
   <div v-if="cityQuestion" class="questionsView">
-    <div v-if="level === 'Svår'">
+    <div v-if="level === level">
       <h2> {{ questionsAbout }} {{ currentCity }}</h2>
+
       <!-- Fråga 1 -->
       <div class="answerRow">
         <h3>{{question1}}</h3>
@@ -69,6 +70,8 @@ import io from 'socket.io-client';
 const socket = io("localhost:3000");
 import playersSV from "/src/assets/players-sv.json";
 import playersEN from "/src/assets/players-en.json";
+import gameMasterSv from '@/assets/gameMaster-sv.json';
+import gameMasterEn from '@/assets/gameMaster-en.json';
 
 export default {
   name: 'ParticipantAnswer',
@@ -153,6 +156,9 @@ export default {
         lockInCityQuestions() {
           return this.lang === "sv" ? playersSV.lockInCityQuestions : playersEN.lockInCityQuestions;
         },
+        level(){
+          return this.lang === "sv" ? gameMasterSv.level : gameMasterEn.level;
+        }
       },
 
   methods: {

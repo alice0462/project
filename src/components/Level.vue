@@ -1,12 +1,12 @@
   <template>
     <div class="level-container">
       <header>
-        <h1>Välj svårighetsgrad</h1>
+        <h1>{{chooseLevel}}</h1>
       </header>
       <div class="container">
         <div class="level">
           <button
-            v-for="(level, index) in levels"
+            v-for="(level, index) in level"
             :key="index"
             :id="'level-' + index"
             :class="{ selected: selectedLevels.includes(level) }"
@@ -17,16 +17,16 @@
 
         </div>
         <button class="submit-btn" :disabled="selectedLevels.length === 0" @click="openModal">
-          Välj
+          {{choose2}}
       </button>
 
       <div v-if="showModal" class="modal-overlay">
         <div class="modal">
-          <h2>Bekräfta val</h2>
-          <p>Du har valt: {{ selectedLevels }}</p>
+          <h2>{{confirm2}}</h2>
+          <p>{{youChoose2}}: {{ selectedLevels }}</p>
           <div class="modal-buttons">
-            <button class="cancel-button" @click="closeModal">Avbryt</button>
-            <button class="confirm-button" @click="confirmSelection"> Bekräfta</button>
+            <button class="cancel-button" @click="closeModal">{{cancel2}}</button>
+            <button class="confirm-button" @click="confirmSelection"> {{confirming}}</button>
           </div>
         </div>
       </div>
@@ -71,6 +71,9 @@
     import io from 'socket.io-client';
     import { useRoute } from 'vue-router';
     const socket = io("localhost:3000");
+    import gameMasterSv from '@/assets/gameMaster-sv.json';
+    import gameMasterEn from '@/assets/gameMaster-en.json';
+
     
     export default {
       data: function () {
@@ -83,8 +86,8 @@
           questionNumber: 0,
           pollData: {},
           uiLabels: {},
-          levels: [ "Lätt", 
-                    "Svår"],
+          /*levels: [ "Lätt", 
+                    "Svår"],*/
           selectedLevels: "",
           showModal: false, 
           selectedCities: [],
@@ -104,6 +107,31 @@
         socket.on( "participantsUpdate", p => this.pollData.participants = p );
         socket.emit( "getUILabels", this.lang );
       },
+
+      computed: {
+        chooseLevel() {
+          return this.lang === "sv" ? gameMasterSv.chooseLevel : gameMasterEn.chooseLevel;
+        },
+        choose2() {
+          return this.lang === "sv" ? gameMasterSv.choose2 : gameMasterEn.choose2;
+        },
+        confirm2() {
+          return this.lang === "sv" ? gameMasterSv.confirm2 : gameMasterEn.confirm2;
+        },
+        youChoose2() {
+          return this.lang === "sv" ? gameMasterSv.youChoose2 : gameMasterEn.youChoose2;
+        },
+        cancel2() {
+          return this.lang === "sv" ? gameMasterSv.cancel2 : gameMasterEn.cancel2;
+        },
+        confirming() {
+          return this.lang === "sv" ? gameMasterSv.confirming : gameMasterEn.confirming;
+        },
+        level(){
+          return this.lang === "sv" ? gameMasterSv.level : gameMasterEn.level;
+        }
+      },
+
       methods: {
         createPoll: function () {
           socket.emit("createPoll", {pollId: this.pollId, lang: this.lang })

@@ -10,6 +10,7 @@
     "question1": "Question 1",
     "question2": "Question 2",
     "questionGuess": "Type your answer here...",
-    "lockInCityQuestions": "Lock in your answers"
+    "lockInCityQuestions": "Lock in your answers",
+    "letsGo":"Start Game"
 
 }

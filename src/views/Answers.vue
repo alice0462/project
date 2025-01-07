@@ -1,54 +1,54 @@
 <template>
   <body>
-    <h1>Destination: {{ this.currentCity }}</h1>
+    <h1>{{destination}}: {{ this.currentCity }}</h1>
     <div v-if="destinationAnswers.length > 0 && !questionAnswer">
       <div v-for="(answer, index) in destinationAnswers" :key="index" :class="['answerBox', answer.status]">
-        <p><strong>Spelare:</strong> {{ answer.name }} 
-          <strong>Gissning:</strong> {{ answer.guess }}
-          <strong>Poäng:</strong> {{ answer.points }}
+        <p><strong>{{player}}:</strong> {{ answer.name }} 
+          <strong>{{guess}}:</strong> {{ answer.guess }}
+          <strong>{{points}}:</strong> {{ answer.points }}
         </p>
 
-        <p v-if="answer.status === 'approved'">Status: <strong>Godkänd</strong></p>
-        <p v-else-if="answer.status === 'rejected'">Status: <strong>Nekad</strong></p>
+        <p v-if="answer.status === 'approved'">{{status}}: <strong>{{confirm3}}</strong></p>
+        <p v-else-if="answer.status === 'rejected'">{{status}}: <strong>{{decline}}</strong></p>
 
       <div v-else class="buttons">
-        <button class="approve-btn" @click="approveAnswer(index)">Godkänn</button>
-        <button class="reject-btn" @click="rejectAnswer(index)">Neka</button>
+        <button class="approve-btn" @click="approveAnswer(index)">{{confirm3}}</button>
+        <button class="reject-btn" @click="rejectAnswer(index)">{{decline}}</button>
       </div>
     </div>
-    <button class="questionButton" @click="goToQuestions">Gå vidare till frågorna om staden</button>
+    <button class="questionButton" @click="goToQuestions">{{questionsAboutCity}}</button>
     </div>
       
     <div v-if="questionAnswers.length > 0 && questionAnswer">
       <div v-for="(answer, index) in questionAnswers" :key="index" :class="['answerBox', answer.status]">
-        <p><strong>Spelare:</strong> {{ answer.name }}</p>
-        <p><strong>Svar på fråga 1:</strong> {{ answer.answers[0].guess }}</p>
+        <p><strong>{{player}}:</strong> {{ answer.name }}</p>
+        <p><strong>{{answerQuestion1}}:</strong> {{ answer.answers[0].guess }}</p>
         <div v-if="!answer.confirmed" class="buttons">
           <button class="approve-btn" :class="{ active: answer.answers[0].status === 'approved' }" @click="toggleAnswerStatus(index, 0, 'approved')">
-            Godkänn
+            {{confirm3}}
           </button>
           <button class="reject-btn" :class="{ active: answer.answers[0].status === 'rejected' }" @click="toggleAnswerStatus(index, 0, 'rejected')">
-            Neka
+            {{decline}}
           </button>
           </div>
 
-        <p><strong>Svar på fråga 2:</strong> {{ answer.answers[1].guess }}</p>
+        <p><strong>{{answerQuestion2}}:</strong> {{ answer.answers[1].guess }}</p>
         <div v-if="!answer.confirmed" class="buttons">
           <button class="approve-btn" :class="{ active: answer.answers[1].status === 'approved' }" @click="toggleAnswerStatus(index, 1, 'approved')">
-            Godkänn
+            {{confirm3}}
           </button>
           <button class="reject-btn" :class="{ active: answer.answers[1].status === 'rejected' }" @click="toggleAnswerStatus(index, 1, 'rejected')">
-            Neka
+            {{decline}}
           </button>
         </div>
         
 
         <div v-if="!answer.confirmed">
-          <button class="confirm-btn" @click="confirmAnswer(index)">Bekräfta</button>
+          <button class="confirm-btn" @click="confirmAnswer(index)">{{confirm3}}</button>
         </div>
 
         <div v-if="answer.confirmed">
-          <p><strong>Poäng:</strong> {{ answer.points }}</p>
+          <p><strong>{{points}}:</strong> {{ answer.points }}</p>
         </div>
         
         </div>
@@ -60,6 +60,8 @@
 <script>
 import io from 'socket.io-client';
 const socket = io("localhost:3000");
+import gameMasterSv from '@/assets/gameMaster-sv.json';
+import gameMasterEn from '@/assets/gameMaster-en.json';
 
 
 //HALLOJI STUGAN
@@ -110,6 +112,41 @@ export default {
     // Begär befintliga svar för denna omröstning
     socket.emit("getSubmittedAnswers", this.pollId);
   },
+
+  computed: {
+    destination() {
+      return this.lang === "sv" ? gameMasterSv.destination : gameMasterEn.destination;
+    },
+    player() {
+      return this.lang === "sv" ? gameMasterSv.player : gameMasterEn.player;
+    },
+    guess() {
+      return this.lang === "sv" ? gameMasterSv.guess : gameMasterEn.guess;
+    },
+    points() {
+      return this.lang === "sv" ? gameMasterSv.points : gameMasterEn.points;
+    },
+    status() {
+      return this.lang === "sv" ? gameMasterSv.status : gameMasterEn.status;
+    },
+    confirm3() {
+      return this.lang === "sv" ? gameMasterSv.confirm3 : gameMasterEn.confirm3;
+    },
+    decline() {
+      return this.lang === "sv" ? gameMasterSv.decline : gameMasterEn.decline;
+    },
+    questionsAboutCity() {
+      return this.lang === "sv" ? gameMasterSv.questionsAboutCity : gameMasterEn.questionsAboutCity;
+    },
+    answerQuestion1() {
+      return this.lang === "sv" ? gameMasterSv.answerQuestion1 : gameMasterEn.answerQuestion1;
+    },
+    answerQuestion2() {
+      return this.lang === "sv" ? gameMasterSv.answerQuestion2 : gameMasterEn.answerQuestion2;
+    },
+        
+      },
+
   methods: {
     approveAnswer(index) {
       //if (this.currentAnswer) {

@@ -10,6 +10,8 @@
     "question1": "Fråga 1",
     "question2": "Fråga 2",
     "questionGuess": "Skriv ditt svar här...",
-    "lockInCityQuestions": "Lås in dina svar"
+    "lockInCityQuestions": "Lås in dina svar",
+    "letsGo":"Starta Spel"
+
 
 }

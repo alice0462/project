@@ -16,9 +16,9 @@
     </div>
 
     <div class="city-questions" v-if="showQuestions">
-    <h1>Frågor om {{ this.currentCity }}</h1>
+    <h1>{{questionsAbout}} {{ this.currentCity }}</h1>
         <div v-for="(question, index) in currentQuestions" :key="index">
-            <h3>Fråga {{ index + 1 }}</h3>
+            <h3>{{questionNumber}} {{ index + 1 }}</h3>
             <p>{{ question }}</p>
         </div>
     </div>
@@ -35,6 +35,9 @@ import cluesEn from '@/assets/clues-en.json';
 import questionsEn from '@/assets/questions-en.json';
 import cluesPointsSv from '@/assets/cluesPoints-sv.json';
 import cluesPointsEn from '@/assets/cluesPoints-en.json';
+import playersSv from '@/assets/players-sv.json';
+import playersEn from '@/assets/players-en.json';
+
 
 
 
@@ -92,7 +95,13 @@ import cluesPointsEn from '@/assets/cluesPoints-en.json';
         const points = this.lang === "sv" ? cluesPointsSv.points : cluesPointsEn.points;
         return points[this.thisPoint] || (this.lang === "sv" ? "Okända poäng" : "Unknown points");
         
-    }
+    },
+    questionNumber(){
+        return this.lang === "sv" ? questionsSv.questionNumber : questionsEn.questionNumber;
+    },
+    questionsAbout(){
+        return this.lang === "sv" ? playersSv.questionsAbout : playersEn.questionsAbout;
+    },
 },
 
 //HEJSSANANNNNNANNADNND

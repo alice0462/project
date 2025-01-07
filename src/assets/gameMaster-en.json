@@ -35,6 +35,17 @@
     "youChoose2": "You have chosen",
     "cancel2":"Cancel",
     "confirming":"Confirm",
-    "level":["Easy", "Hard"]
+    "level":["Easy", "Hard"],
+
+    "destination":"Destination",
+    "player":"Player",
+    "guess":"Guess",
+    "points":"Points",
+    "status":"Status",
+    "confirm3":"Confirm",
+    "decline":"Decline",
+    "questionsAboutCity":"Move on to questions about the city",
+    "answerQuestion1":"Answer to question 1",
+    "answerQuestion2":"Answer to question 2"
       
 }

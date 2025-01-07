@@ -43,25 +43,6 @@ import { useRouter } from 'vue-router';
     data() {
     return {
       name: "ChooseDestination",
-      // Lista med destinationer
-      /*cities: [
-        "Moskva",
-        "Lissabon",
-        "Seoul",
-        "Toronto",
-        "Tokyo",
-        "Barcelona",
-        "Linköping",
-        "New York",
-        "Stockholm",
-        "Helsingfors",
-        "Paris",
-        "Kapstaden",
-        "Hanoi",
-        "Göteborg",
-        "Buenos Aires",
-        "Rio de Janeiro",
-      ],*/
       selectedCities: [],
       showModal: false, 
       data: {},

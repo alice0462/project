@@ -11,7 +11,7 @@
       <div class="game-visual">
         <img src="https://www.wallquotes.com/sites/default/files/kids0017-18.png" 
         alt="All Aboard!" class="train-image" />
-        <button v-if="role === 'admin'" class="start-button" @click="startGame">Starta spel</button>
+        <button v-if="role === 'admin'" class="start-button" @click="startGame">{{letsGo}}</button>
       </div>
     </div>
   </template>
@@ -68,6 +68,9 @@ import playersEN from "/src/assets/players-en.json";
         },
         participantsLabel() {
           return this.lang === "sv" ? playersSV.participantsLabel : playersEN.participantsLabel
+        },
+        letsGo(){
+          return this.lang === "sv" ? playersSV.letsGo : playersEN.letsGo
         }
       },
       

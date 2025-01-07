@@ -36,5 +36,18 @@
     "youChoose2": "Du har valt",
     "cancel2":"Avbryt",
     "confirming": "Bekräfta",
-    "level":["Lätt", "Svårt"]
+    "level":["Lätt", "Svårt"],
+
+    "destination":"Destination",
+    "player":"Spelare",
+    "guess":"Gissning",
+    "points":"Poäng",
+    "status":"Status",
+    "confirm3":"Godkänd",
+    "decline":"Neka",
+    "questionsAboutCity":"Gå vidare till frågorna om staden",
+    "answerQuestion1":"Svar på fråga 1",
+    "answerQuestion2":"Svar på fråga 2"
+
+
 }   
