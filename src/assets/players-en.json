@@ -1,0 +1,15 @@
+{
+    "gameCode": "Gamecode",
+    "participantsLabel": "Participants",
+    "goingWhere": "Where do you think we're going?",
+    "locationGuess": "Type your destination here...",
+    "lockInAnswer": "Lock in your answer",
+    "lockedAnswer": "Your answer is now locked!",
+    "theLockedAnswer": "You have now locked in the answer:",
+    "questionsAbout": "Questions about",
+    "question1": "Question 1",
+    "question2": "Question 2",
+    "questionGuess": "Type your answer here...",
+    "lockInCityQuestions": "Lock in your answers"
+
+}

@@ -9,16 +9,16 @@
     </button>
     <div v-if="submitAnswer && !finalAnswer" class="writeAnswer">
       <div class="writeAnswerContent">
-        <h2> Vart tror du att vi är på väg?</h2>
+        <h2> {{ goingWhere }}</h2>
         <br>
-        <input type="text" class="answerText" v-model="answerDestination" placeholder="Skriv destinationen här..."/>
-        <button v-on:click="submitDestination()" class="submitDestinationButton">Lås in ditt svar</button>
+        <input type="text" class="answerText" v-model="answerDestination" :placeholder= "locationGuess"/>
+        <button v-on:click="submitDestination()" class="submitDestinationButton"> {{ lockInAnswer }}</button>
       </div>
     </div>
     <div v-if="finalAnswer" class="writeAnswer">
       <div class="writeAnswerContent">
-        <h2>Ditt svar är nu låst!</h2>
-        <p>Du har nu låst in svaret:</p>
+        <h2> {{ lockedAnswer }}</h2>
+        <p> {{ theLockedAnswer }}</p>
         <p class="lockedAnswer"> {{ finalAnswer }}</p>
       </div>
     </div>
@@ -26,26 +26,26 @@
 
   <div v-if="cityQuestion" class="questionsView">
     <div v-if="level === 'Svår'">
-      <h2>Frågor om {{ currentCity }}</h2>
+      <h2> {{ questionsAbout }} {{ currentCity }}</h2>
       <!-- Fråga 1 -->
       <div class="answerRow">
-        <h3>Fråga 1</h3>
+        <h3>{{question1}}</h3>
         <input 
           type="text" 
           class="answerInput" 
           v-model="questionAnswers[0]" 
-          placeholder="Skriv ditt svar här..." 
+          :placeholder= "questionGuess" 
         />
       </div>
 
       <!-- Fråga 2 -->
       <div class="answerRow">
-        <h3>Fråga 2</h3>
+        <h3>{{question2}}</h3>
         <input 
           type="text" 
           class="answerInput" 
           v-model="questionAnswers[1]" 
-          placeholder="Skriv ditt svar här..." 
+          :placeholder= "questionGuess" 
         />
       </div>
           <!-- Knapp för att låsa in frågesvar -->
@@ -53,7 +53,7 @@
       class="submitDestinationButton" 
       @click="submitQuestionAnswers()"
     >
-      Lås in dina svar
+      {{lockInCityQuestions}}
     </button>
   </div>
 
@@ -67,6 +67,8 @@
 <script>
 import io from 'socket.io-client';
 const socket = io("localhost:3000");
+import playersSV from "/src/assets/players-sv.json";
+import playersEN from "/src/assets/players-en.json";
 
 export default {
   name: 'ParticipantAnswer',
@@ -119,6 +121,39 @@ export default {
     //this.startTimer();
     
   },
+
+  computed: {
+        goingWhere() {
+          return this.lang === "sv" ? playersSV.goingWhere : playersEN.goingWhere;
+        },
+        locationGuess(){
+          return this.lang === "sv" ? playersSV.locationGuess : playersEN.locationGuess
+        },
+        lockInAnswer() {
+          return this.lang === "sv" ? playersSV.lockInAnswer : playersEN.lockInAnswer
+        },
+        lockedAnswer() {
+          return this.lang === "sv" ? playersSV.lockedAnswer : playersEN.lockedAnswer;
+        },
+        theLockedAnswer() {
+          return this.lang === "sv" ? playersSV.theLockedAnswer : playersEN.theLockedAnswer;
+        },
+        questionsAbout() {
+          return this.lang === "sv" ? playersSV.questionsAbout : playersEN.questionsAbout;
+        },
+        question1() {
+          return this.lang === "sv" ? playersSV.question1 : playersEN.question1;
+        },
+        question2() {
+          return this.lang === "sv" ? playersSV.question2 : playersEN.question2;
+        },
+        questionGuess() {
+          return this.lang === "sv" ? playersSV.questionGuess : playersEN.questionGuess;
+        },
+        lockInCityQuestions() {
+          return this.lang === "sv" ? playersSV.lockInCityQuestions : playersEN.lockInCityQuestions;
+        },
+      },
 
   methods: {
     startTimer(startTime) {

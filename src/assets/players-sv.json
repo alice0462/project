@@ -1,0 +1,15 @@
+{
+    "gameCode": "Spelkod",
+    "participantsLabel": "Deltagare",
+    "goingWhere": "Vart tror du att vi är på väg?",
+    "locationGuess": "Skriv destinationen här...",
+    "lockInAnswer": "Lås in ditt svar",
+    "lockedAnswer": "Ditt svar är nu låst!",
+    "theLockedAnswer": "Du har nu låst in svaret:",
+    "questionsAbout": "Frågor om",
+    "question1": "Fråga 1",
+    "question2": "Fråga 2",
+    "questionGuess": "Skriv ditt svar här...",
+    "lockInCityQuestions": "Lås in dina svar"
+
+}

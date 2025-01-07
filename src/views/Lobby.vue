@@ -1,8 +1,8 @@
 <template>
     <div class="lobby-container">
       <div class="lobby-info">
-        <h1>Spelkod: <span class="pollId"> {{ this.pollId }} </span></h1>
-        <h2>Deltagare:</h2>
+        <h1> {{ gameCode }}: <span class="pollId"> {{ this.pollId }} </span></h1>
+        <h2> {{ participantsLabel }}:</h2>
         <!--{{ this.participants }} TROR INTE DENNA BEHÖVS FÖR VI HAR JU DEN NUMRERAD PÅ RAD 9--> 
         <!-- HÄR SKA VI KOPPLA IHOP DE NAMN SOM SKRIVS IN I PLAYERS!!!!-->
         <p v-for="(participant, index) in participants" :key="index">
@@ -20,13 +20,16 @@
 import { useRoute } from 'vue-router';
 import io from 'socket.io-client';
 const socket = io("localhost:3000");
+import playersSV from "/src/assets/players-sv.json";
+import playersEN from "/src/assets/players-en.json";
+
 
   export default {
     name: "Lobby",
     data: function () {
         return {
             pollId: "",
-            uiLabels: {},
+            //uiLabels: {},
             lang: localStorage.getItem("lang") || "en",
             participants: [],
             selectedLevel: "",
@@ -58,6 +61,16 @@ const socket = io("localhost:3000");
         socket.emit("joinPoll", this.pollId);
         socket.emit("getParticipants", this.pollId);
       },
+
+      computed: {
+        gameCode() {
+          return this.lang === "sv" ? playersSV.gameCode : playersEN.gameCode;
+        },
+        participantsLabel() {
+          return this.lang === "sv" ? playersSV.participantsLabel : playersEN.participantsLabel
+        }
+      },
+      
     methods: {
       startGame() {
         socket.emit("startGame", this.pollId);
