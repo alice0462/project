@@ -75,6 +75,10 @@ const router = createRouter({
     name: "Points",
       component: () => import('../views/Points.vue')
     },
+    {path: "/podium/",
+      name: "Podium",
+        component: () => import('../views/Podium.vue')
+      },
   ]
 })
 
