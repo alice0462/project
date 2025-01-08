@@ -26,7 +26,7 @@ export default {
             uiLabels: {},
             lang: localStorage.getItem("lang") || "en",
             participants: [],
-            selectedLevel: "",
+            selectedToGameCode: "",
             selectedCities: [],
             role: localStorage.getItem("role"), //Hämtar den tilldelade rollen som bestäms startView
         }

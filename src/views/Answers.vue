@@ -1,6 +1,7 @@
 <template>
   <body>
     <h1>{{destination}}: {{ this.currentCity }}</h1>
+    <button class="questionButton" @click="goToQuestions">{{questionsAboutCity}}</button>
     <div v-if="destinationAnswers.length > 0 && !questionAnswer">
       <div v-for="(answer, index) in destinationAnswers" :key="index" :class="['answerBox', answer.status]">
         <p><strong>{{player}}:</strong> {{ answer.name }} 
@@ -16,7 +17,6 @@
         <button class="reject-btn" @click="rejectAnswer(index)">{{decline}}</button>
       </div>
     </div>
-    <button class="questionButton" @click="goToQuestions">{{questionsAboutCity}}</button>
     </div>
       
     <div v-if="questionAnswers.length > 0 && questionAnswer">
@@ -73,7 +73,7 @@ export default {
             uiLabels: {},
             lang: localStorage.getItem("lang") || "en",
             participants: [],
-            selectedLevel: "",
+            selectedToGameCode: "",
             selectedCities: [],
             role: localStorage.getItem("role"), //Hämtar den tilldelade rollen som bestäms startView
             destinationAnswers: [],     
