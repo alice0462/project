@@ -29,13 +29,8 @@
     "givenDestination":"You have been assigned a destination",
     "generateNewDestination":"Generate new destination",
     
-    "chooseLevel":"Choose level",
-    "choose2":"Choose",
-    "confirm2":"Confirm selection",
-    "youChoose2": "You have chosen",
-    "cancel2":"Cancel",
-    "confirming":"Confirm",
-    "level":["Easy", "Hard"],
+    "ready":"Are you ready!?",
+    "goToCode":"Show the players the gamecode",
 
     "destination":"Destination",
     "player":"Player",

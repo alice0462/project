@@ -25,16 +25,16 @@ const socket = io("localhost:3000");
     name: "GameMasterCode",
     setup () {
       const route = useRoute ();
-      const selectedLevel = route.query.selectedLevels || 'Ingen nivå vald';
+      const selectedToGameCode = route.query.selectToGamecode || 'Ingen nivå vald';
       return {
-        selectedLevel,
+        selectedToGameCode,
       };
     },
     created: function () {
-        socket.on("selectedLevel", (data) => {
+        socket.on("selectedToGameCode", (data) => {
         console.log("Mottagen nivå:", data);
           // Spara städerna i data
-        this.selectedLevel = data.level; 
+        this.selectedToGameCode = data.level; 
         });
       },
     methods: {

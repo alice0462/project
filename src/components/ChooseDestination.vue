@@ -14,7 +14,8 @@
         {{ city }}
       </button>
     </div>
-
+ 
+ 
     <button class="submit-btn" :disabled="selectedCities.length === 0" @click="openModal">
       {{ uiLabels.choose }}
     </button>
@@ -29,22 +30,23 @@
       </div>
     </div>
   </div>
-</template>
-  
-<script>
-import { io } from "socket.io-client";
-const socket = io("http://localhost:3000"); 
-import gameMasterSv from '@/assets/gameMaster-sv.json';
-import gameMasterEn from '@/assets/gameMaster-en.json';
-
-import { useRouter } from 'vue-router';
-
+ </template>
+  <script>
+ import { io } from "socket.io-client";
+ const socket = io("http://localhost:3000");
+ import gameMasterSv from '@/assets/gameMaster-sv.json';
+ import gameMasterEn from '@/assets/gameMaster-en.json';
+ 
+ 
+ import { useRouter } from 'vue-router';
+ 
+ 
   export default {
     data() {
     return {
       name: "ChooseDestination",
       selectedCities: [],
-      showModal: false, 
+      showModal: false,
       data: {},
       pollId: "",
       lang: localStorage.getItem("lang") || "en",
@@ -53,7 +55,8 @@ import { useRouter } from 'vue-router';
     created: function() {
       this.pollId = this.$route.params.id;
     },
-
+ 
+ 
     computed: {
       uiLabels() {
         return this.lang === "sv" ? gameMasterSv : gameMasterEn; // Dynamiskt välj språk
@@ -63,11 +66,13 @@ import { useRouter } from 'vue-router';
         return Object.keys(this.uiLabels.cities).map((key) => this.uiLabels.cities[key]);
       },
     },
-
+ 
+ 
     methods: {
     toggleSelection(city, index) {
       const selectedCity = { name: city, index: index };
-
+ 
+ 
       if (this.selectedCities.some((c) => c.name === city)) {
         // Ta bort staden om den redan är vald
         this.selectedCities = this.selectedCities.filter((c) => c.name !== city);
@@ -76,7 +81,8 @@ import { useRouter } from 'vue-router';
         this.selectedCities.push(selectedCity);
       }
       this.data = {name :this.name, cities :this.selectedCities, pollId: this.pollId};
-
+ 
+ 
     },
     openModal() {
       this.showModal = true;
@@ -89,17 +95,19 @@ import { useRouter } from 'vue-router';
       //localStorage.setItem("selectedCities", JSON.stringify(this.selectedCities));
       //console.log(this.data.cities);
       socket.emit("sendCities", {data: this.data, pollId: this.pollId}); //Skapar ett rop som vi kommer behöva lyssna på, med ropet skickar vi med data (städer)
-      this.$router.push("/level/" + this.pollId);
+      this.$router.push("/go-to-code/" + this.pollId);
     },
   },
-
+ 
+ 
   };
-  
-</script>
-
-<style scoped>
+  </script>
+ 
+ 
+ <style scoped>
   @import url('https://fonts.googleapis.com/css2?family=Agbalumo&family=Cormorant:wght@700&display=swap');
-
+ 
+ 
   .container-choose {
     margin: 0;
     padding: 0;
@@ -116,14 +124,16 @@ import { useRouter } from 'vue-router';
     min-height: 100vh; /* Tar upp hela höjden på skärmen */
     text-align: center; /* Centrerar text */
   }
-
-  header{ 
+ 
+ 
+  header{
     font-size: 42px;
     font-family: 'Futura';
     margin-bottom: 30px;
     color: #333;
   }
-
+ 
+ 
   h1{
     font-size: 20px;
     font-weight: lighter;
@@ -131,7 +141,8 @@ import { useRouter } from 'vue-router';
     margin-bottom: 30px;
     color: #555;
   }
-
+ 
+ 
   .grid {
   display: grid;
   grid-template-columns: 200px 200px 200px 200px;
@@ -139,7 +150,8 @@ import { useRouter } from 'vue-router';
   gap: 20px;
   padding: 0 20px;
   }
-
+ 
+ 
   button {
   background-color: #ffe369;
   border: none;
@@ -149,17 +161,19 @@ import { useRouter } from 'vue-router';
   font-family: 'Futura';
   cursor: pointer;
   transition: background-color 0.3s ease;
-}
-
-button.selected {
+ }
+ 
+ 
+ button.selected {
   background-color: #fff8d4; /* Ljusare gul färg */
   border: 3px solid #cba935; /* Lägg till en kant för att markera */
-}
-
-button:hover {
+ }
+ 
+ 
+ button:hover {
   background-color: #fff8d4;
-}
-.submit-btn {
+ }
+ .submit-btn {
   margin-top: 20px;
   background-color: #34e583; /* Ändra färg här */
   color: rgb(4, 4, 4);
@@ -172,9 +186,10 @@ button:hover {
   position: absolute; /* Placera knappen absolut */
   right: 40px; /* Avstånd från höger */
   bottom: 80px; /* Avstånd från botten */
-}
-
-.modal-overlay {
+ }
+ 
+ 
+ .modal-overlay {
   position: fixed;
   top: 0;
   left: 0;
@@ -185,9 +200,10 @@ button:hover {
   align-items: center;
   justify-content: center;
   z-index: 1000;
-}
-
-.modal {
+ }
+ 
+ 
+ .modal {
   background: white;
   padding: 20px;
   border-radius: 10px;
@@ -195,32 +211,36 @@ button:hover {
   width: 400px;
   font-family: 'Futura';
   font-weight: lighter;
-}
-
-.modal-buttons {
+ }
+ 
+ 
+ .modal-buttons {
   display: flex;
   justify-content: center;
   margin-top: 20px;
   gap: 20px;
-}
-
-.confirm-button {
+ }
+ 
+ 
+ .confirm-button {
   background-color: #34e583;
   border: 2px;
   padding: 10px 20px;
   border-radius: 10px;
   color: white;
   cursor: pointer;
-}
-
-.cancel-button {
+ }
+ 
+ 
+ .cancel-button {
   background-color: red;
   border: 2px;
   padding: 10px 20px;
   border-radius: 10px;
   color: white;
   cursor: pointer;
-}
-
-</style>
-  
+ }
+ 
+ 
+ </style>
+ 

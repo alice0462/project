@@ -2,7 +2,7 @@ import { createRouter, createWebHistory } from 'vue-router'
 import StartView from '../views/StartView.vue'
 import RandomDestination from "../components/RandomDestination.vue";
 import ChooseDestination from "../components/ChooseDestination.vue";
-import Level from '../components/Level.vue';
+import goToCode from '../components/goToCode.vue';
 import GameMasterCode from '../components/GameMasterCode.vue';
 
 
@@ -45,9 +45,9 @@ const router = createRouter({
       component: ChooseDestination, // Länkar till din komponent
     },
     {
-      path: '/level/:id',
-      name: 'Level',
-      component: Level,
+      path: '/go-to-code/:id',
+      name: 'goToCode',
+      component: goToCode,
     },
     {
       path: "/lobby/:id",
@@ -70,11 +70,7 @@ const router = createRouter({
       name: "Answers",
       component: () => import('../views/Answers.vue')
     },
-    /*{
-      path: "/pollview",
-      name: "PollView",
-      views: PollView,
-    },*/
+
     {path: "/points/",
     name: "Points",
       component: () => import('../views/Points.vue')

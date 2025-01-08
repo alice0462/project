@@ -101,7 +101,7 @@ export default {
       console.log("starttid mottagen:", startTime);
       this.startTimer(startTime);
     });
-    socket.on('selectedLevel', (l) => {
+    socket.on('selectedToGameCode', (l) => {
             console.log("Vald nivå mottagen:", l);
             this.level = l;});
     socket.on( "uiLabels", labels => this.uiLabels = labels );
@@ -120,7 +120,7 @@ export default {
       this.participantName=data.name;
     });
     socket.emit("requestStartTime", this.pollId);
-    socket.emit("requestLevel", this.pollId); 
+    socket.emit("requestCode", this.pollId); 
     //this.startTimer();
     
   },
