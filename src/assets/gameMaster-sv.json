@@ -30,13 +30,8 @@
     "generateNewDestination":"Generera nya destinationer",
 
 
-    "chooseLevel":"Välj svårighetsgrad",
-    "choose2":"Välj",
-    "confirm2":"Bekräfta val",
-    "youChoose2": "Du har valt",
-    "cancel2":"Avbryt",
-    "confirming": "Bekräfta",
-    "level":["Lätt", "Svårt"],
+    "ready":"Är du redo?!",
+    "goToCode":"Visa deltagarna spelkoden",
 
     "destination":"Destination",
     "player":"Spelare",

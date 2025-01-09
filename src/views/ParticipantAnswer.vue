@@ -1,12 +1,13 @@
 <template>
 <body>
   <div v-if="!cityQuestion">
-    <button type="button" class="answer-button" @click="submitAnswer = true">
+    <div class="answerButtonContainer" @mousedown="startDrag" @mouseup="stopDrag" @mousemove="drag">
+      <button type="button" class="answerButton" :style="{ transform: `translateY(${buttonOffset}px)` }">
         <img 
             src="/public/nodbroms.png"
-            style="width: 798px; height:564px;"
         />
     </button>
+    </div>
     <div v-if="submitAnswer && !finalAnswer" class="writeAnswer">
       <div class="writeAnswerContent">
         <h2> {{ goingWhere }}</h2>
@@ -101,7 +102,14 @@ export default {
       cityQuestion: false,
       level: null,
       currentCity: null,
+<<<<<<< HEAD
       finalQuestionAnswers: null,
+=======
+      isDragging: false, // Spårar om användaren drar
+      dragDistance: 0,   // Total dragsträcka
+      maxDrag: 250, 
+      buttonOffset: 0,
+>>>>>>> 7ca8fe3084538c611b7d897768601e4ada22a751
     }
   },
   created: function () {
@@ -111,7 +119,7 @@ export default {
       console.log("starttid mottagen:", startTime);
       this.startTimer(startTime);
     });
-    socket.on('selectedLevel', (l) => {
+    socket.on('selectedToGameCode', (l) => {
             console.log("Vald nivå mottagen:", l);
             this.level = l;});
     socket.on( "uiLabels", labels => this.uiLabels = labels );
@@ -130,7 +138,7 @@ export default {
       this.participantName=data.name;
     });
     socket.emit("requestStartTime", this.pollId);
-    socket.emit("requestLevel", this.pollId); 
+    socket.emit("requestCode", this.pollId); 
     //this.startTimer();
     
   },
@@ -203,8 +211,6 @@ export default {
       console.log("inget svar registrerat för spelare:", this.user)
 
     },
-
-
     submitDestination(){
       if(this.answerDestination === "") {
         alert("Du måste skriva in ett svar innan du kan låsa in det!")
@@ -231,12 +237,49 @@ export default {
           { questionNumber: 2, guess: this.questionAnswers[1] },
         ],
       });
+    },
+    startDrag(event) {
+      event.preventDefault();
+      this.isDragging = true;
+      this.dragStartY = event.clientY; // Startpunkt för dragningen
+
+    // Lägg till globala lyssnare
+    window.addEventListener("mousemove", this.drag);
+    window.addEventListener("mouseup", this.stopDrag);
+  },
+  drag(event) {
+    if (this.isDragging) {
+      const dragAmount = event.clientY - this.dragStartY;
+      
+      this.buttonOffset = Math.min(Math.max(dragAmount, 0), this.maxDrag);
+
+      if (dragAmount >= this.maxDrag) {
+        this.triggerButton(); // Aktivera nödbromsen
+        this.stopDrag(); // Stoppa dragningen
+      }
     }
   },
+  stopDrag() {
+    if (this.isDragging) {
+      this.isDragging = false;
 
+      // Ta bort globala lyssnare
+      window.removeEventListener("mousemove", this.drag);
+      window.removeEventListener("mouseup", this.stopDrag);
 
+      // Återställ position om inte maxDrag nåddes
+      if (this.buttonOffset < this.maxDrag) {
+        this.buttonOffset = 0; // Tillbaka till startposition
+      }
+    }
+  },
+  triggerButton() {
+    console.log("Nödbromsen är aktiverad!");
+    this.submitAnswer = true; // Logik för att aktivera nödbromsen
+  },
 
-  };
+  },};
+
 </script>
 
 <style scoped>
@@ -328,6 +371,28 @@ export default {
   width: 500px;
 }
 
+.answerButton img{
+  position: relative; /* Förbereder för användning av transform */
+  top: 0;
+  width: 798px; 
+  height: 564px;
+  cursor: grab;
+  transition: transform 0.2s ease; /* Smidig rörelse vid drag */
+}
+.answerButton:active {
+  cursor: grabbing;
+}
+
+.answerButtonContainer {
+  position: fixed; /* Placera högst upp på skärmen */
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  
+  
+}
+
 
 
 </style>
+

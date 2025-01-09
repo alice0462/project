@@ -153,7 +153,7 @@ Data.prototype.addCities = function(pollId, data) {
   console.log("INFO!!!!:", data)
 };
 
-Data.prototype.setLevel = function(pollId, data) {
+Data.prototype.readySetGo = function(pollId, data) {
   console.log(data);
   //this.polls[pollId] = { pollId: pollId }; // Skapar en ny objektstruktur
   this.polls[pollId].level = data.level;
@@ -171,7 +171,7 @@ Data.prototype.getCities = function(pollId, data) {
   return [];
 }
 
-Data.prototype.getLevel = function(pollId, data) {
+Data.prototype.getCode = function(pollId, data) {
   const poll = this.polls[pollId];
   console.log("level requested for:", pollId);
   if(this.pollExists(pollId)) {

@@ -46,10 +46,10 @@ function sockets(io, socket, data) {
     //io.to(d.pollId).emit("selectedCities", d);//
   });
 
-  socket.on("sendLevel", (d) => {
-    console.log("Mottagen nivå:", d);
-    data.setLevel(d.pollId, d.data);
-    socket.emit("selectedLevel", data.getLevel(d.pollId));
+  socket.on("sendToGamecode", (d) => {
+    console.log("Gå till spelkod:", d);
+    data.readySetGo(d.pollId, d.data);
+    socket.emit("selectedToGameCode", data.getCode(d.pollId));
     // Broadcast till alla anslutna klienter
   });
 
@@ -61,8 +61,8 @@ function sockets(io, socket, data) {
     socket.emit('chosenCities', data.getCities(pollId))
   });
 
-  socket.on("requestLevel", pollId => {
-    socket.emit('selectedLevel', data.getLevel(pollId))
+  socket.on("requestCode", pollId => {
+    socket.emit('selectedToGameCode', data.getCode(pollId))
   });
 
   socket.on("currentCity", (d) => {
