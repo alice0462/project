@@ -2,7 +2,6 @@
     <div class="pointContainer">
       <h1>Poängställning</h1>
       <div class="pointBox">
-        <p>{{ leaderboard }}</p>
         <ol v-if="leaderboard.length > 0">
           <p v-for="(player, index) in leaderboard" :key="index">
             {{ index + 1 }}. {{ player.name }} - {{ player.points }} poäng
@@ -24,12 +23,23 @@
 
   export default {
     name: 'Points',
-    data() {
+    data: function() {
       return {
-        pollId: this.$route.params.id || "",
+        pollId: "",
         // Exempeldata för poängställning
         leaderboard: []
       };
+      
+    },
+    created: function(){
+      this.pollId = this.$route.params.id;
+      console.log("pollId skickat till servern:", this.pollId);
+      //this.sortLeaderboard(); // Sortera data vid skapandet
+      socket.on("participantLeaderbord", (participants) => {
+        console.log("Mottagna deltagare:", participants);
+        this.sortLeaderboard(participants)});
+      socket.emit("joinPoll", this.pollId);
+      socket.emit("getScores", this.pollId);
     },
     methods: {
       // Metod för att sortera leaderboard om nödvändigt
@@ -43,13 +53,7 @@
       } // Sortera efter poäng, fallande
       }
     },
-    created() {
-      this.pollId = this.$route.params.id;
-      console.log("pollId skickat till servern:", this.pollId);
-      //this.sortLeaderboard(); // Sortera data vid skapandet
-      socket.on("participantLeaderbord", (participants) => {this.sortLeaderboard(participants)});
-      socket.emit("getScores", { pollId: this.pollId });
-    }
+
   };
   </script>
   

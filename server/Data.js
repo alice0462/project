@@ -87,6 +87,31 @@ Data.prototype.addPoints = function(pollId, user, points) {
   }
 };
 
+
+/*Data.prototype.getLeaderboard = function (pollId) {
+  if (this.pollExists(pollId)) {
+    return this.polls[pollId].participants.map(p => ({
+      name: p.name,
+      points: p.points || 0, // Om deltagaren inte har några poäng ännu, sätt till 0
+    }));
+  }
+  return [];
+};*/
+
+Data.prototype.getLeaderboard = function (pollId) {
+  if (this.pollExists(pollId)) {
+    const leaderboard = [];
+    for (const participant of this.polls[pollId].participants) {
+      leaderboard.push({
+        name: participant.name,
+        points: participant.points || 0
+      });
+    }
+    return leaderboard;
+  }
+  return [];
+};
+
 Data.prototype.getParticipants = function(pollId) {
   const poll = this.polls[pollId];
   console.log("participants requested for", pollId);

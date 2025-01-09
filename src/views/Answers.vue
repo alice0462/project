@@ -73,8 +73,6 @@ import gameMasterSv from '@/assets/gameMaster-sv.json';
 import gameMasterEn from '@/assets/gameMaster-en.json';
 import answersSv from '/src/assets/answers-sv.json';
 import answersEn from '/src/assets/answers-en.json';
-console.log("Svenska", answersSv);
-console.log("Engelska", answersEn)
 
 
 //HALLOJI STUGAN
