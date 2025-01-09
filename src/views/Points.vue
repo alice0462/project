@@ -1,16 +1,16 @@
 <template>
     <div class="pointContainer">
-      <h1>Poängställning</h1>
+      <h1>{{currentScore}}</h1>
       <div class="pointBox">
         <p>{{ leaderboard }}</p>
         <ol v-if="leaderboard.length > 0">
           <p v-for="(player, index) in leaderboard" :key="index">
-            {{ index + 1 }}. {{ player.name }} - {{ player.points }} poäng
+            {{ index + 1 }}. {{ player.name }} - {{ player.points }} {{points1}}
           </p>
         </ol>
-        <p v-else>Inga deltagare ännu...</p>
+        <p v-else>{{noPlayersYet}}</p>
         <button v-if="role === 'admin' "class="nextDestinationButton" @click="nextDestination">
-            Nästa destination
+          {{nextDestination}}
         </button>
       </div>
     </div>
@@ -51,7 +51,23 @@
       //this.sortLeaderboard(); // Sortera data vid skapandet
       socket.on("participantLeaderbord", (participants) => {this.sortLeaderboard(participants)});
       socket.emit("getScores", { pollId: this.pollId });
-    }
+    },
+
+  computed: {
+    currentScore() {
+      return this.lang === "sv" ? gameMasterSv.currentScore : gameMasterEn.currentScore;
+    },
+    points1() {
+      return this.lang === "sv" ? gameMasterSv.points1 : gameMasterEn.points1;
+    },
+    noPlayersYet() {
+      return this.lang === "sv" ? gameMasterSv.noPlayersYet : gameMasterEn.noPlayersYet;
+    },
+    nextDestination() {
+      return this.lang === "sv" ? gameMasterSv.nextDestination : gameMasterEn.nextDestination;
+    },
+  }
+    
   };
   </script>
   

@@ -14,12 +14,41 @@
           <div class="position">3</div>
         </div>
       </div>
+      <div class="remaining-players" v-if="remainingPlayers.length > 0">
+      <h2>Resterande placeringar</h2>
+      <ol>
+        <p v-for="(player, index) in remainingPlayers" :key="index">
+          {{ index + 4 }}. {{ player.name }} - {{ player.points }} poäng
+        </p>
+      </ol>
+    </div>
       <button class="end-game-btn" @click="endGame">Avsluta spel</button>
     </div>
   </template>
   
   <script>
   export default {
+    data() {
+    return {
+      players: [
+        { name: "Spelare 1", points: 100 },
+        { name: "Spelare 2", points: 80 },
+        { name: "Spelare 3", points: 60 },
+        { name: "NAMN", points: 50 },
+        { name: "NAMN", points: 40 },
+      ],
+    };
+  },
+
+  computed: {
+    podium() {
+      return this.players.slice(0, 3); // Topp 3 spelare
+    },
+    remainingPlayers() {
+      return this.players.slice(3); // Alla utom topp 3
+    },
+  },
+
     methods: {
       endGame() {
         console.log("Spelet avslutades!");
@@ -138,5 +167,23 @@
   .end-game-btn:hover {
     transform: scale(1.1);
   }
+
+  .remaining-players {
+    margin-top: 20px;
+    text-align: center;
+  }
+
+.remaining-players h2 {
+  font-family: 'Futura', sans-serif;
+  font-size: 1.5rem;
+  margin-bottom: 10px;
+}
+
+.remaining-players ol {
+  list-style-position: inside;
+  font-family: 'Futura', sans-serif;
+  font-size: 1.2rem;
+  color: black;
+}
   </style>
   
