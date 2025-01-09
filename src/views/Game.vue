@@ -1,14 +1,13 @@
 <template>
     <body>
     <div class="gameSite">
-        <div class="circle" v-if="!showQuestions">
+        <div class="circle" v-if="!showQuestions && !showFinalCityMessage" >
             <div class="startTimer">
                 {{ timer }}
             </div>
         </div>
-        <div class="headline">
+        <div class="headline" v-if="!showQuestions && !showFinalCityMessage">
             {{ uiLabels.headline }}
-
         </div>
         <div class="clues" v-if="showClues">
         <h2>{{ currentPoint }}</h2>
@@ -16,7 +15,7 @@
     </div>
     
     <div class="final-city" v-if="showFinalCityMessage">
-    <h1>{{ showCity() }}</h1>
+        {{ showCity() }}
     </div>
 
     <div class="city-questions" v-if="showQuestions">
@@ -261,16 +260,22 @@ h1 {
     width: auto; 
     height: auto;
     color: black;
-    font-weight: bold;
-    font-size: 30px;
+    
+    font-size: 60px;
     text-align: center;
+    font-family: 'Futura', sans-serif;
+    top: 70px;
+    justify-content: center
     
 }
 .city-questions {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 30px; /* Lägger till mellanrum mellan rutorna */
+    position: absolute;
+    font-size: 50px;
+    font-family: 'Futura', sans-serif;
+    top: 70px;
+    justify-content: center;
+    
+   
 }
 
 .city-questions div {
