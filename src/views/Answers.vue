@@ -1,6 +1,15 @@
 <template>
   <body>
     <h1>{{destination}}: {{ this.currentCity }}</h1>
+
+    <p v-if="correctAnswers && correctAnswers.length > 0">
+  <strong>Facit:</strong>
+    <p v-for="(answer, index) in correctAnswers" :key="index">
+      <strong>{{ index === 0 ? answerQuestion1 : answerQuestion2 }}:</strong> {{ answer }}
+    </p>
+</p>
+
+    <button class="questionButton" v-if ="!questionAnswer" @click="goToQuestions">{{questionsAboutCity}}</button>
     <div v-if="destinationAnswers.length > 0 && !questionAnswer">
       <div v-for="(answer, index) in destinationAnswers" :key="index" :class="['answerBox', answer.status]">
         <p><strong>{{player}}:</strong> {{ answer.name }} 
@@ -16,13 +25,14 @@
         <button class="reject-btn" @click="rejectAnswer(index)">{{decline}}</button>
       </div>
     </div>
-    <button class="questionButton" @click="goToQuestions">{{questionsAboutCity}}</button>
+    
     </div>
       
     <div v-if="questionAnswers.length > 0 && questionAnswer">
       <div v-for="(answer, index) in questionAnswers" :key="index" :class="['answerBox', answer.status]">
         <p><strong>{{player}}:</strong> {{ answer.name }}</p>
         <p><strong>{{answerQuestion1}}:</strong> {{ answer.answers[0].guess }}</p>
+        
         <div v-if="!answer.confirmed" class="buttons">
           <button class="approve-btn" :class="{ active: answer.answers[0].status === 'approved' }" @click="toggleAnswerStatus(index, 0, 'approved')">
             {{confirm3}}
@@ -41,7 +51,6 @@
             {{decline}}
           </button>
         </div>
-        
 
         <div v-if="!answer.confirmed">
           <button class="confirm-btn" @click="confirmAnswer(index)">{{confirm3}}</button>
@@ -50,8 +59,9 @@
         <div v-if="answer.confirmed">
           <p><strong>{{points}}:</strong> {{ answer.points }}</p>
         </div>
-        
         </div>
+        
+        <button class="questionButton" @click="goToScores">{{showScores}}</button>
     </div>
   </body>
 
@@ -62,6 +72,10 @@ import io from 'socket.io-client';
 const socket = io("localhost:3000");
 import gameMasterSv from '@/assets/gameMaster-sv.json';
 import gameMasterEn from '@/assets/gameMaster-en.json';
+import answersSv from '/src/assets/answers-sv.json';
+import answersEn from '/src/assets/answers-en.json';
+console.log("Svenska", answersSv);
+console.log("Engelska", answersEn)
 
 
 //HALLOJI STUGAN
@@ -92,7 +106,6 @@ export default {
       }
     });
     socket.on("submittedAnswersUpdate", (answers) => {
-      console.log("hejsvejs")
       console.log("inkommande svar:", answers);
       if (!this.questionAnswer) {
         this.destinationAnswers = answers.filter((a) => a.type === "destination");
@@ -144,8 +157,19 @@ export default {
     answerQuestion2() {
       return this.lang === "sv" ? gameMasterSv.answerQuestion2 : gameMasterEn.answerQuestion2;
     },
-        
-      },
+    showScores() {
+      return this.lang === "sv" ? gameMasterSv.showScores : gameMasterEn.showScores;
+    },
+    
+    correctAnswers() {
+      const answers = this.lang === "sv" ? answersSv.svar : answersEn.answers;
+      const result = answers[this.currentCity] || [];
+      console.log('Facit', this.currentCity, result);
+      return result;
+
+  },
+},
+
 
   methods: {
     approveAnswer(index) {
@@ -162,6 +186,7 @@ export default {
 
         // Uppdatera visningen
         this.currentAnswer = null;
+        this.updatePoints(answer.name, answer.points);
       },
 
     rejectAnswer(index) {
@@ -216,15 +241,27 @@ export default {
           user: answer.name,
           points: answer.points,
         });
+        this.updatePoints(answer.name, answer.points); 
       },
-
+      
       goToQuestions() {
         this.questionAnswer = true;
         socket.emit("startQuestions", this.pollId);
-        
       },
+
+      goToScores(){
+        this.$router.push('/points/' + this.pollId);
+        //socket.emit("startScores", this.pollId)
+      },
+      updatePoints(user, points) {
+        socket.emit("updatePoints", {
+          pollId: this.pollId,
+          user,
+          points
+        });
     },
   }
+}
   //},
 //}
   

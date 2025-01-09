@@ -46,6 +46,8 @@
     "decline":"Decline",
     "questionsAboutCity":"Move on to questions about the city",
     "answerQuestion1":"Answer to question 1",
-    "answerQuestion2":"Answer to question 2"
+    "answerQuestion2":"Answer to question 2",
+
+    "showScores": "Show scores"
       
 }

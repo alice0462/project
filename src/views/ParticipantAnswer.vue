@@ -56,6 +56,15 @@
     >
       {{lockInCityQuestions}}
     </button>
+    <div v-if="finalQuestionAnswers" class="writeAnswer">
+      <div class="writeAnswerContent">
+        <h2> {{ lockedAnswer }} </h2>
+        <p
+          v-for="(answer, index) in finalQuestionAnswers" :key="index">
+          {{ question3 }} {{ index + 1 }}: {{ answer }}
+      </p>
+      </div>
+    </div>
   </div>
 
     </div>
@@ -92,6 +101,7 @@ export default {
       cityQuestion: false,
       level: null,
       currentCity: null,
+      finalQuestionAnswers: null,
     }
   },
   created: function () {
@@ -158,7 +168,10 @@ export default {
         },
         level(){
           return this.lang === "sv" ? gameMasterSv.level : gameMasterEn.level;
-        }
+        },
+        question3() {
+          return this.lang === "sv" ? playersSV.question3 : playersEN.question3;
+        },
       },
 
   methods: {
@@ -208,6 +221,7 @@ export default {
       console.log("Svar skickat:", {user: this.user, pollId: this.pollId, guess: this.finalAnswer, points: this.points});
     },
     submitQuestionAnswers() {
+      this.finalQuestionAnswers = [...this.questionAnswers];
       socket.emit("answerSubmit", {
         user: this.user,
         pollId: this.pollId,

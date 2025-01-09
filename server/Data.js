@@ -17,6 +17,7 @@ function Data() {
     answers: [],
     currentQuestion: 0,
     participants: [],
+    scores: []
   }
 }
 
@@ -49,9 +50,11 @@ Data.prototype.createPoll = function(pollId, lang="en") {
     poll.cities = [],
     poll.level = "",
     poll.guesses = [],  
-    poll.startTime = null,            
+    poll.startTime = null,    
+    poll.points = 0;        
     this.polls[pollId] = poll;
     console.log("poll created", pollId, poll);
+    
   }
   return this.polls[pollId];
 }
@@ -70,6 +73,19 @@ Data.prototype.participateInPoll = function(pollId, name) {
   }
 }
 
+Data.prototype.addPoints = function(pollId, user, points) {
+  if (this.pollExists(pollId)) {
+    const poll = this.polls[pollId];
+
+    // Leta efter deltagaren
+    const participant = poll.participants.find(p => p.name === user);
+    participant.points = (participant.points || 0) + points; // Addera poängen
+    
+    console.log(`Totala poäng för ${user}:`, participant ? participant.points : points);
+  } else {
+    console.log(`Poll finns inte: ${pollId}`);
+  }
+};
 
 Data.prototype.getParticipants = function(pollId) {
   const poll = this.polls[pollId];
@@ -239,6 +255,12 @@ Data.prototype.startTime = function (pollId) {
   }
   return null;
 };
+
+/*Data.prototype.showScores = function(pollId, name, points) {
+  if (this.pollExists(pollId)) {
+    return user, points
+  }
+}*/
 
 export { Data };
 

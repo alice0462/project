@@ -123,8 +123,22 @@ function sockets(io, socket, data) {
 
   socket.on("startQuestions", pollId => {
     io.to(pollId).emit("showQuestions", pollId);
+  });
+
+  socket.on("startScores", pollId => {
+    io.to(pollId).emit("showScores", data.showScores(pollId));
   })
 
+  socket.on("updatePoints", (d) => {
+    console.log(`Uppdaterar poäng för användare ${d.user}:`, d.points);
+    data.addPoints(d.pollId, d.user, d.points); // Lägg till poäng
+    //io.to(d.pollId).emit("participantLeaderbord", data.getParticipants(d.pollId)); // Skicka uppdaterade deltagarlistan
+  });
+
+  socket.on("getScores", pollId => {
+    console.log("inne i getScores, pollID:", pollId)
+    io.to(pollId).emit("participantLeaderbord", data.getParticipants(pollId));
+  });
 
 }
 

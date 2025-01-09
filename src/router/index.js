@@ -75,9 +75,10 @@ const router = createRouter({
       name: "PollView",
       views: PollView,
     },*/
-    {path: "/points/",
+    {
+    path: "/points/:id",
     name: "Points",
-      component: () => import('../views/Points.vue')
+    component: () => import('../views/Points.vue')
     },
   ]
 })

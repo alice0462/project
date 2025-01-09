@@ -2,12 +2,13 @@
     <div class="pointContainer">
       <h1>Poängställning</h1>
       <div class="pointBox">
-        <ol>
-          <!-- Dynamisk rendering av listan -->
+        <p>{{ leaderboard }}</p>
+        <ol v-if="leaderboard.length > 0">
           <p v-for="(player, index) in leaderboard" :key="index">
             {{ index + 1 }}. {{ player.name }} - {{ player.points }} poäng
           </p>
         </ol>
+        <p v-else>Inga deltagare ännu...</p>
         <button class="nextDestinationButton" @click="nextDestination">
             Nästa destination
         </button>
@@ -16,26 +17,38 @@
   </template>
   
   <script>
+  import io from 'socket.io-client';
+  const socket = io("localhost:3000");
+  import gameMasterSv from '@/assets/gameMaster-sv.json';
+  import gameMasterEn from '@/assets/gameMaster-en.json';
+
   export default {
+    name: 'Points',
     data() {
       return {
+        pollId: this.$route.params.id || "",
         // Exempeldata för poängställning
-        leaderboard: [
-          { name: "Namn 1", points: 100 },
-          { name: "Namn 2", points: 80 },
-          { name: "Namn 3", points: 60 }
-        ]
+        leaderboard: []
       };
     },
     methods: {
       // Metod för att sortera leaderboard om nödvändigt
-      sortLeaderboard() {
-        this.leaderboard.sort((a, b) => b.points - a.points); // Sortera efter poäng, fallande
+      sortLeaderboard(participants) {
+        if (participants && participants.length > 0) {
+        // Skapa en ny array för att säkerställa reaktivitet
+        this.leaderboard = [...participants].sort((a, b) => b.points - a.points);
+        console.log("Uppdaterad leaderboard:", this.leaderboard);
+      } else {
+        console.log("Inga deltagare att visa.");
+      } // Sortera efter poäng, fallande
       }
     },
     created() {
-      // Du kan t.ex. kalla på en API eller använda WebSocket för att hämta data dynamiskt
-      this.sortLeaderboard(); // Sortera data vid skapandet
+      this.pollId = this.$route.params.id;
+      console.log("pollId skickat till servern:", this.pollId);
+      //this.sortLeaderboard(); // Sortera data vid skapandet
+      socket.on("participantLeaderbord", (participants) => {this.sortLeaderboard(participants)});
+      socket.emit("getScores", { pollId: this.pollId });
     }
   };
   </script>
