@@ -68,8 +68,7 @@
     height: 100vh;
     background: url('https://i.pinimg.com/originals/7f/ac/08/7fac087e8a3b876d9c884e29c58d4ba1.gif') no-repeat center center fixed;
     padding: 0px;
-    background-size: cover; /* Gör att bakgrunden täcker hela skärmen */
-    margin: 0; /* Säkerställer att inga marginaler förstör layouten */
+    background-size: 100% 100%;
     background-color: pink;
   }
   
