@@ -102,14 +102,11 @@ export default {
       cityQuestion: false,
       level: null,
       currentCity: null,
-<<<<<<< HEAD
       finalQuestionAnswers: null,
-=======
       isDragging: false, // Spårar om användaren drar
       dragDistance: 0,   // Total dragsträcka
       maxDrag: 250, 
       buttonOffset: 0,
->>>>>>> 7ca8fe3084538c611b7d897768601e4ada22a751
     }
   },
   created: function () {

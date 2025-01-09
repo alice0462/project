@@ -70,21 +70,14 @@ const router = createRouter({
       name: "Answers",
       component: () => import('../views/Answers.vue')
     },
-<<<<<<< HEAD
-    /*{
-      path: "/pollview",
-      name: "PollView",
-      views: PollView,
-    },*/
-    {
-    path: "/points/:id",
-=======
+   
+    
 
-    {path: "/points/",
->>>>>>> 7ca8fe3084538c611b7d897768601e4ada22a751
+    {path: "/points/:id",
     name: "Points",
     component: () => import('../views/Points.vue')
     },
+
     {path: "/podium/",
       name: "Podium",
         component: () => import('../views/Podium.vue')

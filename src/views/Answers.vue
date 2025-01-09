@@ -1,9 +1,7 @@
 <template>
   <body>
     <h1>{{destination}}: {{ this.currentCity }}</h1>
-<<<<<<< HEAD
-
-    <p v-if="correctAnswers && correctAnswers.length > 0">
+    <p v-if="questionAnswer && correctAnswers && correctAnswers.length > 0">
   <strong>Facit:</strong>
     <p v-for="(answer, index) in correctAnswers" :key="index">
       <strong>{{ index === 0 ? answerQuestion1 : answerQuestion2 }}:</strong> {{ answer }}
@@ -11,9 +9,6 @@
 </p>
 
     <button class="questionButton" v-if ="!questionAnswer" @click="goToQuestions">{{questionsAboutCity}}</button>
-=======
-    <button class="questionButton" @click="goToQuestions">{{questionsAboutCity}}</button>
->>>>>>> 7ca8fe3084538c611b7d897768601e4ada22a751
     <div v-if="destinationAnswers.length > 0 && !questionAnswer">
       <div v-for="(answer, index) in destinationAnswers" :key="index" :class="['answerBox', answer.status]">
         <p><strong>{{player}}:</strong> {{ answer.name }} 
@@ -29,10 +24,7 @@
         <button class="reject-btn" @click="rejectAnswer(index)">{{decline}}</button>
       </div>
     </div>
-<<<<<<< HEAD
-    
-=======
->>>>>>> 7ca8fe3084538c611b7d897768601e4ada22a751
+
     </div>
       
     <div v-if="questionAnswers.length > 0 && questionAnswer">
