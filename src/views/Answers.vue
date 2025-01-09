@@ -249,6 +249,7 @@ export default {
       },
 
       goToScores(){
+        socket.emit("showScores", this.pollId);
         this.$router.push('/points/' + this.pollId);
         //socket.emit("startScores", this.pollId)
       },

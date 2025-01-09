@@ -9,7 +9,7 @@
           </p>
         </ol>
         <p v-else>Inga deltagare ännu...</p>
-        <button class="nextDestinationButton" @click="nextDestination">
+        <button v-if="role === 'admin' "class="nextDestinationButton" @click="nextDestination">
             Nästa destination
         </button>
       </div>
@@ -28,7 +28,9 @@
       return {
         pollId: this.$route.params.id || "",
         // Exempeldata för poängställning
-        leaderboard: []
+        leaderboard: [],
+        role: localStorage.getItem("role"), //Hämtar den tilldelade rollen som bestäms startView
+
       };
     },
     methods: {

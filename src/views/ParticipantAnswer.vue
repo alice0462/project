@@ -129,6 +129,13 @@ export default {
         console.log("Mottagen stad:", this.currentCity);
       }
     });
+    socket.on("showScores", (pollId) => {
+      if (pollId === this.pollId) {
+        this.$router.push("/points/" + this.pollId);
+      }
+    });
+
+
     socket.emit( "getUILabels", this.lang );
     socket.emit("joinPoll", this.pollId);
     socket.emit("getCurrentParticipant", (data) => {
