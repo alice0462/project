@@ -43,6 +43,11 @@
     "answerQuestion1":"Answer to question 1",
     "answerQuestion2":"Answer to question 2",
 
-    "showScores": "Show scores"
+    "showScores": "Show scores",
+
+    "currentScore":"Standing points",
+    "points1":"Points",
+    "noPlayersYet":"No participants yet...",
+    "nextDestination":"Next Destination"
       
 }

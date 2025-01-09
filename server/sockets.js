@@ -70,6 +70,12 @@ function sockets(io, socket, data) {
     io.to(d.pollId).emit("updateCurrentCity", { currentCity: d.currentCity });
   });
 
+  socket.on("showScores", (pollId) => {
+    console.log(`Visa poängställning för omröstning ${pollId}`);
+    socket.to(pollId).emit("showScores", pollId); // Skicka till alla i pollId-rummet
+  });
+  
+
 
 
 

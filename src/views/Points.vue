@@ -1,15 +1,15 @@
 <template>
     <div class="pointContainer">
-      <h1>Poängställning</h1>
+      <h1>{{currentScore}}</h1>
       <div class="pointBox">
         <ol v-if="leaderboard.length > 0">
           <p v-for="(player, index) in leaderboard" :key="index">
-            {{ index + 1 }}. {{ player.name }} - {{ player.points }} poäng
+            {{ index + 1 }}. {{ player.name }} - {{ player.points }} {{points1}}
           </p>
         </ol>
-        <p v-else>Inga deltagare ännu...</p>
-        <button class="nextDestinationButton" @click="nextDestination">
-            Nästa destination
+        <p v-else>{{noPlayersYet}}</p>
+        <button v-if="role === 'admin' "class="nextDestinationButton" @click="nextDestination">
+          {{nextDestination}}
         </button>
       </div>
     </div>
@@ -27,7 +27,9 @@
       return {
         pollId: "",
         // Exempeldata för poängställning
-        leaderboard: []
+        leaderboard: [],
+        role: localStorage.getItem("role"), //Hämtar den tilldelade rollen som bestäms startView
+
       };
       
     },
@@ -54,6 +56,21 @@
       }
     },
 
+  computed: {
+    currentScore() {
+      return this.lang === "sv" ? gameMasterSv.currentScore : gameMasterEn.currentScore;
+    },
+    points1() {
+      return this.lang === "sv" ? gameMasterSv.points1 : gameMasterEn.points1;
+    },
+    noPlayersYet() {
+      return this.lang === "sv" ? gameMasterSv.noPlayersYet : gameMasterEn.noPlayersYet;
+    },
+    nextDestination() {
+      return this.lang === "sv" ? gameMasterSv.nextDestination : gameMasterEn.nextDestination;
+    },
+  }
+    
   };
   </script>
   

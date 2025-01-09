@@ -106,6 +106,8 @@ import playersEn from '@/assets/players-en.json';
 
 //HEJSSANANNNNNANNADNND
     created: function () {
+        socket.on( "uiLabels", labels => this.uiLabels = labels );
+        socket.emit( "getUILabels", this.lang );
 
         this.pollId = this.$route.params.id;
         socket.on('chosenCities', (c) => {
@@ -122,6 +124,11 @@ import playersEn from '@/assets/players-en.json';
             this.showClues = false;
             this.showFinalCityMessage = false;
         })
+        socket.on("showScores", (pollId) => {
+            if (pollId === this.pollId) {
+                this.$router.push("/points/" + this.pollId);
+            }
+        });
         socket.emit("joinPoll", this.pollId);
         socket.emit("requestCities", this.pollId); // jag ber om informationen när jag går med i Game
         socket.emit("requestStartTime", this.pollId);
@@ -181,7 +188,7 @@ import playersEn from '@/assets/players-en.json';
             }
         },
         showCity(){
-            return `Vi har kommit till ${this.currentCity}`;
+            return `${this.uiLabels.reachedCity} ${this.currentCity}!`;
         },
         showQuestions(){
             this.showFinalCityMessage = false
@@ -251,7 +258,8 @@ h1 {
     width: auto; 
     height: auto;
     color: black;
-    font-size: 30px;
+    font-weight: bold;
+    font-size: 50px;
     text-align: center;
     
 }
@@ -274,5 +282,7 @@ h1 {
     font-family: 'Futura';
     color: #333;
 }
+
+
 
 </style>

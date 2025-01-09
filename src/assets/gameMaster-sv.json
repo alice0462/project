@@ -44,7 +44,12 @@
     "answerQuestion1":"Svar på fråga 1",
     "answerQuestion2":"Svar på fråga 2",
 
-    "showScores": "Visa poängställning"
+    "showScores": "Visa poängställning",
+
+    "currentScore":"Poängställning",
+    "points1":"poäng",
+    "noPlayersYet":"Inga deltagare ännu...",
+    "nextDestination":"Nästa destination"
 
 
 }   
