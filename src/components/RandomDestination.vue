@@ -79,10 +79,10 @@
     },
     acceptDestinations() {
       console.log(this.data);
-      socket.emit("sendCities",{data: this.data, pollId: this.pollId}) //Skapar ett rop som vi kommer behöva lyssna på, med ropet skickar vi med data (städer)
-     
+      socket.emit("sendCities",{data: this.data, pollId: this.pollId}); //Skapar ett rop som vi kommer behöva lyssna på, med ropet skickar vi med data (städer)
+      socket.emit("updateScreen", this.pollId);
       // Navigera vidare eller hantera valen
-      this.$router.push("/go-to-code/" + this.pollId); // Exempel: Navigera till nästa sida
+      this.$router.push("/lobby/" + this.pollId); // Exempel: Navigera till nästa sida
     },
   },
  };

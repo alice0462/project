@@ -94,8 +94,9 @@
       console.log(this.data);
       //localStorage.setItem("selectedCities", JSON.stringify(this.selectedCities));
       //console.log(this.data.cities);
-      socket.emit("sendCities", {data: this.data, pollId: this.pollId}); //Skapar ett rop som vi kommer behöva lyssna på, med ropet skickar vi med data (städer)
-      this.$router.push("/go-to-code/" + this.pollId);
+      socket.emit("sendCities", {data: this.data, pollId: this.pollId});
+      socket.emit("updateScreen", this.pollId); //Skapar ett rop som vi kommer behöva lyssna på, med ropet skickar vi med data (städer)
+      this.$router.push("/lobby/" + this.pollId);
     },
   },
  

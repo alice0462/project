@@ -26,7 +26,7 @@
   </div>
 
   <div v-if="cityQuestion" class="questionsView">
-    <div v-if="level === level">
+    <div>
       <h2> {{ questionsAbout }} {{ currentCity }}</h2>
 
       <!-- Fråga 1 -->
@@ -116,9 +116,9 @@ export default {
       console.log("starttid mottagen:", startTime);
       this.startTimer(startTime);
     });
-    socket.on('selectedToGameCode', (l) => {
+    /*socket.on('selectedToGameCode', (l) => {
             console.log("Vald nivå mottagen:", l);
-            this.level = l;});
+            this.level = l;});*/
     socket.on( "uiLabels", labels => this.uiLabels = labels );
     socket.on("showQuestions", pollId => {
             this.cityQuestion = true;

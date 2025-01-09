@@ -12,7 +12,7 @@
     </div>
     
     <div class="final-city" v-if="showFinalCityMessage">
-    {{ showCity() }}
+    <h1>{{ showCity() }}</h1>
     </div>
 
     <div class="city-questions" v-if="showQuestions">
