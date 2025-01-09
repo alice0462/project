@@ -6,6 +6,10 @@
                 {{ timer }}
             </div>
         </div>
+        <div class="headline">
+            {{ uiLabels.headline }}
+
+        </div>
         <div class="clues" v-if="showClues">
         <h2>{{ currentPoint }}</h2>
       <p>{{ currentClue }}</p>
@@ -236,21 +240,20 @@ h1 {
 }
 
 .circle {
+    position: absolute;
     width: 200px;
     height: 200px;
     border-radius: 50%;
     border: 5px solid black;;
     display: flex;
-    position: relative;
-    justify-self: end;
     background: yellow;
-    top: 50px;
-    margin-right: 50px;
     font-size: 50px;
     font-weight: bold;
     color: black;
     align-items: center; 
     justify-content: center;
+    top: 10px;
+    right: 10px;
 
 }
 
@@ -259,7 +262,7 @@ h1 {
     height: auto;
     color: black;
     font-weight: bold;
-    font-size: 50px;
+    font-size: 30px;
     text-align: center;
     
 }
@@ -281,6 +284,15 @@ h1 {
     font-size: 1.2rem;
     font-family: 'Futura';
     color: #333;
+}
+
+.headline {
+    position: absolute;
+    font-size: 50px;
+    font-family: 'Futura', sans-serif;
+    top: 70px;
+    justify-content: center;
+
 }
 
 
