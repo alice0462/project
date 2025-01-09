@@ -372,7 +372,7 @@ export default {
   position: relative; /* Förbereder för användning av transform */
   top: 0;
   width: 798px; 
-  height: 564px;
+  height: 500px;
   cursor: grab;
   transition: transform 0.2s ease; /* Smidig rörelse vid drag */
 }
