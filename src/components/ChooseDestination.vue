@@ -94,8 +94,9 @@
       console.log(this.data);
       //localStorage.setItem("selectedCities", JSON.stringify(this.selectedCities));
       //console.log(this.data.cities);
-      socket.emit("sendCities", {data: this.data, pollId: this.pollId}); //Skapar ett rop som vi kommer behöva lyssna på, med ropet skickar vi med data (städer)
-      this.$router.push("/go-to-code/" + this.pollId);
+      socket.emit("sendCities", {data: this.data, pollId: this.pollId});
+      socket.emit("updateScreen", this.pollId); //Skapar ett rop som vi kommer behöva lyssna på, med ropet skickar vi med data (städer)
+      this.$router.push("/lobby/" + this.pollId);
     },
   },
  
@@ -115,40 +116,48 @@
     min-height: 100vh;
     font-family: 'Futura';
     display: flex;
-    justify-content: center;
-    align-items: center;
-    display: flex;
     flex-direction: column;
     align-items: center; /* Centrerar horisontellt */
     justify-content: center; /* Centrerar vertikalt */
-    min-height: 100vh; /* Tar upp hela höjden på skärmen */
     text-align: center; /* Centrerar text */
   }
  
  
   header{
-    font-size: 42px;
+    font-size: 2.5rem;
     font-family: 'Futura';
-    margin-bottom: 30px;
+    margin-bottom: 2%;
     color: #333;
+    position: relative; /* Flytta rubriken utan att påverka andra element */
+    top: calc(-5vh); /* Flytta rubriken uppåt baserat på skärmhöjd */
+    
   }
  
  
   h1{
-    font-size: 20px;
+    font-size: 1.2rem;
     font-weight: lighter;
     font-family: 'Futura';
-    margin-bottom: 30px;
+    margin-bottom: 2%;
     color: #555;
+    position: relative; /* Flytta rubriken utan att påverka andra element */
+    top: calc(-5vh); /* Flytta rubriken uppåt baserat på skärmhöjd */
   }
  
  
   .grid {
+  
   display: grid;
-  grid-template-columns: 200px 200px 200px 200px;
-  grid-template-rows: 100px 100px 100px 100px;
-  gap: 20px;
-  padding: 0 20px;
+  grid-template-columns: 22% 22% 22% 22%;
+  grid-template-rows: 22% 22% 22% 22%;
+  gap: 2%;
+  justify-content: center;
+  text-align: center;
+  width: 100%;
+  aspect-ratio: 2/1;
+  max-width: 900px;
+  position: relative; /* Flytta rubriken utan att påverka andra element */
+  top: calc(-3vh); /* Flytta rubriken uppåt baserat på skärmhöjd */
   }
  
  
@@ -157,10 +166,14 @@
   border: none;
   border-radius: 10px;
   padding: 20px;
-  font-size: 1em;
+  font-size: clamp(0.7rem, 2vw, 1rem); 
   font-family: 'Futura';
   cursor: pointer;
   transition: background-color 0.3s ease;
+  
+  text-align: center;
+  
+  
  }
  
  
@@ -184,8 +197,9 @@
   cursor: pointer;
   transition: background-color 0.3s ease;
   position: absolute; /* Placera knappen absolut */
-  right: 40px; /* Avstånd från höger */
+  right: 150; /* Avstånd från höger */
   bottom: 80px; /* Avstånd från botten */
+  
  }
  
  

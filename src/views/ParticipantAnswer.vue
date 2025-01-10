@@ -1,5 +1,5 @@
 <template>
-<body>
+<body :class="{ showBackground }">
   <div v-if="!cityQuestion">
     <div class="answerButtonContainer" @mousedown="startDrag" @mouseup="stopDrag" @mousemove="drag">
       <button type="button" class="answerButton" :style="{ transform: `translateY(${buttonOffset}px)` }">
@@ -26,7 +26,7 @@
   </div>
 
   <div v-if="cityQuestion" class="questionsView">
-    <div v-if="level === level">
+    <div>
       <h2> {{ questionsAbout }} {{ currentCity }}</h2>
 
       <!-- Fråga 1 -->
@@ -107,6 +107,7 @@ export default {
       dragDistance: 0,   // Total dragsträcka
       maxDrag: 250, 
       buttonOffset: 0,
+      showBackground: false,
     }
   },
   created: function () {
@@ -116,12 +117,13 @@ export default {
       console.log("starttid mottagen:", startTime);
       this.startTimer(startTime);
     });
-    socket.on('selectedToGameCode', (l) => {
+    /*socket.on('selectedToGameCode', (l) => {
             console.log("Vald nivå mottagen:", l);
-            this.level = l;});
+            this.level = l;});*/
     socket.on( "uiLabels", labels => this.uiLabels = labels );
     socket.on("showQuestions", pollId => {
             this.cityQuestion = true;
+            this.showBackground = false;
         });
     socket.on("updateCurrentCity", (data) => {
       if (data.currentCity) {
@@ -280,6 +282,7 @@ export default {
   },
   triggerButton() {
     console.log("Nödbromsen är aktiverad!");
+    this.showBackground = true;
     this.submitAnswer = true; // Logik för att aktivera nödbromsen
   },
 
@@ -288,6 +291,9 @@ export default {
 </script>
 
 <style scoped>
+  @import url('https://fonts.googleapis.com/css2?family=Agbalumo&family=Cormorant:wght@700&display=swap');
+
+
     body{
         height:100%;
         min-height: 100vh;
@@ -298,7 +304,14 @@ export default {
         font-family: 'Futura';
         font-size: 20px;
         color: #333;
+        background-size: 100% 100%;
     }
+
+    body.showBackground {
+      background: url('https://i.pinimg.com/originals/18/cb/4f/18cb4f4557956b5c72bab0e6c09e4ab3.gif') no-repeat center center, linear-gradient(5deg, #eaca49, #eae2af);
+      background-size: 100% 100%;
+    }
+
     button{
         border:none;
         background: none;
@@ -393,11 +406,85 @@ export default {
   top: 0;
   left: 50%;
   transform: translateX(-50%);
-  
-  
 }
 
+@keyframes pulse {
+  0%, 100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.2);
+  }
+}
 
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+}
 
+.answerButton img {
+  position: relative;
+  top: 0;
+  width: 798px;
+  height: 500px;
+  cursor: grab;
+  transition: transform 0.2s ease; /* Smidig rörelse vid drag */
+  animation: pulse 2s infinite, float 3s infinite; /* Lägg till animationerna */
+}
+
+.answerButton:active {
+  cursor: grabbing;
+}
+
+@media screen and (max-width: 50em) {
+  /* Anpassa knappar */
+  .submitDestinationButton {
+    font-size: 16px; /* Minska textstorlek */
+    padding: 8px 16px; /* Minska padding */
+  }
+
+  /* Anpassa inputfält */
+  .answerInput {
+    width: 100%; /* Gör inputfältet flexibelt */
+    font-size: 15px; /* Minska textstorlek */
+  }
+
+  /* Anpassa modalfönster */
+  .writeAnswerContent {
+    width: 90%; /* Gör modalen bredare för små skärmar */
+    padding: 15px; /* Minska padding */
+  }
+
+  /* Anpassa dragknappen */
+  .answerButton img {
+    width: 300%; /* Bilden fyller containerns bredd */
+    height: auto; /* Bevara proportionerna */
+    object-fit: cover; /* Gör att bilden fyller utrymmet */
+    object-position: top center;
+    right: 90%; /* Flytta mitten av bilden till mitten av containern */
+
+  }
+
+  /* Anpassa layouten i frågor */
+  .answerRow {
+    flex-direction: column; /* Lägg frågorna vertikalt */
+    align-items: stretch; /* Sträck ut elementen */
+  }
+
+  /* Textjustering */
+  .questionsView h2 {
+    font-size: 18px; /* Minska storlek på rubriker */
+    text-align: center;
+  }
+
+  /* Göra helskärmsbakgrunden mer flexibel */
+  body.showBackground {
+    background-size: cover; /* Anpassa bakgrundsstorlek */
+  }
+}
 </style>
 

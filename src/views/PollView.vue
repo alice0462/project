@@ -110,5 +110,18 @@ h1 {
   text-align: center;
   z-index: 2; /* Se till att texten visas ovanpå */
 }
+
+@media screen and (max-width: 60em) {
+  .landing-page {
+    flex-direction: column; /* Placera elementen i en kolumn */
+    padding: 20px; /* Lägg till inre marginal för bättre layout */
+  }
+
+  h1 {
+    font-size: 3rem; /* Minska textstorleken */
+    text-shadow: 1px 1px 5px rgba(124, 178, 255, 0.5); /* Anpassa skuggan */
+  }
+}
+
 </style>
 

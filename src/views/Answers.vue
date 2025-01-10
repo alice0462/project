@@ -11,19 +11,23 @@
     <button class="questionButton" v-if ="!questionAnswer" @click="goToQuestions">{{questionsAboutCity}}</button>
     <div v-if="destinationAnswers.length > 0 && !questionAnswer">
       <div v-for="(answer, index) in destinationAnswers" :key="index" :class="['answerBox', answer.status]">
-        <p><strong>{{player}}:</strong> {{ answer.name }} 
-          <strong>{{guess}}:</strong> {{ answer.guess }}
-          <strong>{{points}}:</strong> {{ answer.points }}
-        </p>
-
-        <p v-if="answer.status === 'approved'">{{status}}: <strong>{{confirm3}}</strong></p>
-        <p v-else-if="answer.status === 'rejected'">{{status}}: <strong>{{decline}}</strong></p>
-
-      <div v-else class="buttons">
-        <button class="approve-btn" @click="approveAnswer(index)">{{confirm3}}</button>
-        <button class="reject-btn" @click="rejectAnswer(index)">{{decline}}</button>
+        <p><strong>{{player}}:</strong> {{ answer.name }}</p>
+        <p><strong>{{guess}}:</strong> {{ answer.guess }}</p>
+        <p><strong>{{points}}:</strong> {{ answer.points }}</p>
+        <div v-if="answer.status === 'approved'">
+          <p>{{status}}: <strong>{{confirm3}}</strong></p>
+        </div>
+        <div v-else-if="answer.status === 'rejected'">
+          <p>{{status}}: <strong>{{decline}}</strong></p>
+        </div>
+        <div v-else>
+          <div class="buttons">
+            <button class="approve-btn" @click="approveAnswer(index)">{{confirm3}}</button>
+            <button class="reject-btn" @click="rejectAnswer(index)">{{decline}}</button>
+          </div>
+        </div>
       </div>
-    </div>
+
 
     </div>
       
@@ -170,34 +174,29 @@ export default {
 
   methods: {
     approveAnswer(index) {
-      //if (this.currentAnswer) {
-        const answer = this.destinationAnswers[index];
-        answer.status = "approved"
-        // Logik för att godkänna svaret
-        console.log("Godkände svar:", answer);
+      const answer = this.destinationAnswers[index];
+      if (answer) {
+        answer.status = 'approved';
         socket.emit("approveAnswer", {
           pollId: this.pollId,
           user: answer.name,
           points: answer.points,
         });
-
-        // Uppdatera visningen
-        this.currentAnswer = null;
-        this.updatePoints(answer.name, answer.points);
-      },
+        console.log("Godkänt svar:", answer);
+      }
+    },  
 
     rejectAnswer(index) {
       //if (this.currentAnswer) {
         const answer = this.destinationAnswers[index];
         answer.status = "rejected";
         // Logik för att neka svaret
-        console.log("Nekade svar:", answer);
         socket.emit("rejectAnswer", {
           pollId: this.pollId,
           user: answer.name,
           points: 0,
         });
-
+        console.log("Nekade svar:", answer);
         // Uppdatera visningen
         this.currentAnswer = null;
       },
@@ -242,6 +241,8 @@ export default {
       },
       
       goToQuestions() {
+        console.log("stopMusic-händelse mottagen");
+        socket.emit("stopMusic", this.pollId);
         this.questionAnswer = true;
         socket.emit("startQuestions", this.pollId);
       },

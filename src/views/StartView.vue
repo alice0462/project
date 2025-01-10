@@ -1,75 +1,47 @@
 <template>
-  <body>
+<body>
   <header>
     <button class="languageButtonClass" v-on:click="switchLanguage">
       <img :src="languageFlag" alt="Switch Language" />
     </button>
-    
-
     <div class="logo">
       <!--<img src="/img/logo.png"> -->
       Destination Unknown 
       <!--<img src="../assets/logo.svg">-->
     </div>
-    
-
     <button class="ruleButton" @click="showRulesText = true" >
-      {{ uiLabels.about }}</button>
-
-      <div v-bind:class="['hamburger', {'close': !hideNav}]" 
-         v-on:click="toggleNav">
-    </div>
-
+      {{ uiLabels.about }}
+    </button>
+    <div v-bind:class="['hamburger', {'close': !hideNav}]" v-on:click="toggleNav"></div>
   </header>
-
-  <!--<h1>{{ uiLabels["sales-pitch"] }}</h1>
-  <h2>{{ uiLabels.subHeading }}</h2>
-  <label>
-    Write poll id: 
-    <input type="text" v-model="newPollId">
-  </label>
-  -->
   <br>
   <img class="imageOfWorld" src="/public/Jordglob.png">
-<br>
-
-    <button class="mainButtons" id="createPollClass" v-on:click="createPoll">
-      {{ uiLabels.createPoll }}</button>
-
-
-    <button class="mainButtons" id="participatePollClass" v-on:click="participatePoll">
-      {{ uiLabels.participatePoll }}
-    </button>
-
+  <br>
+  <button class="mainButtons" id="createPollClass" v-on:click="createPoll">
+    {{ uiLabels.createPoll }}
+  </button>
+  <button class="mainButtons" id="participatePollClass" v-on:click="participatePoll">
+    {{ uiLabels.participatePoll }}
+  </button>
+        
   <router-link to="/poll/">
     <button class="mainButtons" id="screenViewerClass" v-on:click="screenViewer">
       {{ uiLabels.screenViewer }}
     </button>
   </router-link>
-  <!-- */<button class="mainButtons" id="rulesClass" @click="showRulesText = true" >
-    {{ uiLabels.about }}</button>-->
-
-
- <!-- <router-link v-bind:to="'/lobby/' + newPollId">
-    <button class="mainButtons" id="participatePollClass">
-    {{ uiLabels.participatePoll }}
-    </button>
-  </router-link>-->
-
-
-<div v-if="showRulesText" class="showRulesTextClass">
-  <div class="showRulesTextClass-content">
-    <span class="close" @click="closeRulesText">&times;</span>
-    <h3> {{ uiLabels.rulesTitle }}</h3>
-    {{ uiLabels.rules }}
+        
+  <div v-if="showRulesText" class="showRulesTextClass">
+    <div class="showRulesTextClass-content">
+      <span class="close" @click="closeRulesText">&times;</span>
+      <h3> {{ uiLabels.rulesTitle }}</h3>
+        {{ uiLabels.rules }}
+    </div>
   </div>
-</div>
 </body>
 </template>
 
+
 <script>
-
-
 
 import ResponsiveNav from '@/components/ResponsiveNav.vue';
 import io from 'socket.io-client';
@@ -80,6 +52,7 @@ export default {
   components: {
     ResponsiveNav
   },
+
   data: function () {
     return {
       uiLabels: {}, 
@@ -91,11 +64,13 @@ export default {
       pollId:""
     }
   },
+  
   created: function () {
     localStorage.removeItem("role");  //Nollställer rollerna så att alla startar på nytt
     socket.on( "uiLabels", labels => this.uiLabels = labels );
     socket.emit( "getUILabels", this.lang );
   },
+
   computed:{
     languageFlag () {
       return this.lang === "en"
@@ -103,6 +78,7 @@ export default {
       : "/public/brittisk-flagga.png";
     }
   },
+
   methods: {
     switchLanguage: function() {
       if (this.lang === "en") {
@@ -114,12 +90,15 @@ export default {
       localStorage.setItem( "lang", this.lang );
       socket.emit( "getUILabels", this.lang ); 
     },
+
     toggleNav: function () {
       this.hideNav = ! this.hideNav;
     },
+
     closeRulesText () {
       this.showRulesText = false;
     },
+
     createPoll: function () {
       this.pollId = Math.floor(1000 + Math.random() * 9000);
       console.log(this.pollId);
@@ -127,16 +106,19 @@ export default {
       socket.emit("createPoll", {pollId: this.pollId, lang: this.lang });
       this.$router.push("/create/" + this.pollId);
     },
+
     participatePoll: function() {
       localStorage.setItem("role", "player");
       this.$router.push("/prelobby/");
     },
-    screenViewer: function() {
 
+    screenViewer: function() {
     }
   }
 }
 </script>
+
+
 <style scoped>
   body{
     background: linear-gradient(5deg, rgb(123, 168, 205), #d3d3f5);
@@ -164,21 +146,8 @@ export default {
     vertical-align: bottom;
     margin-right: 0.5rem; 
   }
-  .hamburger {
-    color:rgb(222, 223, 223);
-    width:1em;
-    display: flex;
-    align-items: center;
-    justify-content: left;
-    padding:0.5rem;
-    top:0;
-    left:0;
-    height: 2rem;
-    cursor: pointer;
-    font-size: 1.5rem;
-  }
 
-@media screen and (max-width:50em) {
+  @media screen and (max-width:50em) {
   .logo {
     font-size: 5vw;
     display: flex;
@@ -217,21 +186,21 @@ export default {
   background: linear-gradient(5deg, #ad5c99, #fdc8ec);
 }
 #screenViewerClass {
-  background: linear-gradient(5deg, #4a90e2, #a4d3f8); /* Anpassa färger */
+  background: linear-gradient(5deg, #4a90e2, #a4d3f8); 
 }
 
 .languageButtonClass {
-  padding: 10px; /* Tar bort inre mellanrum */
-  margin: 0; /* Tar bort yttre mellanrum */
-  overflow: hidden; /* Förhindrar att innehållet sticker ut */
-  border: none; /* Tar bort standardkant */
-  width: 100px; /* Ställ in knappens bredd */
-  height: 60px; /* Ställ in knappens höjd */
-  display: flex; /* Gör det till en flexbehållare */
+  padding: 10px;
+  margin: 0;
+  overflow: hidden; 
+  border: none; 
+  width: 100px; 
+  height: 60px; 
+  display: flex;
   align-items: center;
   justify-content: center;
   cursor: pointer;
-  background: none; /* Tar bort bakgrundsfärg */
+  background: none; 
 }
 
 .imageOfWorld {
@@ -239,7 +208,6 @@ height: 27%;
 width: 27%;
 margin-bottom: 60px;
 }
-
 
 .showRulesTextClass {
   position: fixed;
@@ -294,6 +262,5 @@ margin-bottom: 60px;
   background: linear-gradient(5deg, #fae0fad8, #fdc8ecb1);
   justify-self: end;
 }
-
 
 </style>

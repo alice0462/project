@@ -116,22 +116,33 @@ export default {
 
 .destination {
   display: flex; /* Gör att elementen placeras horisontellt */
-  gap: 80px; /* Lägger mellanrum mellan rutorna */
+  flex-wrap: wrap;
+  gap: 50px; /* Lägger mellanrum mellan rutorna */
+  justify-content: center;
+  align-items: center;
+  
 }
 
-.destination-buttons button {
-  width: 400px; 
-  height: 400px; 
+  .destination-buttons button {
+  display: flex; /* Aktiverar flexbox */
+  justify-content: center; /* Centrerar text horisontellt */
+  align-items: center; /* Centrerar text vertikalt */
+  width: 100%; /* Bredden anpassar sig till skärmens storlek */
+  max-width: 350px; /* Sätter en maximal bredd */
+  max-height: 300px;
+  aspect-ratio: 1; 
   border-radius: 70px; 
   cursor: pointer; 
   transition: transform 0.2s, background-color 0.2s; 
   font-family: 'Futura', sans-serif;
-  font-size: 30px;
-  justify-content: center; 
-  align-items: center;
-  text-align: center;
-  line-height: normal;
+  font-size: 25px; /* Textstorlek */
+  text-align: center; /* Säkerställer att texten centreras i textfältet */
+  line-height: 1; /* Fixar eventuell extra radbrytning */
+  padding: 10px; /* Lägger lite utrymme runt texten */
+  overflow: hidden; /* Hindrar text från att spilla över */
+  white-space: nowrap; /* Hindrar text från att brytas till flera rader */
 }
+
 #chooseDestination button{
   background: linear-gradient(5deg, #50aee5, #bce2ed);
   color: rgb(0, 48, 3); 

@@ -1,22 +1,25 @@
 <template>
     <div>
     <div class="gameSite">
-        <div class="circle" v-if="!showQuestions">
+        <div class="circle" v-if="!showQuestions && !showFinalCityMessage">
             <div class="startTimer">
                 {{ timer }}
             </div>
         </div>
+        <div class="headline" v-if="!showQuestions && !showFinalCityMessage">
+            {{ uiLabels.headline }}
+        </div>
         <div class="clues" v-if="showClues">
-        <h2>{{ currentPoint }}</h2>
+        <h3>{{ currentPoint }}</h3>
       <p>{{ currentClue }}</p>
     </div>
     
-    <div class="final-city" v-if="showFinalCityMessage">
-    {{ showCity() }}
+    <div class="final-city" v-if="showFinalCityMessage && !showQuestions" >
+        {{ showCity() }}
     </div>
 
     <div class="city-questions" v-if="showQuestions">
-    <h1>{{questionsAbout}} {{ this.currentCity }}</h1>
+        <p>{{questionsAbout}} {{ this.currentCity }}</p>
         <div v-for="(question, index) in currentQuestions" :key="index">
             <h3>{{questionNumber}} {{ index + 1 }}</h3>
             <p>{{ question }}</p>
@@ -37,6 +40,7 @@ import cluesPointsSv from '@/assets/cluesPoints-sv.json';
 import cluesPointsEn from '@/assets/cluesPoints-en.json';
 import playersSv from '@/assets/players-sv.json';
 import playersEn from '@/assets/players-en.json';
+import soundFile from '@/assets/lat.mp3';
 
 
 
@@ -58,8 +62,7 @@ import playersEn from '@/assets/players-en.json';
             timeElapsed: 0,
             intervalId: null,
             lang: localStorage.getItem( "lang") || "en",
-            //cluesPointsSv: cluesPointsSv
-            //currentCity: null,
+            audio: null,
         };
     },
 
@@ -70,18 +73,31 @@ import playersEn from '@/assets/players-en.json';
       return this.cities[this.currentCityIndex]?.name || "Unkown city";
 
     },
-    currentClue() {
-      // Hämta aktuell ledtråd baserat på stad och index
-      
-      //INNAN NYTT CARRO 7/1
-      //const cityClues = cluesSv.ledtradar[this.currentCity] || [];
-      //return cityClues[this.currentClueIndex] || "Inga fler ledtrådar.";
 
-      //NYTT CARRO 7/1
-      const cityClues = this.lang === "sv" ? cluesSv.ledtradar : cluesEn.clues;
-      console.log("currentCity:", this.currentCity, "clues:", cityClues);
-      return cityClues[this.currentCity]?.[this.currentClueIndex] || "No more clues.";
+    currentClue() {
+        const cityClues = this.lang === "sv" ? cluesSv.ledtradar : cluesEn.clues;
+        return cityClues[this.translatedCityName]?.[this.currentClueIndex] || 
+        (this.lang === "sv" ? "Inga fler ledtrådar." : "No more clues.");
     },
+
+    translatedCityName() {
+        const citiesMap = {
+            sv: {
+                "Gothenburg": "Göteborg",
+                "Moscow": "Moskva",
+                "Lisbon": "Lissabon",
+                "Helsinki":"Helsingfors",
+                "Cape Town":"Kapstaden",
+                },
+            en: {
+                "Göteborg": "Gothenburg",
+                "Moskva": "Moscow",
+                "Helsingfors": "Helsinki",
+                "Kapstaden": "Cape Town",
+                }
+            };
+            return citiesMap[this.lang][this.currentCity] || this.currentCity;
+        },
 
     currentQuestions(){
         //INNAN NYTT CARRO 7/1
@@ -153,6 +169,15 @@ import playersEn from '@/assets/players-en.json';
             }*/
         
         });
+
+        this.startBackgroundAudio();
+
+        socket.on("stopMusic", () => {
+            console.log("stopMusic-händelse mottagen i Game.vue");
+            this.stopBackgroundAudio(); // Stoppa musiken
+        });
+
+    
         socket.emit("joinPoll", this.pollId);
         socket.emit("requestCities", this.pollId); // jag ber om informationen när jag går med i Game
         socket.emit("requestStartTime", this.pollId);
@@ -213,18 +238,37 @@ import playersEn from '@/assets/players-en.json';
 
 
         showCity(){
-            return `${this.uiLabels.reachedCity} ${this.currentCity}!`;
-        },
+           return `${this.uiLabels.reachedCity} ${this.currentCity}!`;
+       },
+
         showQuestions(){
+
             this.showFinalCityMessage = false
         },
         nextPoint(){
                 if (this.showClues && this.thisPoint > 2) {
                     this.thisPoint -= 2;
                 }
-            }
-    }
+            },
+        
+        startBackgroundAudio() {
+            this.audio = new Audio(soundFile); // Länk till din ljudfil
+            this.audio.loop = true; // Ljudet spelas i en loop
+            this.audio.play()
+            console.log("Ljudet spelar")
+        },
+        stopBackgroundAudio() {
+            if (this.audio) {
+                console.log("Stoppar ljudet"); // Logga för att se om metoden körs
+                this.audio.pause();
+                this.audio.currentTime = 0; // Återställ ljudet
+                } else {
+                    console.log("Ingen ljudinstans hittades");
+                }
+        },
+    },
 };
+
 </script>
 
 <style scoped>
@@ -253,6 +297,7 @@ h1 {
     color: black;
     font-size: 1.1rem;
     position: relative;
+    font-family: 'Futura';
 }
 
 .circle {
@@ -261,16 +306,14 @@ h1 {
     border-radius: 50%;
     border: 5px solid black;;
     display: flex;
-    position: relative;
-    justify-self: end;
     background: yellow;
-    top: 50px;
-    margin-right: 50px;
     font-size: 50px;
     font-weight: bold;
     color: black;
     align-items: center; 
     justify-content: center;
+    top: 10px;
+    right: 10px;
 
 }
 
@@ -278,16 +321,19 @@ h1 {
     width: auto; 
     height: auto;
     color: black;
-    font-weight: bold;
-    font-size: 50px;
+    
+    font-size: 60px;
     text-align: center;
     
 }
 .city-questions {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 30px; /* Lägger till mellanrum mellan rutorna */
+    position: absolute;
+    font-size: 50px;
+    font-family: 'Futura', sans-serif;
+    top: 70px;
+    justify-content: center;
+    
+   
 }
 
 .city-questions div {
@@ -301,8 +347,18 @@ h1 {
     font-size: 1.2rem;
     font-family: 'Futura';
     color: #333;
+
+}
+
+.headline {
+    position: absolute;
+    font-size: 50px;
+    font-family: 'Futura', sans-serif;
+    top: 70px;
+    justify-content: center;
+
 }
 
 
 
-</style>
+</style>"

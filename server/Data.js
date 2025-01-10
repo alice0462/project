@@ -180,13 +180,13 @@ Data.prototype.addCities = function(pollId, data) {
   console.log("INFO!!!!:", data)
 };
 
-Data.prototype.readySetGo = function(pollId, data) {
+/*Data.prototype.readySetGo = function(pollId, data) {
   console.log(data);
   //this.polls[pollId] = { pollId: pollId }; // Skapar en ny objektstruktur
   this.polls[pollId].level = data.level;
   console.log("INFO!!!!:", data);
   console.log(this.polls[pollId])
-};
+};*/
 
 Data.prototype.getCities = function(pollId, data) {
   const poll = this.polls[pollId];
