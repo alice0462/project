@@ -18,7 +18,7 @@
  
  
     <div v-if="randomDestinations.length > 0" class="results">
-      <h2> {{uiLabels.givenDestination}} {{ randomDestinations.length > 1 ? 'er' : '' }}</h2>
+      <h2> {{uiLabels.givenDestination}} {{ randomDestinations.length > 1 ? '' : '' }}</h2>
       <ul>
         <li v-for="(city, index) in randomDestinations" :key="index">{{ city.name }}</li>
       </ul>
