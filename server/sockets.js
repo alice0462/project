@@ -148,6 +148,12 @@ function sockets(io, socket, data) {
     io.to(pollId).emit("participantLeaderbord",  data.getLeaderboard(pollId));
   });
 
+  socket.on("stopMusic", (pollId) => {
+    console.log(`Stoppa musiken för pollId: ${pollId}`);
+    io.to(pollId).emit("stopMusic"); 
+});
+
+
 }
 
 

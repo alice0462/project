@@ -1,20 +1,17 @@
-<template>
+"<template>
     <body>
     <div class="gameSite">
-        <div class="circle" v-if="!showQuestions && !showFinalCityMessage" >
+        <div class="circle" v-if="!showQuestions">
             <div class="startTimer">
                 {{ timer }}
             </div>
-        </div>
-        <div class="headline" v-if="!showQuestions && !showFinalCityMessage">
-            {{ uiLabels.headline }}
         </div>
         <div class="clues" v-if="showClues">
         <h3>{{ currentPoint }}</h3>
       <p>{{ currentClue }}</p>
     </div>
     
-    <div class="final-city" v-if="showFinalCityMessage && !showQuestions">
+    <div class="final-city" v-if="showFinalCityMessage && !showQuestions" >
         {{ showCity() }}
     </div>
 
@@ -40,6 +37,7 @@ import cluesPointsSv from '@/assets/cluesPoints-sv.json';
 import cluesPointsEn from '@/assets/cluesPoints-en.json';
 import playersSv from '@/assets/players-sv.json';
 import playersEn from '@/assets/players-en.json';
+import soundFile from '@/assets/lat.mp3';
 
 
 
@@ -61,6 +59,7 @@ import playersEn from '@/assets/players-en.json';
             timeElapsed: 0,
             intervalId: null,
             lang: localStorage.getItem( "lang") || "en",
+            audio: null,
         };
     },
 
@@ -126,12 +125,21 @@ import playersEn from '@/assets/players-en.json';
             this.showQuestions = true;
             this.showClues = false;
             this.showFinalCityMessage = false;
-        })
+        });
         socket.on("showScores", (pollId) => {
             if (pollId === this.pollId) {
                 this.$router.push("/points/" + this.pollId);
             }
         });
+
+        this.startBackgroundAudio();
+
+        socket.on("stopMusic", () => {
+            console.log("stopMusic-händelse mottagen i Game.vue");
+            this.stopBackgroundAudio(); // Stoppa musiken
+        });
+
+    
         socket.emit("joinPoll", this.pollId);
         socket.emit("requestCities", this.pollId); // jag ber om informationen när jag går med i Game
         socket.emit("requestStartTime", this.pollId);
@@ -191,8 +199,9 @@ import playersEn from '@/assets/players-en.json';
             }
         },
         showCity(){
-            return `${this.uiLabels.reachedCity} ${this.currentCity}!`;
-        },
+           return `${this.uiLabels.reachedCity} ${this.currentCity}!`;
+       },
+
         showQuestions(){
 
             this.showFinalCityMessage = false
@@ -201,9 +210,26 @@ import playersEn from '@/assets/players-en.json';
                 if (this.showClues && this.thisPoint > 2) {
                     this.thisPoint -= 2;
                 }
-            }
-    }
+            },
+        
+        startBackgroundAudio() {
+            this.audio = new Audio(soundFile); // Länk till din ljudfil
+            this.audio.loop = true; // Ljudet spelas i en loop
+            this.audio.play()
+            console.log("Ljudet spelar")
+        },
+        stopBackgroundAudio() {
+            if (this.audio) {
+                console.log("Stoppar ljudet"); // Logga för att se om metoden körs
+                this.audio.pause();
+                this.audio.currentTime = 0; // Återställ ljudet
+                } else {
+                    console.log("Ingen ljudinstans hittades");
+                }
+        },
+    },
 };
+
 </script>
 
 <style scoped>
@@ -241,13 +267,12 @@ h1 {
 }
 
 .circle {
-    position: absolute;
     width: 200px;
     height: 200px;
     border-radius: 50%;
     border: 5px solid black;;
     display: flex;
-    background: rgb(251, 234, 105);
+    background: yellow;
     font-size: 50px;
     font-weight: bold;
     color: black;
@@ -255,27 +280,27 @@ h1 {
     justify-content: center;
     top: 10px;
     right: 10px;
+
 }
 
 .final-city{
     width: auto; 
     height: auto;
     color: black;
+    
     font-size: 60px;
     text-align: center;
-    font-family: 'Futura', sans-serif;
-    top: 70px;
-    justify-content: center
     
 }
 .city-questions {
     position: absolute;
     font-size: 50px;
     font-family: 'Futura', sans-serif;
-    top: 60px;
+    top: 70px;
     justify-content: center;
+    
+   
 }
-
 
 .city-questions div {
     background-color: #d9f1ff; /* Ljusblå färg */
@@ -295,10 +320,11 @@ h1 {
     position: absolute;
     font-size: 50px;
     font-family: 'Futura', sans-serif;
-    margin-top: -150px;
+    top: 70px;
     justify-content: center;
+
 }
 
 
 
-</style>
+</style>"
