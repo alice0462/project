@@ -64,22 +64,9 @@ export default {
       this.participants = p; });
   },
 
-  mounted: function () {
-    // Lägg till en global lyssnare för "Enter"-tangenten
-    window.addEventListener("keydown", this.handleEnter);
-  },
-  beforeDestroy: function () {
-    // Ta bort lyssnaren när komponenten förstörs
-    window.removeEventListener("keydown", this.handleEnter);
-  },
+
 
   methods: {
-    handleEnter(event) {
-      // Kontrollera om "Enter" trycks
-      if (event.key === "Enter") {
-        this.participateInPoll();
-      }
-    },
 
     moveFocus(currentBox) {
       const currentInput = document.getElementById(`box${currentBox}`);
