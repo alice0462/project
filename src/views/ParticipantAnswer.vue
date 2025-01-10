@@ -123,6 +123,7 @@ export default {
     socket.on( "uiLabels", labels => this.uiLabels = labels );
     socket.on("showQuestions", pollId => {
             this.cityQuestion = true;
+            this.showBackground = false;
         });
     socket.on("updateCurrentCity", (data) => {
       if (data.currentCity) {
