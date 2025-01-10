@@ -14,12 +14,12 @@
       <p>{{ currentClue }}</p>
     </div>
     
-    <div class="final-city" v-if="showFinalCityMessage">
+    <div class="final-city" v-if="showFinalCityMessage && !showQuestions">
         {{ showCity() }}
     </div>
 
     <div class="city-questions" v-if="showQuestions">
-    <h1>{{questionsAbout}} {{ this.currentCity }}</h1>
+        <p>{{questionsAbout}} {{ this.currentCity }}</p>
         <div v-for="(question, index) in currentQuestions" :key="index">
             <h3>{{questionNumber}} {{ index + 1 }}</h3>
             <p>{{ question }}</p>
@@ -194,6 +194,7 @@ import playersEn from '@/assets/players-en.json';
             return `${this.uiLabels.reachedCity} ${this.currentCity}!`;
         },
         showQuestions(){
+
             this.showFinalCityMessage = false
         },
         nextPoint(){
@@ -253,14 +254,12 @@ h1 {
     justify-content: center;
     top: 10px;
     right: 10px;
-
 }
 
 .final-city{
     width: auto; 
     height: auto;
     color: black;
-    
     font-size: 60px;
     text-align: center;
     font-family: 'Futura', sans-serif;
@@ -272,11 +271,10 @@ h1 {
     position: absolute;
     font-size: 50px;
     font-family: 'Futura', sans-serif;
-    top: 70px;
+    top: 60px;
     justify-content: center;
-    
-   
 }
+
 
 .city-questions div {
     background-color: #d9f1ff; /* Ljusblå färg */
@@ -289,6 +287,7 @@ h1 {
     font-size: 1.2rem;
     font-family: 'Futura';
     color: #333;
+
 }
 
 .headline {
