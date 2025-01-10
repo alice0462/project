@@ -1,10 +1,13 @@
 "<template>
     <body>
     <div class="gameSite">
-        <div class="circle" v-if="!showQuestions">
+        <div class="circle" v-if="!showQuestions && !showFinalCityMessage">
             <div class="startTimer">
                 {{ timer }}
             </div>
+        </div>
+        <div class="headline" v-if="!showQuestions && !showFinalCityMessage">
+            {{ uiLabels.headline }}
         </div>
         <div class="clues" v-if="showClues">
         <h3>{{ currentPoint }}</h3>

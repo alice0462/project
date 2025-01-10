@@ -241,10 +241,10 @@ export default {
       },
       
       goToQuestions() {
-        this.questionAnswer = true;
-        socket.emit("startQuestions", this.pollId);
         console.log("stopMusic-händelse mottagen");
         socket.emit("stopMusic", this.pollId);
+        this.questionAnswer = true;
+        socket.emit("startQuestions", this.pollId);
       },
 
       goToScores(){
