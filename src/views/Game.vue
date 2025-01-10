@@ -1,5 +1,5 @@
 <template>
-    <body>
+    <div>
     <div class="gameSite">
         <div class="circle" v-if="!showQuestions">
             <div class="startTimer">
@@ -23,7 +23,7 @@
         </div>
     </div>
     </div>
-</body>
+</div>
 </template>
 
 <script>
@@ -58,12 +58,15 @@ import playersEn from '@/assets/players-en.json';
             timeElapsed: 0,
             intervalId: null,
             lang: localStorage.getItem( "lang") || "en",
+            //cluesPointsSv: cluesPointsSv
+            //currentCity: null,
         };
     },
 
     computed: {
     currentCity() {
       // Hämta namnet på den aktuella staden
+      console.log("currentCityIndex:", this.currentCityIndex, "cities:", this.cities);
       return this.cities[this.currentCityIndex]?.name || "Unkown city";
 
     },
@@ -76,6 +79,7 @@ import playersEn from '@/assets/players-en.json';
 
       //NYTT CARRO 7/1
       const cityClues = this.lang === "sv" ? cluesSv.ledtradar : cluesEn.clues;
+      console.log("currentCity:", this.currentCity, "clues:", cityClues);
       return cityClues[this.currentCity]?.[this.currentClueIndex] || "No more clues.";
     },
 
@@ -86,13 +90,14 @@ import playersEn from '@/assets/players-en.json';
 
         //NYTT CARRO 7/1
         const cityQuestions = this.lang === "sv" ? questionsSv.fragor : questionsEn.questions;
+        console.log("currentCity:", this.currentCity, "questions:", cityQuestions);
         return cityQuestions[this.currentCity] || [];
 
     },
     currentPoint() {
         //return cluesPointsSv.poang[this.thisPoint] || "Okända poäng";
         //NYTT CARRO 7/1
-        const points = this.lang === "sv" ? cluesPointsSv.points : cluesPointsEn.points;
+        const points = this.lang === "sv" ? cluesPointsSv.poang : cluesPointsEn.points;
         return points[this.thisPoint] || (this.lang === "sv" ? "Okända poäng" : "Unknown points");
         
     },
@@ -110,9 +115,10 @@ import playersEn from '@/assets/players-en.json';
         socket.emit( "getUILabels", this.lang );
 
         this.pollId = this.$route.params.id;
-        socket.on('chosenCities', (c) => {
-            console.log("Valda städer mottagna:", c);
-            this.cities = c;
+        socket.on('fullGame', (data) => {
+            console.log("Valda städer mottagna:", data.cities);
+            this.cities = data.cities;
+            this.currentCityIndex = data.currentCityIndex;
             //this.startCountdown();
         }); // admin väljer när allt ska skickas ut
         socket.on("gameStarted", (startTime) => {
@@ -123,11 +129,29 @@ import playersEn from '@/assets/players-en.json';
             this.showQuestions = true;
             this.showClues = false;
             this.showFinalCityMessage = false;
-        })
+        });
         socket.on("showScores", (pollId) => {
             if (pollId === this.pollId) {
                 this.$router.push("/points/" + this.pollId);
             }
+        });
+        socket.on("goToNextCity", (cityIndex) => {
+        console.log("HALLIHALLÅ:", cityIndex);
+        this.currentCityIndex = cityIndex;
+            /*const cityIndex = this.cities.findIndex(city => city.name === data.currentCity.name);
+            console.log("CITIES ARRAY:", this.cities);
+            console.log("CURRENT CITY DATA:", data.currentCity);
+            console.log("CityIndex:", cityIndex);
+            if (cityIndex !== -1) {
+                this.currentCityIndex = cityIndex;
+                this.currentClueIndex = 0; // Återställ ledtrådsindex
+                this.showClues = true; // Visa ledtrådar igen
+                this.showFinalCityMessage = false;
+                this.thisPoint = 10; // Återställ poäng
+                //this.currentCity = data.currentCity;
+                console.log("Ny mottagen stad:", this.currentCity);
+            }*/
+        
         });
         socket.emit("joinPoll", this.pollId);
         socket.emit("requestCities", this.pollId); // jag ber om informationen när jag går med i Game
@@ -154,6 +178,7 @@ import playersEn from '@/assets/players-en.json';
                 }
             });*/
             startTimer(startTime) {
+                socket.emit("currentCity", { currentCity: this.currentCity, pollId: this.pollId });
                 this.timeElapsed = Math.floor((Date.now() - startTime) / 1000) //Tid från när vi startade och nu i sek
                 this.timer =5 - (this.timeElapsed % 5); 
 
@@ -168,11 +193,11 @@ import playersEn from '@/assets/players-en.json';
             },
         nextClueOrCity() {
             console.log(cluesSv)
-            console.log(this.currentCity)
-            socket.emit("currentCity", { currentCity: this.currentCity, pollId: this.pollId });
+            console.log("Nuvarande stad:",this.currentCity)
+            
             if (
-                this.currentClueIndex < cluesSv["ledtradar"][this.currentCity].length - 1
-            ) {
+                this.currentClueIndex < cluesSv["ledtradar"][this.currentCity].length - 1) 
+                {
                 this.currentClueIndex++;
                 this.nextPoint(); // visa nästa ledtråd från samma stad
             //} else if (this.currentCityIndex < this.selectedCities.length - 1) {
@@ -182,11 +207,11 @@ import playersEn from '@/assets/players-en.json';
             else {  // Alla städer och ledtrådar är visade
                 this.showClues = false;
                 this.showFinalCityMessage = true;
-                 
-                
                 clearInterval(this.intervalId);
             }
         },
+
+
         showCity(){
             return `${this.uiLabels.reachedCity} ${this.currentCity}!`;
         },
@@ -203,11 +228,6 @@ import playersEn from '@/assets/players-en.json';
 </script>
 
 <style scoped>
-html, body {
-    margin: 0px;
-    padding: 0px;
-    height: 100%;
-}
 .gameSite {
     display: flex;
     align-items: center;

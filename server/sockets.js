@@ -58,7 +58,7 @@ function sockets(io, socket, data) {
   });
 
   socket.on("requestCities", pollId => {
-    socket.emit('chosenCities', data.getCities(pollId))
+    socket.emit('fullGame', data.getPoll(pollId))
   });
 
   socket.on("requestCode", pollId => {
@@ -147,6 +147,22 @@ function sockets(io, socket, data) {
     console.log("Skickar leaderboard", data.getLeaderboard(pollId));
     io.to(pollId).emit("participantLeaderbord",  data.getLeaderboard(pollId));
   });
+
+  socket.on("nextCity", (pollId) => {
+  const nextCity = data.getNextCity(pollId);
+  if (nextCity !== null) {
+    console.log(`Nästa stad för pollId ${pollId}:`, nextCity); 
+    console.log("HÅLLKÄFTEN");
+    io.to(pollId).emit("goToNextCity", nextCity); 
+  } else {
+    console.log("Inga fler städer för pollId:", pollId);
+    io.to(pollId).emit("endOfJourney"); // Skicka en signal om att resan är slut
+  }
+});
+
+socket.on("nextView", (pollId) => {
+  io.to(pollId).emit("sendNextView", pollId);
+});
 
 }
 
