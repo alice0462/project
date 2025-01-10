@@ -10,7 +10,7 @@
             {{ uiLabels.headline }}
         </div>
         <div class="clues" v-if="showClues">
-        <h2>{{ currentPoint }}</h2>
+        <h3>{{ currentPoint }}</h3>
       <p>{{ currentClue }}</p>
     </div>
     
@@ -237,6 +237,7 @@ h1 {
     color: black;
     font-size: 1.1rem;
     position: relative;
+    font-family: 'Futura';
 }
 
 .circle {
@@ -246,7 +247,7 @@ h1 {
     border-radius: 50%;
     border: 5px solid black;;
     display: flex;
-    background: yellow;
+    background: rgb(251, 234, 105);
     font-size: 50px;
     font-weight: bold;
     color: black;
@@ -294,9 +295,8 @@ h1 {
     position: absolute;
     font-size: 50px;
     font-family: 'Futura', sans-serif;
-    top: 70px;
+    margin-top: -150px;
     justify-content: center;
-
 }
 
 
