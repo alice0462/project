@@ -93,22 +93,31 @@ export default {
 </script>
  <style scoped>
 @import url('https://fonts.googleapis.com/css2?family=Agbalumo&family=Cormorant:wght@700&display=swap');
+
 .lobby-container {
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
+  flex-direction: column;
   align-items: center;
   background: linear-gradient(to right, #d1e7ff, #d3bdf3);
   height: 100vh;
   padding: 20px;
   font-family: 'Futura', sans-serif;
+  position: relative;
 }
  .lobby-info {
-  flex: 1;
-  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  text-align: center; /* Centrerar texten i mitten */
 }
  h1 {
-  font-size: 2.5em;
+  font-size: clamp(1.5rem, 3vw, 2.5rem);
   color: #333;
+  position: absolute;
+  top: 10%;
 }
  .pollId {
   font-weight: bold;
@@ -118,28 +127,47 @@ export default {
  h2 {
   font-size: 1.5em;
   margin-top: 20px;
+  position: absolute;
+  top: 20%;
 }
  ol {
   font-size: 1.2em;
   line-height: 1.8;
 }
  .game-visual {
-  flex: 1;
-  text-align: center;
+  flex-direction: column; /* Placera tåget ovanför knappen */
+  justify-content: center; /* Centrerar innehåll vertikalt */
+  align-items: center; /* Centrerar innehåll horisontellt */
+  gap: 20px; /* Lägger mellanrum mellan tåget och knappen */
+  width: 100%; /* Låt sektionen ta upp hela bredden */
+
+  display: flex;
 }
  .train-image {
-  max-width: 100%;
+  width: clamp(40%, 50vw, 70%); /* Dynamisk storlek för tåget */
+  max-height: clamp(20vh, 50vh, 60vh);
+  object-fit: contain; /* Behåll proportionerna */
+  display: block; /* För säkerhets skull, se till att bilden är blocknivå */
+  justify-content: center;
+  position: absolute;
+  top: 45%;
+  
 }
  .start-button {
   background: linear-gradient(5deg, #63b65f, #bcedbe);
   color: #00350f;
-  font-size: 1.5em;
+  font-size: clamp(1.5rem, 1.5vw, 1.5rem); /* Dynamisk storlek för text */
   font-family: 'Futura', sans-serif;
-  padding: 30px 215px;
+  padding: clamp(20px, 3vw, 40px) clamp(40px, 6vw, 100px); 
   border: 2px solid #00720f;
   border-radius: 10px;
   cursor: pointer;
   transition: transform 0.2s, background-color 0.2s;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  top: 80%;
+  
 }
  .start-button:hover {
   transform: scale(1.1);
