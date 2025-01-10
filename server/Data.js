@@ -53,6 +53,8 @@ Data.prototype.createPoll = function(pollId, lang="en") {
     poll.startTime = null,    
     poll.points = 0;        
     this.polls[pollId] = poll;
+    poll.currentCityIndex = 0;
+    poll.lastCity = false;
     console.log("poll created", pollId, poll);
     
   }
@@ -281,11 +283,21 @@ Data.prototype.startTime = function (pollId) {
   return null;
 };
 
-/*Data.prototype.showScores = function(pollId, name, points) {
+Data.prototype.getNextCity = function(pollId) {
   if (this.pollExists(pollId)) {
-    return user, points
+    const poll = this.polls[pollId];
+    console.log(`Hämtar nästa stad. Nuvarande index: ${poll.currentCityIndex}, Totalt: ${poll.cities.length}`);
+    if (poll.currentCityIndex < poll.cities.length) {
+      poll.currentCityIndex += 1; // Öka indexet
+      //const nextCity = poll.cities[poll.currentCityIndex];
+      //this.polls[pollId] = poll; // Uppdatera lagret
+      console.log(`Ny currentCityIndex sparad: ${poll.currentCityIndex}`);
+      //console.log(`Nästa stad skickas: ${nextCity.name}, Uppdaterad index: ${poll.currentCityIndex}`);
+      return poll.currentCityIndex;
+    }
   }
-}*/
+  return null; // Om det inte finns fler städer
+};
 
 export { Data };
 

@@ -103,11 +103,11 @@ export default {
     },
     created: function () {
     this.pollId = this.$route.params.id;
-    console.log("hejhej")
     socket.on("updateCurrentCity", (data) => {
       if (data.currentCity) {
+        this.resetAnswers();
         this.currentCity = data.currentCity;
-        console.log("Mottagen stad:", this.currentCity);
+        console.log("Ny mottagen stad:", this.currentCity);
       }
     });
     socket.on("submittedAnswersUpdate", (answers) => {
@@ -266,6 +266,12 @@ export default {
           points
         });
     },
+      resetAnswers() {
+        this.destinationAnswers = [];
+        this.questionAnswers = [];
+        this.currentCity = null;
+        console.log("Tidigare resa och svar är rensade")
+      },
   }
 }
   //},

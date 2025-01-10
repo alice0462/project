@@ -6,3 +6,9 @@
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
 }
+
+html, body {
+  margin: 0px;
+  padding: 0px;
+  height: 100%;
+}
