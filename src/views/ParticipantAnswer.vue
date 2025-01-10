@@ -439,8 +439,51 @@ export default {
   cursor: grabbing;
 }
 
+@media screen and (max-width: 50em) {
+  /* Anpassa knappar */
+  .submitDestinationButton {
+    font-size: 16px; /* Minska textstorlek */
+    padding: 8px 16px; /* Minska padding */
+  }
 
+  /* Anpassa inputfält */
+  .answerInput {
+    width: 100%; /* Gör inputfältet flexibelt */
+    font-size: 15px; /* Minska textstorlek */
+  }
 
+  /* Anpassa modalfönster */
+  .writeAnswerContent {
+    width: 90%; /* Gör modalen bredare för små skärmar */
+    padding: 15px; /* Minska padding */
+  }
 
+  /* Anpassa dragknappen */
+  .answerButton img {
+    width: 300%; /* Bilden fyller containerns bredd */
+    height: auto; /* Bevara proportionerna */
+    object-fit: cover; /* Gör att bilden fyller utrymmet */
+    object-position: top center;
+    right: 90%; /* Flytta mitten av bilden till mitten av containern */
+
+  }
+
+  /* Anpassa layouten i frågor */
+  .answerRow {
+    flex-direction: column; /* Lägg frågorna vertikalt */
+    align-items: stretch; /* Sträck ut elementen */
+  }
+
+  /* Textjustering */
+  .questionsView h2 {
+    font-size: 18px; /* Minska storlek på rubriker */
+    text-align: center;
+  }
+
+  /* Göra helskärmsbakgrunden mer flexibel */
+  body.showBackground {
+    background-size: cover; /* Anpassa bakgrundsstorlek */
+  }
+}
 </style>
 
