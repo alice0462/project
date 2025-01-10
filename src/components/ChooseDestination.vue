@@ -25,7 +25,7 @@
         <p>{{ uiLabels.youChoose }}: {{ selectedCities.map(c => c.name).join(", ") }}</p>
         <div class="modal-buttons">
           <button class="cancel-button" @click="closeModal">{{uiLabels.cancel}}</button>
-          <button class="confirm-button" @click="confirmSelection">{{uiLabels.confirm}}</button>
+          <button class="confirm-button" @click="confirmSelection">{{uiLabels.choose}}</button>
         </div>
       </div>
     </div>
@@ -170,8 +170,8 @@
   font-family: 'Futura';
   cursor: pointer;
   transition: background-color 0.3s ease;
-  
   text-align: center;
+  
   
   
  }

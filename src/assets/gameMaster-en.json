@@ -1,10 +1,10 @@
 {
     "youChooseDestination": "Choose destination",
 	"maxThreeDestinations":"Choose which destinations you want to travel to. Max 3 trips per game round.",
-	"choose":"Choose",
-	"confirm":"Confirm selection",
-	"youChoose": "You have chosen",
-	"cancel":"Cancel selection",
+	"choose":"Confirm",
+	"confirm":"Are you sure?",
+	"youChoose": "Selected destinations",
+	"cancel":"Cancel",
     "cities": {
         "Moscow": "Moscow",
         "Lisbon": "Lisbon",
@@ -39,9 +39,10 @@
     "status":"Status",
     "confirm3":"Confirm",
     "decline":"Decline",
-    "questionsAboutCity":"Move on to questions about the city",
+    "questionsAboutCity":"Go to questions about city",
     "answerQuestion1":"Answer to question 1",
     "answerQuestion2":"Answer to question 2",
+    "waitForParticipantAnswer":"Wait for participant answers...",
 
     "showScores": "Show scores",
 
