@@ -4,8 +4,9 @@
     {{ question.q }}
   </div>
   <BarsComponent v-bind:labels="question.a" v-bind:data="submittedAnswers"/>
-
-  <span>{{ submittedAnswers }}</span>
+  <span>
+    {{ submittedAnswers }}
+  </span>
 </template>
 
 <script>
@@ -18,6 +19,7 @@ export default {
   components: {
     BarsComponent
   },
+  
   data: function () {
     return {
       lang: localStorage.getItem("lang") || "en",
