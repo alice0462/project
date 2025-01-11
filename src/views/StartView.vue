@@ -5,9 +5,7 @@
       <img :src="languageFlag" alt="Switch Language" />
     </button>
     <div class="logo">
-      <!--<img src="/img/logo.png"> -->
       Destination Unknown 
-      <!--<img src="../assets/logo.svg">-->
     </div>
     <button class="ruleButton" @click="showRulesText = true" >
       {{ uiLabels.about }}
@@ -66,7 +64,7 @@ export default {
   },
   
   created: function () {
-    localStorage.removeItem("role");  //Nollställer rollerna så att alla startar på nytt
+    localStorage.removeItem("role"); 
     socket.on( "uiLabels", labels => this.uiLabels = labels );
     socket.emit( "getUILabels", this.lang );
   },
