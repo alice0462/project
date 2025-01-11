@@ -3,19 +3,15 @@
     <header>{{uiLabels.youChooseDestination}}</header>
     <h1>{{uiLabels.maxThreeDestinations}}</h1>
     <div class="grid">
-      <!-- Dynamiskt generera knappar baserat på destinationerna -->
       <button
-      v-for="(city, index) in cities"
+        v-for="(city, index) in cities"
         :key="index"
         :id="'city-' + index"
         :class="{ selected: selectedCities.some(c => c.name === city) }"
-        @click="toggleSelection(city, index)"
-      >
-        {{ city }}
+        @click="toggleSelection(city, index)">
+          {{ city }}
       </button>
     </div>
- 
- 
     <button class="submit-btn" :disabled="selectedCities.length === 0" @click="openModal">
       {{ uiLabels.choose }}
     </button>
@@ -37,13 +33,10 @@
  const socket = io("http://localhost:3000");
  import gameMasterSv from '@/assets/gameMaster-sv.json';
  import gameMasterEn from '@/assets/gameMaster-en.json';
- 
- 
  import { useRouter } from 'vue-router';
  
- 
-  export default {
-    data() {
+export default {
+  data() {
     return {
       name: "ChooseDestination",
       selectedCities: [],
@@ -51,39 +44,32 @@
       data: {},
       pollId: "",
       lang: localStorage.getItem("lang") || "en",
-      }
-    },
-    created: function() {
-      this.pollId = this.$route.params.id;
-    },
+    }
+  },
+    
+  created: function() {
+    this.pollId = this.$route.params.id;
+  },
  
- 
-    computed: {
-      uiLabels() {
-        return this.lang === "sv" ? gameMasterSv : gameMasterEn; // Dynamiskt välj språk
-      },
-      cities() {
-      // Dynamiskt hämta städernas namn från labels
+  computed: {
+    uiLabels() {
+      return this.lang === "sv" ? gameMasterSv : gameMasterEn; 
+    },
+      
+    cities() {
         return Object.keys(this.uiLabels.cities).map((key) => this.uiLabels.cities[key]);
-      },
     },
+  },
  
- 
-    methods: {
+  methods: {
     toggleSelection(city, index) {
       const selectedCity = { name: city, index: index };
- 
- 
       if (this.selectedCities.some((c) => c.name === city)) {
-        // Ta bort staden om den redan är vald
         this.selectedCities = this.selectedCities.filter((c) => c.name !== city);
       } else if (this.selectedCities.length < 3) {
-        // Lägg till staden om färre än 3 är valda
         this.selectedCities.push(selectedCity);
       }
       this.data = {name :this.name, cities :this.selectedCities, pollId: this.pollId};
- 
- 
     },
     openModal() {
       this.showModal = true;
@@ -93,23 +79,17 @@
     },
     confirmSelection () {
       console.log(this.data);
-      //localStorage.setItem("selectedCities", JSON.stringify(this.selectedCities));
-      //console.log(this.data.cities);
       socket.emit("sendCities", {data: this.data, pollId: this.pollId});
       socket.emit("updateScreen", this.pollId); //Skapar ett rop som vi kommer behöva lyssna på, med ropet skickar vi med data (städer)
       this.$router.push("/lobby/" + this.pollId);
     },
   },
+};
+</script>
  
- 
-  };
-  </script>
- 
- 
- <style scoped>
-  @import url('https://fonts.googleapis.com/css2?family=Agbalumo&family=Cormorant:wght@700&display=swap');
- 
- 
+<style scoped>
+@import url('https://fonts.googleapis.com/css2?family=Agbalumo&family=Cormorant:wght@700&display=swap');
+
   .container-choose {
     margin: 0;
     padding: 0;
@@ -122,140 +102,112 @@
     justify-content: center; /* Centrerar vertikalt */
     text-align: center; /* Centrerar text */
   }
- 
- 
   header{
     font-size: 2.5rem;
     font-family: 'Futura';
     margin-bottom: 2%;
     color: #333;
-    position: relative; /* Flytta rubriken utan att påverka andra element */
-    top: calc(-5vh); /* Flytta rubriken uppåt baserat på skärmhöjd */
-    
+    position: relative; 
+    top: calc(-5vh); 
   }
- 
- 
   h1{
     font-size: 1.2rem;
     font-weight: lighter;
     font-family: 'Futura';
     margin-bottom: 2%;
     color: #555;
-    position: relative; /* Flytta rubriken utan att påverka andra element */
-    top: calc(-5vh); /* Flytta rubriken uppåt baserat på skärmhöjd */
+    position: relative; 
+    top: calc(-5vh); 
   }
- 
- 
   .grid {
-  
-  display: grid;
-  grid-template-columns: 22% 22% 22% 22%;
-  grid-template-rows: 22% 22% 22% 22%;
-  gap: 2%;
-  justify-content: center;
-  text-align: center;
-  width: 100%;
-  aspect-ratio: 2/1;
-  max-width: 900px;
-  position: relative; /* Flytta rubriken utan att påverka andra element */
-  top: calc(-3vh); /* Flytta rubriken uppåt baserat på skärmhöjd */
+    display: grid;
+    grid-template-columns: 22% 22% 22% 22%;
+    grid-template-rows: 22% 22% 22% 22%;
+    gap: 2%;
+    justify-content: center;
+    text-align: center;
+    width: 100%;
+    aspect-ratio: 2/1;
+    max-width: 900px;
+    position: relative; 
+    top: calc(-3vh); 
   }
- 
- 
   button {
-  background-color: #ffe369;
-  border: none;
-  border-radius: 10px;
-  padding: 20px;
-  font-size: clamp(0.7rem, 2vw, 1rem); 
-  font-family: 'Futura';
-  cursor: pointer;
-  transition: background-color 0.3s ease;
-  text-align: center;
+    background-color: #ffe369;
+    border: none;
+    border-radius: 10px;
+    padding: 20px;
+    font-size: clamp(0.7rem, 2vw, 1rem); 
+    font-family: 'Futura';
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    text-align: center;
+  }
+  button.selected {
+    background-color: #fff8d4; 
+    border: 3px solid #cba935; 
+  }
+  button:hover {
+    opacity: 0.9;
+    transform: scale(1.1);
+    cursor: pointer;
+  }
+  .submit-btn {
+    margin-top: 20px;
+    background-color: #34e583; 
+    color: rgb(4, 4, 4);
+    border: none;
+    border-radius: 5px;
+    padding: 20px 50px;
+    font-size: 18px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    position: absolute; 
+    right: 150; 
+    bottom: 80px; 
  }
- 
- 
- button.selected {
-  background-color: #fff8d4; /* Ljusare gul färg */
-  border: 3px solid #cba935; /* Lägg till en kant för att markera */
- }
- 
- 
- button:hover {
-  opacity: 0.9;
-  transform: scale(1.1);
-  cursor: pointer;
- }
-
- .submit-btn {
-  margin-top: 20px;
-  background-color: #34e583; /* Ändra färg här */
-  color: rgb(4, 4, 4);
-  border: none;
-  border-radius: 5px;
-  padding: 20px 50px;
-  font-size: 18px;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
-  position: absolute; /* Placera knappen absolut */
-  right: 150; /* Avstånd från höger */
-  bottom: 80px; /* Avstånd från botten */
-  
- }
- 
- 
  .modal-overlay {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: rgba(0, 0, 0, 0.5);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  z-index: 1000;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
  }
- 
- 
- .modal {
-  background: white;
-  padding: 20px;
-  border-radius: 10px;
-  text-align: center;
-  width: 400px;
-  font-family: 'Futura';
-  font-weight: lighter;
- }
- 
- 
- .modal-buttons {
-  display: flex;
-  justify-content: center;
-  margin-top: 20px;
-  gap: 20px;
- }
- 
- 
- .confirm-button {
-  background-color: #34e583;
-  border: 2px;
-  padding: 10px 20px;
-  border-radius: 10px;
-  color: white;
-  cursor: pointer;
- }
- 
- 
- .cancel-button {
-  background-color: red;
-  border: 2px;
-  padding: 10px 20px;
-  border-radius: 10px;
-  color: white;
-  cursor: pointer;
- }
- 
- 
- </style>
+  .modal {
+    background: white;
+    padding: 20px;
+    border-radius: 10px;
+    text-align: center;
+    width: 400px;
+    font-family: 'Futura';
+    font-weight: lighter;
+  }
+  .modal-buttons {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+    gap: 20px;
+  }
+  .confirm-button {
+    background-color: #34e583;
+    border: 2px;
+    padding: 10px 20px;
+    border-radius: 10px;
+    color: white;
+    cursor: pointer;
+  }
+  .cancel-button {
+    background-color: red;
+    border: 2px;
+    padding: 10px 20px;
+    border-radius: 10px;
+    color: white;
+    cursor: pointer;
+  }
+</style>
  

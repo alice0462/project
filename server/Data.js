@@ -208,8 +208,8 @@ Data.prototype.getCode = function(pollId, data) {
   return [];
 }
 
-Data.prototype.destinationAnswer = function(user, pollId, type, guess, points) {
-  console.log("Sparar svar för:", user, pollId, type, guess, points);
+Data.prototype.destinationAnswer = function(user, pollId, type, correctCity, guess, points) {
+  console.log("Sparar svar för:", user, pollId, type, correctCity, guess, points);
 
   if (this.pollExists(pollId)) {
     const poll = this.polls[pollId];
@@ -226,7 +226,7 @@ Data.prototype.destinationAnswer = function(user, pollId, type, guess, points) {
       existingAnswer.points = points;
       console.log("Destinationssvar uppdaterat för:", user, guess, points);
     } else {
-      poll.guesses.push({ name: user, type: "destination", guess: guess, points: points });
+      poll.guesses.push({ name: user, type: "destination", correctCity: correctCity, guess: guess, points: points });
       console.log("Nytt svar sparat för:", user, guess, points);
     }
   } else {
@@ -234,7 +234,7 @@ Data.prototype.destinationAnswer = function(user, pollId, type, guess, points) {
   }
 };
 
-Data.prototype.submitQuestionAnswers = function (user, pollId, answers) {
+Data.prototype.submitQuestionAnswers = function (user, pollId, correctCity, answers) {
   if (this.pollExists(pollId)) {
     const poll = this.polls[pollId];
 
@@ -250,6 +250,7 @@ Data.prototype.submitQuestionAnswers = function (user, pollId, answers) {
       poll.guesses.push({
         name: user,
         type: "questions",
+        correctCity: correctCity,
         answers: answers,
       });
     }

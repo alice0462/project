@@ -2,8 +2,8 @@
   <body>
     <h1>{{destination}}: {{ this.currentCity }}</h1>
     <div v-if="questionAnswer && correctAnswers && correctAnswers.length > 0">
-    <div class="facitSection">
-      Facit:
+      <div class="facitSection">
+        Facit:
         <p v-for="(answer, index) in correctAnswers" :key="index">
           {{ index === 0 ? answerQuestion1 : answerQuestion2 }}: <strong>{{ answer }}</strong>
         </p>
@@ -16,8 +16,12 @@
       <div v-if="destinationAnswers.length === 0 || questionAnswers.length === 0 && questionAnswer === true" class="waitForAnswer">
         {{ waitForParticipantAnswer }}
       </div>
-      
-
+      <button v-if="!lastCity" class="questionButton" @click="goToScores">{{showScores}}</button>
+      <button v-if="lastCity" class="questionButton" @click="goToSummary">Prispall</button>
+    </div>
+    <div v-if="destinationAnswers.length === 0 || questionAnswers.length === 0 && questionAnswer === true" class="waitForAnswer">
+      {{ waitForParticipantAnswer }}
+    </div>
     <button class="questionButton" v-if ="!questionAnswer" @click="goToQuestions">{{questionsAboutCity}}</button>
     <div v-if="destinationAnswers.length > 0 && !questionAnswer">
       <div v-for="(answer, index) in destinationAnswers" :key="index" :class="['answerBox', answer.status]">
@@ -37,16 +41,11 @@
           </div>
         </div>
       </div>
-      
-
-
     </div>
-      
     <div v-if="questionAnswers.length > 0 && questionAnswer">
       <div v-for="(answer, index) in questionAnswers" :key="index" :class="['answerBox', answer.status]">
         <p>{{player}}: <strong> {{ answer.name }}</strong></p>
         <p>{{answerQuestion1}}: <strong> {{ answer.answers[0].guess }}</strong></p>
-        
         <div v-if="!answer.confirmed" class="buttons">
           <button class="approve-btn" :class="{ active: answer.answers[0].status === 'approved' }" @click="toggleAnswerStatus(index, 0, 'approved')">
             {{confirm3}}
@@ -54,8 +53,7 @@
           <button class="reject-btn" :class="{ active: answer.answers[0].status === 'rejected' }" @click="toggleAnswerStatus(index, 0, 'rejected')">
             {{decline}}
           </button>
-          </div>
-
+        </div>
         <p>{{answerQuestion2}}: <strong> {{ answer.answers[1].guess }}</strong></p>
         <div v-if="!answer.confirmed" class="buttons">
           <button class="approve-btn" :class="{ active: answer.answers[1].status === 'approved' }" @click="toggleAnswerStatus(index, 1, 'approved')">
@@ -65,22 +63,17 @@
             {{decline}}
           </button>
         </div>
-
         <div v-if="!answer.confirmed">
           <button :disabled="!(confirmQuestion1 && confirmQuestion2)" class="confirm-btn" @click="confirmAnswer(index)">
             {{fullyConfirm}}
           </button>
         </div>
-
         <div v-if="answer.confirmed">
           <p>{{points}}: <strong> {{ answer.points }} </strong></p>
         </div>
-        </div>
-        
-        
+      </div>
     </div>
   </body>
-
 </template>
 
 <script>
@@ -91,30 +84,30 @@ import gameMasterEn from '@/assets/gameMaster-en.json';
 import answersSv from '/src/assets/answers-sv.json';
 import answersEn from '/src/assets/answers-en.json';
 
-
-//HALLOJI STUGAN
 export default {
-    name: "Answers",
-    data: function () {
-        return {
-            pollId: "",
-            uiLabels: {},
-            lang: localStorage.getItem("lang") || "en",
-            participants: [],
-            selectedToGameCode: "",
-            selectedCities: [],
-            role: localStorage.getItem("role"), //Hämtar den tilldelade rollen som bestäms startView
-            destinationAnswers: [],     
-            questionAnswers: [],
-            currentCity: null,
-            questionAnswer: false,
-            confirmQuestion1: false,
-            confirmQuestion2: false,
-            lastCity: false,
-        }
-    },
-    created: function () {
+  name: "Answers",
+  data: function () {
+    return {
+      pollId: "",
+      uiLabels: {},
+      lang: localStorage.getItem("lang") || "en",
+      participants: [],
+      selectedToGameCode: "",
+      selectedCities: [],
+      role: localStorage.getItem("role"), 
+      destinationAnswers: [],     
+      questionAnswers: [],
+      currentCity: null,
+      questionAnswer: false,
+      confirmQuestion1: false,
+      confirmQuestion2: false,
+      lastCity: false,
+    }
+  },
+    
+  created: function () {
     this.pollId = this.$route.params.id;
+    
     socket.on("updateCurrentCity", (data) => {
       if (data.currentCity) {
         this.resetAnswers();
@@ -122,27 +115,23 @@ export default {
         console.log("Ny mottagen stad:", this.currentCity);
       }
     });
+
     socket.on("submittedAnswersUpdate", (answers) => {
       console.log("inkommande svar:", answers);
+      //const relevantAnswers = answers.filter((a) => a.type === (this.questionAnswer ? "questions" : "destination") && a.correctCity === this.currentCity // Kontrollera stad
       if (!this.questionAnswer) {
         this.destinationAnswers = answers.filter((a) => a.type === "destination");
       } else {
         this.questionAnswers = answers.filter((a) => a.type === "questions");
       }
-      
-      /*if (answers.length > 0) {
-        this.currentAnswer = answers[0];
-        console.log(this.currentAnswer);
-      } else {
-        this.currentAnswer = null;
-      }*/
     });
+
     socket.on("finalDestination", (pollId) => {
       this.lastCity = true;
     });
+
     socket.emit("joinPoll", this.pollId);
     
-    // Begär befintliga svar för denna omröstning
     socket.emit("getSubmittedAnswers", this.pollId);
   },
 
@@ -195,10 +184,8 @@ export default {
       const result = answers[this.currentCity] || [];
       console.log('Facit', this.currentCity, result);
       return result;
-
+    },
   },
-},
-
 
   methods: {
     approveAnswer(index) {
@@ -215,249 +202,216 @@ export default {
     },  
 
     rejectAnswer(index) {
-      //if (this.currentAnswer) {
-        const answer = this.destinationAnswers[index];
-        answer.status = "rejected";
-        // Logik för att neka svaret
-        socket.emit("rejectAnswer", {
-          pollId: this.pollId,
-          user: answer.name,
-          points: 0,
-        });
-        console.log("Nekade svar:", answer);
-        // Uppdatera visningen
-        this.currentAnswer = null;
-      },
-
-      toggleAnswerStatus(index, questionIndex, status) {
-        const answer = this.questionAnswers[index];
-        const question = answer.answers[questionIndex];
-
-        if (question.status === status) {
-          question.status = null; // Nollställ status om samma knapp trycks igen
-        } else {
-          question.status = status; // Sätt till vald status
-        }
-          // Kontrollera status för båda frågorna varje gång
-        this.confirmQuestion1 = answer.answers[0].status === 'approved' || answer.answers[0].status === 'rejected';
-        this.confirmQuestion2 = answer.answers[1].status === 'approved' || answer.answers[1].status === 'rejected';
-
-        console.log(`Fråga ${questionIndex + 1} status ändrad till:`, question.status);
-      },
-
-      confirmAnswer(index) {
-        const answer = this.questionAnswers[index];
-        const correctCount = answer.answers.filter(q => q.status === 'approved').length;
-
-        if (correctCount === 2) {
-          answer.points = 3; // Alla rätt
-          answer.status = "approved";
-        } else if (correctCount === 1) {
-          answer.points = 1; // En rätt
-          answer.status = "partially-approved";
-        } else {
-          answer.points = 0; // Inga rätt
-          answer.status = "rejected";
-        }
-        
-        answer.confirmed = true;
-        console.log("Bekräftade poäng efter frågor:", answer.points);
-
-        socket.emit("confirmQuestionAnswers", {
-          pollId: this.pollId,
-          user: answer.name,
-          points: answer.points,
-        });
-        this.updatePoints(answer.name, answer.points); 
-      },
-      
-      goToQuestions() {
-        console.log("stopMusic-händelse mottagen");
-        socket.emit("stopMusic", this.pollId);
-        this.questionAnswer = true;
-        socket.emit("startQuestions", this.pollId);
-      },
-
-      goToScores(){
-        socket.emit("showScores", this.pollId);
-        this.$router.push('/points/' + this.pollId);
-        //socket.emit("startScores", this.pollId)
-      },
-      updatePoints(user, points) {
-        socket.emit("updatePoints", {
-          pollId: this.pollId,
-          user,
-          points
-        });
+      const answer = this.destinationAnswers[index];
+      answer.status = "rejected";
+      socket.emit("rejectAnswer", {
+        pollId: this.pollId,
+        user: answer.name,
+        points: 0,
+      });
+      console.log("Nekade svar:", answer);
+      this.currentAnswer = null;
     },
-      resetAnswers() {
-        this.destinationAnswers = [];
-        this.questionAnswers = [];
-        this.currentCity = null;
-        console.log("Tidigare resa och svar är rensade")
-      },
-      goToSummary () {
-        socket.emit("showScores", this.pollId);
-        this.$router.push(`/podium/${this.pollId}`);
+
+    toggleAnswerStatus(index, questionIndex, status) {
+      const answer = this.questionAnswers[index];
+      const question = answer.answers[questionIndex];
+      if (question.status === status) {
+        question.status = null; 
+      } else {
+        question.status = status; 
       }
+      this.confirmQuestion1 = answer.answers[0].status === 'approved' || answer.answers[0].status === 'rejected';
+      this.confirmQuestion2 = answer.answers[1].status === 'approved' || answer.answers[1].status === 'rejected';
+      console.log(`Fråga ${questionIndex + 1} status ändrad till:`, question.status);
+    },
+
+    confirmAnswer(index) {
+      const answer = this.questionAnswers[index];
+      const correctCount = answer.answers.filter(q => q.status === 'approved').length;
+      if (correctCount === 2) {
+        answer.points = 3; 
+        answer.status = "approved";
+      } else if (correctCount === 1) {
+        answer.points = 1; 
+        answer.status = "partially-approved";
+      } else {
+        answer.points = 0; 
+        answer.status = "rejected";
+      }
+      answer.confirmed = true;
+      console.log("Bekräftade poäng efter frågor:", answer.points);
+      socket.emit("confirmQuestionAnswers", {
+        pollId: this.pollId,
+        user: answer.name,
+        points: answer.points,
+      });
+      this.updatePoints(answer.name, answer.points); 
+    },
+      
+    goToQuestions() {
+      console.log("stopMusic-händelse mottagen");
+      socket.emit("stopMusic", this.pollId);
+      this.questionAnswer = true;
+      socket.emit("startQuestions", this.pollId);
+      this.resetAnswers();
+    },
+
+    goToScores(){
+      socket.emit("showScores", this.pollId);
+      this.$router.push('/points/' + this.pollId);
+      this.resetAnswers();
+    },
+
+    updatePoints(user, points) {
+      socket.emit("updatePoints", {
+        pollId: this.pollId,
+        user,
+        points
+      });
+    },
+
+    resetAnswers() {
+      this.destinationAnswers = [];
+      this.questionAnswers = [];
+      console.log("Tidigare resa och svar är rensade")
+    },
+    goToSummary () {
+      socket.emit("showScores", this.pollId);
+      this.$router.push(`/podium/${this.pollId}`);
+    }
   }
 }
-  //},
-//}
-  
-
-
-
 </script>
 
 <style scoped>
-body {
+  body {
     background: linear-gradient(to right, #d1e7ff, #d3bdf3);
     height:100%;
     min-height: 100vh;
     font-family: 'Futura';
-    }
-
-h1 {
-  margin-top: 0px;
-  padding-top: 30px;
-}
-
-.answerBox {
-  background-color: white;
-  border: 2px solid #ccc;
-  border-radius: 10px;
-  padding: 20px;
-  margin: 20px auto;
-  width: 80%;
-  max-width: 600px;
-  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
-  transition: background-color 0.3s, border-color 0.3s;
-}
-
-.approved {
-  background-color: #d4edda; /* Ljusgrön */
-  border-color: #28a745; /* Grön */
-}
-
-.rejected {
-  background-color: #f8d7da; /* Ljusröd */
-  border-color: #dc3545; /* Röd */
-}
-
-.answerBox.partially-approved {
-  background-color: #fff3cd; /* Gul */
-  border-color: #ffc107;
-}
-
-.buttons {
-  display: flex;
-  justify-content: center;
-  gap: 10px;
-  margin-top: 5px;
-  padding: 5px 10px;
-  cursor: pointer;
-  font-size: 20px;
-}
-.approve-btn {
-  background-color: #5dba73e3;
-  border:2px solid rgb(16, 148, 49);
-  border-radius: 5px;
-  font-size: 15px;
-  font-family: 'Futura';
-  padding: 10px;
-
-}
-.reject-btn {
-  background-color: #db6874;
-  border:2px solid rgb(156, 20, 20);
-  border-radius: 5px;
-  font-size: 15px;
-  font-family: 'Futura';
-
-}
-
-.approve-btn:hover, .reject-btn:hover {
-  transform: scale(1.1);
-  cursor: pointer;
-}
-
-.questionButton {
-  background-color: #94b8ee;
-  border: 2px solid rgba(69, 87, 221, 0.717);
-  margin: 10px;
-  border-radius: 10px;
-  font-family: 'Futura';
-  font-size: 15px;
-  width: 200px;
-  height: 60px;
-  position: fixed;
-  bottom: 20px;
-  right: 20px;
-
-}
-
-.questionButton:hover {
+  }
+  h1 {
+    margin-top: 0px;
+    padding-top: 30px;
+  }
+  .answerBox {
+    background-color: white;
+    border: 2px solid #ccc;
+    border-radius: 10px;
+    padding: 20px;
+    margin: 20px auto;
+    width: 80%;
+    max-width: 600px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+    transition: background-color 0.3s, border-color 0.3s;
+  }
+  .approved {
+    background-color: #d4edda; 
+    border-color: #28a745; 
+  }
+  .rejected {
+    background-color: #f8d7da; 
+    border-color: #dc3545; 
+  }
+  .answerBox.partially-approved {
+    background-color: #fff3cd; 
+    border-color: #ffc107;
+  }
+  .buttons {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin-top: 5px;
+    padding: 5px 10px;
+    cursor: pointer;
+    font-size: 20px;
+  }
+  .approve-btn {
+    background-color: #5dba73e3;
+    border:2px solid rgb(16, 148, 49);
+    border-radius: 5px;
+    font-size: 15px;
+    font-family: 'Futura', sans-serif;
+    padding: 10px;
+  }
+  .reject-btn {
+    background-color: #db6874;
+    border:2px solid rgb(156, 20, 20);
+    border-radius: 5px;
+    font-size: 15px;
+    font-family: 'Futura', sans-serif;
+  }
+  .approve-btn:hover, .reject-btn:hover {
     transform: scale(1.1);
     cursor: pointer;
   }
-
+  .questionButton {
+    background-color: #94b8ee;
+    border: 2px solid rgba(69, 87, 221, 0.717);
+    margin: 10px;
+    border-radius: 10px;
+    font-family: 'Futura';
+    font-size: 15px;
+    width: 200px;
+    height: 60px;
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+  }
+  .questionButton:hover {
+    transform: scale(1.1);
+    cursor: pointer;
+  }
   .approve-btn.active {
-  background-color: #28a745; /* Grön */
+  background-color: #28a745; 
   color: white;
-}
-
-.reject-btn.active {
-  background-color: #dc3545; /* Röd */
-  color: white;
-}
-
-.confirm-btn {
-  background-color: #58a7fa; /* Blå */
-  color: black;
-  padding: 10px 20px;
-  border: 2px solid rgb(46, 108, 196);
-  border-radius: 5px;
-  font-size: 16px;
-  cursor: pointer;
-  margin-top: 10px;
-  font-family: 'Futura';
-}
-
-.confirm-btn:hover {
-  opacity: 0.9;
-  transform: scale(1.1);
-  cursor: pointer;
-}
-button:disabled {  
-  opacity: 0.6; /* G%C3%B6r knappen genomskinlig */  
-  cursor: not-allowed; /* Visar att knappen inte kan klickas */
-  transform: none;
-}
-
-.confirm-btn:disabled {
-  background-color: #6c757d; /* Grå */
-  cursor: not-allowed;
-  transform: none;
-  border: none;
-}
-
-.waitForAnswer {
-  font-size: 20px;
-  font-family: 'Futura', sans-serif;
-  margin: 30px 
-}
-
-.facitSection {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  border: 2px solid black;
-  border-radius: 10px;
-  padding: 20px;
-  width: 300px;
-  margin: 20px auto;
-}
-
+  }
+  .reject-btn.active {
+    background-color: #dc3545; 
+    color: white;
+  }
+  .confirm-btn {
+    background-color: #58a7fa; 
+    color: black;
+    padding: 10px 20px;
+    border: 2px solid rgb(46, 108, 196);
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+    margin-top: 10px;
+    font-family: 'Futura';
+  }
+  .confirm-btn:hover {
+    opacity: 0.9;
+    transform: scale(1.1);
+    cursor: pointer;
+  }
+  button:disabled {  
+    opacity: 0.6; 
+    cursor: not-allowed; 
+    transform: none;
+  }
+  .confirm-btn:disabled {
+    background-color: #6c757d; 
+    cursor: not-allowed;
+    transform: none;
+    border: none;
+  }
+  .waitForAnswer {
+    font-size: 20px;
+    font-family: 'Futura', sans-serif;
+    margin: 30px 
+  }
+  .facitSection {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    border: 2px solid black;
+    border-radius: 10px;
+    padding: 20px;
+    width: 300px;
+    margin: 20px auto;
+  }
 </style>

@@ -26,14 +26,14 @@
   </div>
 </template>
   
-  <script>
-  import io from 'socket.io-client'; //dessa två rader ska vara här sen, men just nu finns det inga sockets att koppla till 
-  import secondSoundFile from '@/assets/lat2.mp3';
-  const socket = io(sessionStorage.getItem("currentNetwork"));
+<script>
+import io from 'socket.io-client'; //dessa två rader ska vara här sen, men just nu finns det inga sockets att koppla till 
+import secondSoundFile from '@/assets/lat2.mp3';
+const socket = io(sessionStorage.getItem("currentNetwork"));
 
-  export default {
-    name: "Podium",
-    data() {
+export default {
+  name: "Podium",
+  data() {
     return {
       players: [], // Börja med en tom lista
       audio: null,
@@ -48,26 +48,25 @@
     socket.on("stopSecondMusic", () => {
       console.log("stopMusic-händelse mottagen i Game.vue");
       this.stopAudio(); 
-        });
+    });
 
     socket.on("participantLeaderbord", (participants) => {
       console.log("Mottagna deltagare: MAMMA", participants);
       this.sortLeaderboard(participants);
     });
+
     socket.emit("joinPoll", this.pollId);
     socket.emit("getScores", this.pollId);
-
   },
 
   computed: {
     podium() {
-      return this.players.slice(0, 3); // Topp 3 spelare
+      return this.players.slice(0, 3); 
     },
     remainingPlayers() {
-      return this.players.slice(3); // Alla utom topp 3
+      return this.players.slice(3); 
     },
   },
-
 
   methods: {
     sortLeaderboard(participants) {
@@ -84,8 +83,7 @@
       socket.emit("stopSecondMusic", this.pollId);
       socket.emit("resetGame", this.pollId);
       this.$router.push("/");
-
-      },
+    },
 
     startAudio() {
       this.audio = new Audio(secondSoundFile); 
@@ -107,8 +105,8 @@
 };
 </script>
   
-  <style scoped>
-  @import url('https://fonts.googleapis.com/css2?family=Agbalumo&family=Cormorant:wght@700&display=swap');
+<style scoped>
+@import url('https://fonts.googleapis.com/css2?family=Agbalumo&family=Cormorant:wght@700&display=swap');
   
   .podium-container {
     display: flex;
@@ -122,14 +120,12 @@
     background-color: pink;
     font-family: 'Futura', sans-serif;
   }
-  
   .podium {
     display: flex;
     justify-content: center;
     align-items: flex-end;
     gap: 30px;
   }
-  
   .podium-column {
     display: flex;
     flex-direction: column;
@@ -139,8 +135,6 @@
     text-align: center;
     position: relative;
   }
-  
-  /* Första plats */
   .podium-column.first {
     height: 0;
     width: 180px;
@@ -148,8 +142,6 @@
     box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.2);
     animation: growFirst 2s ease-out forwards;
   }
-  
-  /* Andra plats */
   .podium-column.second {
     height: 0;
     width: 126px;
@@ -158,8 +150,6 @@
     animation: growSecond 2s ease-out forwards;
     animation-delay: 0.3s;
   }
-  
-  /* Tredje plats */
   .podium-column.third {
     height: 0;
     width: 96px;
@@ -168,39 +158,32 @@
     animation: growThird 2s ease-out forwards;
     animation-delay: 0.6s;
   }
-  
-  /* Animationer för varje plats */
   @keyframes growFirst {
     to {
-      height: 300px; /* Första plats slutar högst */
+      height: 300px; 
     }
   }
-  
   @keyframes growSecond {
     to {
-      height: 210px; /* Andra plats slutar lite mindre */
+      height: 210px; 
     }
   }
-  
   @keyframes growThird {
     to {
-      height: 160px; /* Tredje plats är minst */
+      height: 160px;
     }
   }
-  
   .name {
     position: absolute;
     top: -30px;
     font-size: 18px;
     font-weight: bold;
   }
-  
   .position {
     font-size: 20px;
     font-weight: bold;
     color: black;
   }
-  
   .end-game-btn {
     margin-top: 20px;
     background: linear-gradient(to right, #bcd4ff, #99c9ff);
@@ -213,27 +196,23 @@
     box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.2);
     transition: transform 0.2s;
   }
-  
   .end-game-btn:hover {
     transform: scale(1.1);
   }
-
   .remaining-players {
     margin-top: 20px;
     text-align: center;
   }
-
-.remaining-players h2 {
-  font-family: 'Futura', sans-serif;
-  font-size: 1.5rem;
-  margin-bottom: 10px;
-}
-
-.remaining-players ol {
-  list-style-position: inside;
-  font-family: 'Futura', sans-serif;
-  font-size: 1.2rem;
-  color: black;
-}
-  </style>
+  .remaining-players h2 {
+    font-family: 'Futura', sans-serif;
+    font-size: 1.5rem;
+    margin-bottom: 10px;
+  }
+  .remaining-players ol {
+    list-style-position: inside;
+    font-family: 'Futura', sans-serif;
+    font-size: 1.2rem;
+    color: black;
+  }
+</style>
   

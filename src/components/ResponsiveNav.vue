@@ -1,19 +1,18 @@
 <template>
-  <nav v-bind:class="{'hide': hideNav}">
-    <slot>
-    </slot>
+  <nav 
+    v-bind:class="{'hide': hideNav}">
   </nav>
 </template>
 
 <script>
-
 export default {
   name: 'ResponsiveNav',
   props: {
-      hideNav: Boolean
+    hideNav: Boolean
   }
 }
 </script>
+
 <style scoped>
   nav ::v-slotted(a) {
     text-transform: uppercase;
@@ -26,24 +25,23 @@ export default {
     justify-content: center;
     border-left: 1px solid gray;
   }
-
-@media screen and (max-width:50em) {
-  nav {
-    position: absolute;
-    height:100vh;
-    top: 3em;
-    left: 0;
-    width:12em;
-    display: grid;
-    grid-template-rows: repeat(auto-fit, 2em);
-    transition: 0.5s;
+  @media screen and (max-width:50em) {
+    nav {
+      position: absolute;
+      height:100vh;
+      top: 3em;
+      left: 0;
+      width:12em;
+      display: grid;
+      grid-template-rows: repeat(auto-fit, 2em);
+      transition: 0.5s;
+    }
+    nav ::v-slotted(a) {
+      justify-content: left;
+      padding-left: 1em;
+    }
+    .hide {
+      left:-12em;
+    }
   }
-  nav ::v-slotted(a) {
-    justify-content: left;
-    padding-left: 1em;
-  }
-  .hide {
-    left:-12em;
-  }
-}
 </style>

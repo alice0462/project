@@ -8,10 +8,10 @@
       </div>
       <div v-if="submitAnswer && !finalAnswer" class="writeAnswer">
         <div class="writeAnswerContent">
-        <h2> {{ goingWhere }}</h2>
-        <br>
-        <input type="text" class="answerText" v-model="answerDestination" :placeholder= "locationGuess"/>
-        <button v-on:click="submitDestination()" class="submitDestinationButton"> {{ lockInAnswer }}</button>
+          <h2> {{ goingWhere }}</h2>
+          <br>
+            <input type="text" class="answerText" v-model="answerDestination" :placeholder= "locationGuess"/>
+            <button v-on:click="submitDestination()" class="submitDestinationButton"> {{ lockInAnswer }}</button>
         </div>
       </div>
       <div v-if="finalAnswer" class="writeAnswer">
@@ -28,7 +28,6 @@
         </div>
       </div>
     </div>
-    
     <div v-if="cityQuestion" class="questionsView">
       <div>
         <h2> {{ questionsAbout }} {{ currentCity }}</h2>
@@ -40,7 +39,6 @@
             v-model="questionAnswers[0]" 
             :placeholder= "questionGuess" />
         </div>
-        
         <div class="answerRow">
           <h3>{{question2}}</h3>
           <input 
@@ -49,13 +47,11 @@
             v-model="questionAnswers[1]" 
             :placeholder= "questionGuess"/>
         </div>
-        
         <button 
           class="submitDestinationButton" 
           @click="submitQuestionAnswers()">
           {{lockInCityQuestions}}
         </button>
-        
         <div v-if="finalQuestionAnswers" class="writeAnswer">
           <div class="writeAnswerContent">
             <h2> {{ lockedAnswer }} </h2>
@@ -88,7 +84,7 @@ export default {
       pollId:"",
       lang: localStorage.getItem( "lang") || "en",
       user: localStorage.getItem( "participantName") || "unknownParticipant",
-      timer: 5, 
+      timer: 30, 
       points: 10, 
       intervalId: null, 
       timeElapsed: 0,
@@ -106,6 +102,7 @@ export default {
       isTimeOut: false,
     }
   },
+
   created: function () {
     this.pollId = this.$route.params.id;
     console.log("Användarnamn från sessionStorage:", this.user); 
@@ -127,6 +124,7 @@ export default {
         console.log("Mottagen stad:", this.currentCity);
       }
     });
+
     socket.on("finalDestination", (pollId) => {
       this.lastCity = true;
     });
@@ -197,7 +195,7 @@ export default {
   methods: {
     startTimer(startTime) {
       this.timeElapsed = Math.floor((Date.now() - startTime) / 1000);
-      this.timer = 5 - (this.timeElapsed % 5);
+      this.timer = 30 - (this.timeElapsed % 30);
       this.intervalId = setInterval(() => {
         if (this.timer > 0) {
           this.timer--;
@@ -205,7 +203,7 @@ export default {
           if (this.points > 2) {
             this.points -= 2;
             console.log("Nu är vi på nivå för:", this.points, "poäng")
-            this.timer = 5; 
+            this.timer =30; 
           } else if(!this.finalAnswer && this.points === 2 && !this.isTimeOut){
             this.stopTimer();
             this.isTimeOut = true;
@@ -221,7 +219,7 @@ export default {
 
     missingAnswer() {
       this.noAnswer = true;
-      socket.emit("answerSubmit", {user: this.user, pollId: this.pollId, type: 'destination', guess: "Inget svar", points: 0 });
+      socket.emit("answerSubmit", {user: this.user, pollId: this.pollId, type: 'destination', correctCity: this.currentCity, guess: "Inget svar", points: 0 });
       console.log("inget svar registrerat för spelare:", this.user)
     },
 
@@ -233,7 +231,7 @@ export default {
           this.submitAnswer = false;
           this.stopTimer();
           console.log("Svaret är låst:", this.finalAnswer);
-          socket.emit("answerSubmit", {user: this.user, pollId: this.pollId, type: 'destination', guess: this.finalAnswer, points: this.points })
+          socket.emit("answerSubmit", {user: this.user, pollId: this.pollId, type: 'destination', correctCity: this.currentCity, guess: this.finalAnswer, points: this.points })
       }
       console.log("Svar skickat:", {user: this.user, pollId: this.pollId, guess: this.finalAnswer, points: this.points});
     },
@@ -244,11 +242,20 @@ export default {
         user: this.user,
         pollId: this.pollId,
         type: "questions",
+        correctCity: this.currentCity,
         answers: [
           { questionNumber: 1, guess: this.questionAnswers[0] },
           { questionNumber: 2, guess: this.questionAnswers[1] },
         ],
       });
+      this.resetAnswers();
+      
+    },
+
+    resetAnswers() {
+        this.destinationAnswers = [];
+        this.questionAnswers = [];
+        console.log("Tidigare resa och svar är rensade")
     },
 
     startDrag(event) {
@@ -372,14 +379,12 @@ export default {
     margin: 50px 0;
     gap: 20px;
   }
-
   .answerInput {
     padding: 10px;
     font-size: 17px;  
     border-radius: 10px;
     width: 500px;
   }
-
   .answerButton img{
     position: relative; 
     top: 0;
@@ -397,7 +402,6 @@ export default {
     left: 50%;
     transform: translateX(-50%);
   }
-
   @keyframes pulse {
     0%, 100% {
       transform: scale(1);
@@ -414,7 +418,6 @@ export default {
       transform: translateY(-10px);
     }
   }
-
   .answerButton img {
     position: relative;
     top: 0;
@@ -427,7 +430,6 @@ export default {
   .answerButton:active {
     cursor: grabbing;
   }
-
   @media screen and (max-width: 50em) {
     .submitDestinationButton {
       font-size: 16px; 

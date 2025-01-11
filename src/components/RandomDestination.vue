@@ -14,7 +14,6 @@
     <button class="generate-button" :disabled="numberOfTrips === 0" @click="generateRandomDestinations" v-if="generateButton">
       {{ uiLabels.randomizeDestinations }}
     </button>
- 
     <div v-if="randomDestinations.length > 0" class="results">
       <h2> {{uiLabels.givenDestination}} {{ randomDestinations.length > 1 ? '' : '' }}</h2>
       <ul>
@@ -27,7 +26,6 @@
     </div>
   </div>
  </template>
- 
  
  <script>
  import { io } from "socket.io-client";
@@ -53,7 +51,6 @@
   },
 
   computed: {
-    
     uiLabels() {
       return this.lang === "sv" ? gameMasterSv : gameMasterEn;
     },
@@ -87,7 +84,6 @@
  
  <style scoped>
  @import url('https://fonts.googleapis.com/css2?family=Agbalumo&family=Cormorant:wght@700&display=swap');
- 
  
   .container-random {
     display: flex;
@@ -176,7 +172,6 @@
     background: linear-gradient(5deg, #63b65f, #bcedbe);
     color: #313131;
   }
-
   .action-buttons button:first-child:hover {
   opacity: 0.9;
   transform: scale(1.1);

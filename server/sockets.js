@@ -99,9 +99,9 @@ function sockets(io, socket, data) {
   socket.on("answerSubmit", (d) => {
     console.log("Mottog answerSubmit med data:", d);
     if (d.type === "destination") {
-      data.destinationAnswer(d.user, d.pollId, d.type, d.guess, d.points);
+      data.destinationAnswer(d.user, d.pollId, d.type, d.correctCity, d.guess, d.points);
     } else if (d.type === "questions") {
-        data.submitQuestionAnswers(d.user, d.pollId, d.answers);
+        data.submitQuestionAnswers(d.user, d.pollId, d.correctCity, d.answers);
       
     }
     const updatedAnswers = data.getSubmittedAnswers(d.pollId);
