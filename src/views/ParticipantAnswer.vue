@@ -8,10 +8,10 @@
       </div>
       <div v-if="submitAnswer && !finalAnswer" class="writeAnswer">
         <div class="writeAnswerContent">
-        <h2> {{ goingWhere }}</h2>
-        <br>
-        <input type="text" class="answerText" v-model="answerDestination" :placeholder= "locationGuess"/>
-        <button v-on:click="submitDestination()" class="submitDestinationButton"> {{ lockInAnswer }}</button>
+          <h2> {{ goingWhere }}</h2>
+          <br>
+            <input type="text" class="answerText" v-model="answerDestination" :placeholder= "locationGuess"/>
+            <button v-on:click="submitDestination()" class="submitDestinationButton"> {{ lockInAnswer }}</button>
         </div>
       </div>
       <div v-if="finalAnswer" class="writeAnswer">
@@ -106,6 +106,7 @@ export default {
       isTimeOut: false,
     }
   },
+
   created: function () {
     this.pollId = this.$route.params.id;
     console.log("Användarnamn från sessionStorage:", this.user); 
@@ -127,6 +128,7 @@ export default {
         console.log("Mottagen stad:", this.currentCity);
       }
     });
+
     socket.on("finalDestination", (pollId) => {
       this.lastCity = true;
     });
@@ -253,11 +255,12 @@ export default {
       this.resetAnswers();
       
     },
+
     resetAnswers() {
         this.destinationAnswers = [];
         this.questionAnswers = [];
         console.log("Tidigare resa och svar är rensade")
-      },
+    },
 
     startDrag(event) {
       event.preventDefault();
@@ -380,14 +383,12 @@ export default {
     margin: 50px 0;
     gap: 20px;
   }
-
   .answerInput {
     padding: 10px;
     font-size: 17px;  
     border-radius: 10px;
     width: 500px;
   }
-
   .answerButton img{
     position: relative; 
     top: 0;
@@ -405,7 +406,6 @@ export default {
     left: 50%;
     transform: translateX(-50%);
   }
-
   @keyframes pulse {
     0%, 100% {
       transform: scale(1);
@@ -422,7 +422,6 @@ export default {
       transform: translateY(-10px);
     }
   }
-
   .answerButton img {
     position: relative;
     top: 0;
@@ -435,7 +434,6 @@ export default {
   .answerButton:active {
     cursor: grabbing;
   }
-
   @media screen and (max-width: 50em) {
     .submitDestinationButton {
       font-size: 16px; 
