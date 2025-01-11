@@ -1,39 +1,24 @@
 <template>
   <body>
-  <!--<div>
-    {{pollId}}
-    <div v-if="!joined">
-      <input type="text" v-model="userName">
-      <button v-on:click="participateInPoll">
-        {{ this.uiLabels.participateInPoll }}
-      </button>
-    </div>-->
-    <!--<div v-if="joined">
-      <p>{{ uiLabels.waitingForHost }}</p>
-      {{ participants }}
-  </div>-->
-
-
-  <div>
-  <h1>{{ uiLabels.participateInPoll }}</h1>
-  <p>{{ uiLabels.enterName }}</p>
-  <input type="text" class="usernameBox" v-model="userName">
-  <br>
-  <p>{{ uiLabels.participateDescription }}</p>
-  <div class="poll-id-container">
-  <!--<input type="text" v-model="pollId" placeholder="Enter poll ID">-->
-  <input type="text" maxlength="1" class="poll-id-box" id="box1" v-model="boxes[0]" @input="moveFocus(1)" @keydown="handleBackspace($event, 1)">
-  <input type="text" maxlength="1" class="poll-id-box" id="box2" v-model="boxes[1]" @input="moveFocus(2)" @keydown="handleBackspace($event, 2)">
-  <input type="text" maxlength="1" class="poll-id-box" id="box3" v-model="boxes[2]" @input="moveFocus(3)" @keydown="handleBackspace($event, 3)">
-  <input type="text" maxlength="1" class="poll-id-box" id="box4" v-model="boxes[3]" @input="combinePollId()" @keydown="handleBackspace($event, 4)">
-
-  </div>
-  <br>
-  <button v-on:click="participateInPoll">
-    {{ uiLabels.participateInPoll }}
-  </button>
-</div>
-</body>
+    <div>
+      <h1>{{ uiLabels.participateInPoll }}</h1>
+      <p>{{ uiLabels.enterName }}</p>
+      <input type="text" class="usernameBox" v-model="userName">
+      <br>
+        <p>{{ uiLabels.participateDescription }}</p>
+        
+        <div class="poll-id-container">
+          <input type="text" maxlength="1" class="poll-id-box" id="box1" v-model="boxes[0]" @input="moveFocus(1)" @keydown="handleBackspace($event, 1)">
+          <input type="text" maxlength="1" class="poll-id-box" id="box2" v-model="boxes[1]" @input="moveFocus(2)" @keydown="handleBackspace($event, 2)">
+          <input type="text" maxlength="1" class="poll-id-box" id="box3" v-model="boxes[2]" @input="moveFocus(3)" @keydown="handleBackspace($event, 3)">
+          <input type="text" maxlength="1" class="poll-id-box" id="box4" v-model="boxes[3]" @input="combinePollId()" @keydown="handleBackspace($event, 4)">
+        </div>
+        <br>
+        <button v-on:click="participateInPoll">
+          {{ uiLabels.participateInPoll }}
+        </button>
+    </div>
+  </body>
 </template>
 
 <script>
@@ -53,6 +38,7 @@ export default {
       participants: []
     }
   },
+  
   created: function () {
     this.pollId = this.$route.params.id;
     socket.on( "uiLabels", labels => this.uiLabels = labels );
@@ -64,10 +50,7 @@ export default {
       this.participants = p; });
   },
 
-
-
   methods: {
-
     moveFocus(currentBox) {
       const currentInput = document.getElementById(`box${currentBox}`);
       const nextInput = document.getElementById(`box${currentBox + 1}`);
@@ -125,7 +108,6 @@ h1, p{
 p {
   font-size: 20px;
 }
-
 .usernameBox{
   height: 30px;
   width: 130px;
@@ -150,7 +132,6 @@ p {
 .poll-id-box:focus{
   outline: 1px solid
 }
-
 button{
   height: 60px;
   width: 150px;
@@ -160,5 +141,4 @@ button{
   background: linear-gradient(5deg, #63b65f, #bcedbe);
   margin-top: 30px;
 }
-
 </style>

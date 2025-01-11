@@ -15,15 +15,6 @@ export default {
 }
 </script>
 <style scoped>
-  /*nav {
-    background: linear-gradient(5deg, rgb(123, 168, 205), #d3d3f5);
-    width:100%;
-    height: 4em;
-    display: grid;
-    grid-template-columns: repeat(auto-fit, 10em);
-    justify-content: end;
-  }*/
-
   nav ::v-slotted(a) {
     text-transform: uppercase;
     font-size: 0.8rem;
