@@ -120,6 +120,7 @@
     padding: 0px;
     background-size: 100% 100%;
     background-color: pink;
+    font-family: 'Futura', sans-serif;
   }
   
   .podium {
@@ -195,7 +196,7 @@
   }
   
   .position {
-    font-size: 48px;
+    font-size: 20px;
     font-weight: bold;
     color: black;
   }

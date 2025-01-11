@@ -10,7 +10,7 @@
 	"participateInPoll": "Join Game",
 	"screenViewer":"Screen View",
 	"rulesTitle": "Game Rules",
-	"rules": "We are visiting an unknown destination, a city in the world, and your job is to figure out where we are heading! You will hear a number of clues worth 10 points, 8 points, 6 points, 4 points, and 2 points. In the top right corner, you’ll see a timer, and you must answer within the given time. When you think you know the destination, pull the emergency brake and submit your answer! When the destination is revealed, you will need to answer two questions related to it. A correct answer to one question gives 1 point, and correct answers to both questions give 3 points. The player with the most points at the end of the game wins!",
+	"rules": "We are visiting an unknown destination, a city in the world, and your job is to figure out where we are heading! You will hear a number of clues worth 10 points, 8 points, 6 points, 4 points, and 2 points. In the top right corner, you’ll see a timer, and you must answer within the given time. When you think you know the destination, drag the emergency brake and submit your answer! When the destination is revealed, you will need to answer two questions related to it. A correct answer to one question gives 1 point, and correct answers to both questions give 3 points. The player with the most points at the end of the game wins!",
 	"chooseDestination": "Choose Destinations",
 	"randomDestination": "Random Destinations",
 	"enterName": "Enter your name:",

@@ -51,6 +51,7 @@
     "currentScore":"Scores",
     "points1":"Points",
     "noPlayersYet":"No participants yet...",
-    "nextDestination":"Next Destination"
+    "nextDestination":"Next Destination",
+    "podium":"Podium"
       
 }

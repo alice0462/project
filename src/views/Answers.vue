@@ -9,7 +9,7 @@
         </p>
     </div>
     <button v-if="!lastCity" class="questionButton" @click="goToScores">{{showScores}}</button>
-    <button v-if="lastCity" class="questionButton" @click="goToSummary">Prispall</button>
+    <button v-if="lastCity" class="questionButton" @click="goToSummary">{{showPodium}}</button>
 
   </div>
 
@@ -185,6 +185,9 @@ export default {
     },
     showScores() {
       return this.lang === "sv" ? gameMasterSv.showScores : gameMasterEn.showScores;
+    },
+    showPodium () {
+      return this.lang === 'sv' ? gameMasterSv.podium : gameMasterEn.podium;
     },
     
     correctAnswers() {

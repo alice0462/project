@@ -101,7 +101,7 @@ h1{
   color: rgb(75, 76, 76);
 }
 h1, p{
-  font-family: 'Futura';
+  font-family: 'Futura', sans-serif;
   color: rgb(75, 76, 76);
   margin-bottom: 20px;
 }
