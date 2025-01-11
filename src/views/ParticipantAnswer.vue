@@ -21,7 +21,7 @@
           <p class="lockedAnswer"> {{ finalAnswer }}</p>
         </div>
       </div>
-      <div v-if="noAnswer" class="writeAnswer">
+      <div v-if="noAnswer && isTimeOut" class="writeAnswer">
         <div class="writeAnswerContent">
           <h2> {{ noAnswer }}</h2>
           <p> {{ noAnswerText }}</p>
@@ -103,6 +103,7 @@ export default {
       showBackground: false,
       lastCity: false,
       noAnswer: false,
+      isTimeOut: false,
     }
   },
   created: function () {
@@ -144,7 +145,7 @@ export default {
     socket.emit("requestStartTime", this.pollId);
     socket.emit("requestCode", this.pollId);     
     socket.emit("getCurrentParticipant", (data) => {
-      this.participantName=data.name;
+      this.participantName = data.name;
     });
   },
 
@@ -205,8 +206,9 @@ export default {
             this.points -= 2;
             console.log("Nu är vi på nivå för:", this.points, "poäng")
             this.timer = 5; 
-          } else if(!this.finalAnswer){
+          } else if(!this.finalAnswer && this.points === 2 && !this.isTimeOut){
             this.stopTimer();
+            this.isTimeOut = true;
             this.missingAnswer();
           }
         }
@@ -218,9 +220,9 @@ export default {
     },
 
     missingAnswer() {
+      this.noAnswer = true;
       socket.emit("answerSubmit", {user: this.user, pollId: this.pollId, type: 'destination', guess: "Inget svar", points: 0 });
       console.log("inget svar registrerat för spelare:", this.user)
-      this.noAnswer = true;
     },
 
     submitDestination(){
