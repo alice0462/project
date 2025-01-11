@@ -246,6 +246,7 @@ export default {
         color: black;
         align-items: center; 
         justify-content: center;
+        position: absolute;
         top: 10px;
         right: 10px;
     }
