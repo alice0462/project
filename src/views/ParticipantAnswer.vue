@@ -21,6 +21,12 @@
           <p class="lockedAnswer"> {{ finalAnswer }}</p>
         </div>
       </div>
+      <div v-if="noAnswer" class="writeAnswer">
+        <div class="writeAnswerContent">
+          <h2> {{ noAnswer }}</h2>
+          <p> {{ noAnswerText }}</p>
+        </div>
+      </div>
     </div>
     
     <div v-if="cityQuestion" class="questionsView">
@@ -96,6 +102,7 @@ export default {
       buttonOffset: 0,
       showBackground: false,
       lastCity: false,
+      noAnswer: false,
     }
   },
   created: function () {
@@ -178,6 +185,12 @@ export default {
     question3() {
       return this.lang === "sv" ? playersSV.question3 : playersEN.question3;
     },
+    noAnswer() {
+      return this.lang === "sv" ? playersSV.noAnswer : playersEN.noAnswer;
+    },
+    noAnswerText() {
+      return this.lang === "sv" ? playersSV.noAnswerText : playersEN.noAnswerText;
+    },
   },
 
   methods: {
@@ -205,8 +218,9 @@ export default {
     },
 
     missingAnswer() {
-      socket.emit("answerSubmit", {user: this.user, pollId: this.pollId, guess: "Inget svar", points: 0 });
+      socket.emit("answerSubmit", {user: this.user, pollId: this.pollId, type: 'destination', guess: "Inget svar", points: 0 });
       console.log("inget svar registrerat för spelare:", this.user)
+      this.noAnswer = true;
     },
 
     submitDestination(){

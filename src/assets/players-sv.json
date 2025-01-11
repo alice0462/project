@@ -12,7 +12,9 @@
     "questionGuess": "Skriv ditt svar här...",
     "lockInCityQuestions": "Lås in dina svar",
     "letsGo":"Starta Spel",
-    "question3": "Fråga"
+    "question3": "Fråga",
+    "noAnswer": "Tiden har gått ut!",
+    "noAnswerText": "Du har inte låst in något svar"
 
 
 }

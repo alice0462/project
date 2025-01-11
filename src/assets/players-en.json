@@ -12,6 +12,8 @@
     "questionGuess": "Type your answer here...",
     "lockInCityQuestions": "Lock in your answers",
     "letsGo":"Start Game",
-    "question3": "Question"
+    "question3": "Question",
+    "noAnswer": "The time has run out!",
+    "noAnswerText": "You have not locked in an answer"
 
 }

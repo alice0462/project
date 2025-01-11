@@ -3,6 +3,7 @@
 	"maxThreeDestinations":"Choose which destinations you want to travel to. Max 3 trips per game round.",
 	"choose":"Confirm",
 	"confirm":"Are you sure?",
+    "confirmJourney": "Confirm journey",
 	"youChoose": "Selected destinations",
 	"cancel":"Cancel",
     "cities": {
@@ -37,7 +38,8 @@
     "guess":"Guess",
     "points":"Points",
     "status":"Status",
-    "confirm3":"Confirm",
+    "confirm3":"Accept",
+    "fullyConfirm": "Confirm",
     "decline":"Decline",
     "questionsAboutCity":"Go to questions about city",
     "answerQuestion1":"Answer to question 1",

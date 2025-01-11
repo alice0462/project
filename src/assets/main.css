@@ -12,3 +12,8 @@ html, body {
   padding: 0px;
   height: 100%;
 }
+
+div{
+  font-family: 'Futura';
+  color: #313131;
+}
