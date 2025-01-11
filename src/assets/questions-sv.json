@@ -12,15 +12,14 @@
             "Vilken ikonisk byggnad i Paris fungerade tidigare som ett kungligt palats och är idag ett av världens största konstmuseer?",
             "Vilken välkänd gata i Paris sträcker sig från Place de la Concorde till Triumfbågen och är berömd för sina butiker och kaféer?"
        ],
-       "Moskva": [
-            "Vad heter den ikoniska byggnaden på Röda torget i Moskva som är känd för sina färgglada lökkupoler och ofta förväxlas med Kreml?",
-            "Vilken flod rinner genom Moskva och har samma namn som staden?"
+       "Uppsala": [
+          "Uppsala universitet är Sveriges äldsta universitet. Vilket år uppstartade det?",
+          "Uppsala domkyrka är Nordens största domkyrka, hur hög och lång är kyrkan?"
 
        ],
-       "Lissabon": [
-            "Vad heter det historiska tornet i Lissabon, byggt som en del av stadens försvar under 1500-talet, som nu är ett UNESCO-världsarv?",
-            "Vad heter den berömda spårvagnslinjen i Lissabon som slingrar sig genom stadens branta och smala gator och är en populär turistattraktion?"
-
+       "Oslo": [
+            "I vilken klubb spelar den norska fotbollsspelaren Erling Haaland i?",
+            "Vad är norges nationalrätt?"
        ],
        "Seoul": [
           "Vad heter floden som rinner genom Seoul och är en av stadens populära platser för promenader och picknick?",
@@ -48,14 +47,13 @@
             "Vilken smal park i New York, byggd på en övergiven järnvägslinje ovanför marken, sträcker sig genom stadsdelarna Meatpacking District och Chelsea?"
 
        ],
-       "Helsingfors": [
-            "Vad heter den berömda kyrkan i Helsingfors som är insprängd i ett klippblock och är känd för sin unika arkitektur och fantastiska akustik?",
-            "Vilken känd ögrupp, som är ett UNESCO-världsarv, ligger utanför Helsingfors och har en historisk sjöfästning?"
-
+       "Singapore": [
+          "Singapore är en av de så kallade tigerekonomierna. Vilka är det övriga tre?",
+          "Vad innehåller den kända drinken som du hittar på Raffles Hotel?"
        ],
-       "Kapstaden": [
-            "Vad heter det ikoniska berg som reser sig bakom Kapstaden och är en av stadens mest kända landmärken?",
-            "Vad heter det historiska fängelset på en ö utanför Kapstaden där Nelson Mandela satt fängslad i 18 år?"
+       "Bangkok": [
+            "På systembolaget finns två ganska kända thailändska ölmärken, vilka är ölmärkerna?",
+            "Vad heter det berömda templet i Bangkok som är hem till en av världens största liggande Buddha-statyer, som mäter hela 46 meter i längd?"
 
        ],
        "Hanoi": [
@@ -63,9 +61,10 @@
             "Vad heter den vietnamesiska baguettesmörgåsen som ofta fylls med en kombination av kött, picklade grönsaker, koriander och ibland chili?"
 
        ],
-       "Göteborg": [
-            "Vilken lång gata i centrala Göteborg, ofta kallad Göteborgs paradgata, sträcker sig från Kungsportsplatsen till Götaplatsen?",
-            "Vad heter den kända stadsdelen i Göteborg som är känd för sina välbevarade landshövdingehus och sitt kafé- och restaurangliv?"
+       "Nairobi": [
+          "Kenya är känt för sina vidsträckta savanner och för många som är på safaritur är det en höjdpunkt att se 'The Big Five', vilka djur räknas till dessa? ",
+          "Vilket kenyanskt folk, känt för sina färgstarka kläder och hoppdans, bor i regioner nära Nairobi och är en stor del av stadens kulturella identitet?"
+
 
        ],
        "Buenos Aires": [

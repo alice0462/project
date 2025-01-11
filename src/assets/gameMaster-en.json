@@ -6,8 +6,8 @@
 	"youChoose": "Selected destinations",
 	"cancel":"Cancel",
     "cities": {
-        "Moscow": "Moscow",
-        "Lisbon": "Lisbon",
+        "Uppsala": "Uppsala",
+        "Oslo": "Oslo",
         "Seoul": "Seoul",
         "Toronto": "Toronto",
         "Tokyo": "Tokyo",
@@ -15,11 +15,11 @@
         "Linköping": "Linköping",
         "New York": "New York",
         "Stockholm": "Stockholm",
-        "Helsinki": "Helsinki",
+        "Bangkok": "Bangkok",
         "Paris": "Paris",
-        "Cape Town": "Cape Town",
+        "Singapore": "Singapore",
         "Hanoi": "Hanoi",
-        "Gothenburg": "Gothenburg",
+        "Nairobi": "Nairobi",
         "Buenos Aires": "Buenos Aires",
         "Rio de Janeiro": "Rio de Janeiro"
     },
@@ -46,7 +46,7 @@
 
     "showScores": "Show scores",
 
-    "currentScore":"Standing points",
+    "currentScore":"Scores",
     "points1":"Points",
     "noPlayersYet":"No participants yet...",
     "nextDestination":"Next Destination"

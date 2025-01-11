@@ -12,13 +12,13 @@
             "Which iconic building in Paris once served as a royal palace and is now one of the world's largest art museums?",
             "Which famous street in Paris stretches from Place de la Concorde to the Arc de Triomphe and is renowned for its shops and cafés?"
         ],
-        "Moscow": [
-            "What is the name of the iconic building on Red Square in Moscow that is famous for its colorful onion domes and is often mistaken for the Kremlin?",
-            "Which river flows through Moscow and shares its name with the city?"
+        "Uppsala": [
+            "Uppsala University is Sweden's oldest university. In what year was it established?",
+            "Uppsala Cathedral is the largest cathedral in the Nordic countries. How tall and long is the church?"
         ],
-        "Lisbon": [
-            "What is the name of the historic tower in Lisbon, built as part of the city's defense in the 16th century, which is now a UNESCO World Heritage Site?",
-            "What is the name of the famous tram line in Lisbon that winds through the city's steep and narrow streets and is a popular tourist attraction?"
+        "Oslo": [
+            "In wich soccer club does the famous fotballplayer Erling Haaland play in?",
+            "What is Norway's national dish?"
         ],
         "Seoul": [
             "What is the name of the river that flows through Seoul and is one of the city's popular spots for walks and picnics?",
@@ -40,21 +40,21 @@
             "What is the name of the island in New York that served as the primary gateway for immigrants to the USA between 1892 and 1954 and is now an immigration history museum?",
             "Which narrow park in New York, built on an abandoned railway line above ground, stretches through the Meatpacking District and Chelsea neighborhoods?"
         ],
-        "Helsinki": [
-            "What is the name of the famous church in Helsinki that is carved into a rock and is known for its unique architecture and fantastic acoustics?",
-            "Which well-known archipelago, a UNESCO World Heritage Site, lies off Helsinki and features a historic sea fortress?"
+        "Singapore": [
+            "Singapore is one of the so-called tiger economies. What are the other three?",
+            "What ingredients are in the famous drink found at Raffles Hotel?"
         ],
-        "Cape Town": [
-            "What is the name of the iconic mountain that rises behind Cape Town and is one of the city's most famous landmarks?",
-            "What is the name of the historic prison on an island off Cape Town where Nelson Mandela was imprisoned for 18 years?"
+        "Bangkok": [
+            "At the liquor store, there are two fairly well-known Thai beer brands. What are the brands?",
+            "What is the name of the famous temple in Bangkok that is home to one of the world's largest reclining Buddha statues, measuring a full 46 meters in length?"
         ],
         "Hanoi": [
             "What is the name of the lake in central Hanoi that, according to legend, is connected to a magical sword returned to a golden turtle?",
             "What is the name of the Vietnamese baguette sandwich often filled with a combination of meat, pickled vegetables, coriander, and sometimes chili?"
         ],
-        "Gothenburg": [
-            "What is the name of the long street in central Gothenburg, often called Gothenburg's parade street, stretching from Kungsportsplatsen to Götaplatsen?",
-            "What is the name of the well-known district in Gothenburg famous for its well-preserved 'landshövdingehus' and its café and restaurant scene?"
+        "Nairobi": [
+            "Kenya is known for its vast savannas, and for many on a safari tour, a highlight is seeing 'The Big Five.' Which animals are included in this group?",
+            "Which Kenyan people, known for their colorful clothing and jumping dance, live in regions near Nairobi and are a significant part of the city's cultural identity?"
         ],
         "Buenos Aires": [
             "What is the name of the colorful area in Buenos Aires, known for its charming houses, artistic atmosphere, and connection to tango?",
