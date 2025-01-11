@@ -88,7 +88,7 @@ export default {
       pollId:"",
       lang: localStorage.getItem( "lang") || "en",
       user: localStorage.getItem( "participantName") || "unknownParticipant",
-      timer: 5, 
+      timer: 30, 
       points: 10, 
       intervalId: null, 
       timeElapsed: 0,
@@ -197,7 +197,7 @@ export default {
   methods: {
     startTimer(startTime) {
       this.timeElapsed = Math.floor((Date.now() - startTime) / 1000);
-      this.timer = 5 - (this.timeElapsed % 5);
+      this.timer = 30 - (this.timeElapsed % 30);
       this.intervalId = setInterval(() => {
         if (this.timer > 0) {
           this.timer--;
@@ -205,7 +205,7 @@ export default {
           if (this.points > 2) {
             this.points -= 2;
             console.log("Nu är vi på nivå för:", this.points, "poäng")
-            this.timer = 5; 
+            this.timer =30; 
           } else if(!this.finalAnswer && this.points === 2 && !this.isTimeOut){
             this.stopTimer();
             this.isTimeOut = true;
@@ -221,7 +221,7 @@ export default {
 
     missingAnswer() {
       this.noAnswer = true;
-      socket.emit("answerSubmit", {user: this.user, pollId: this.pollId, type: 'destination', guess: "Inget svar", points: 0 });
+      socket.emit("answerSubmit", {user: this.user, pollId: this.pollId, type: 'destination', correctCity: this.currentCity, guess: "Inget svar", points: 0 });
       console.log("inget svar registrerat för spelare:", this.user)
     },
 
@@ -233,7 +233,7 @@ export default {
           this.submitAnswer = false;
           this.stopTimer();
           console.log("Svaret är låst:", this.finalAnswer);
-          socket.emit("answerSubmit", {user: this.user, pollId: this.pollId, type: 'destination', guess: this.finalAnswer, points: this.points })
+          socket.emit("answerSubmit", {user: this.user, pollId: this.pollId, type: 'destination', correctCity: this.currentCity, guess: this.finalAnswer, points: this.points })
       }
       console.log("Svar skickat:", {user: this.user, pollId: this.pollId, guess: this.finalAnswer, points: this.points});
     },
@@ -244,12 +244,20 @@ export default {
         user: this.user,
         pollId: this.pollId,
         type: "questions",
+        correctCity: this.currentCity,
         answers: [
           { questionNumber: 1, guess: this.questionAnswers[0] },
           { questionNumber: 2, guess: this.questionAnswers[1] },
         ],
       });
+      this.resetAnswers();
+      
     },
+    resetAnswers() {
+        this.destinationAnswers = [];
+        this.questionAnswers = [];
+        console.log("Tidigare resa och svar är rensade")
+      },
 
     startDrag(event) {
       event.preventDefault();

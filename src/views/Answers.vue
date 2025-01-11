@@ -124,11 +124,14 @@ export default {
     });
     socket.on("submittedAnswersUpdate", (answers) => {
       console.log("inkommande svar:", answers);
+      //const relevantAnswers = answers.filter((a) => a.type === (this.questionAnswer ? "questions" : "destination") && a.correctCity === this.currentCity // Kontrollera stad
       if (!this.questionAnswer) {
         this.destinationAnswers = answers.filter((a) => a.type === "destination");
       } else {
         this.questionAnswers = answers.filter((a) => a.type === "questions");
       }
+
+      
       
       /*if (answers.length > 0) {
         this.currentAnswer = answers[0];
@@ -273,11 +276,13 @@ export default {
         socket.emit("stopMusic", this.pollId);
         this.questionAnswer = true;
         socket.emit("startQuestions", this.pollId);
+        this.resetAnswers();
       },
 
       goToScores(){
         socket.emit("showScores", this.pollId);
         this.$router.push('/points/' + this.pollId);
+        this.resetAnswers();
         //socket.emit("startScores", this.pollId)
       },
       updatePoints(user, points) {
@@ -290,7 +295,6 @@ export default {
       resetAnswers() {
         this.destinationAnswers = [];
         this.questionAnswers = [];
-        this.currentCity = null;
         console.log("Tidigare resa och svar är rensade")
       },
       goToSummary () {
