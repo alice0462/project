@@ -28,7 +28,6 @@
         </div>
       </div>
     </div>
-    
     <div v-if="cityQuestion" class="questionsView">
       <div>
         <h2> {{ questionsAbout }} {{ currentCity }}</h2>
@@ -40,7 +39,6 @@
             v-model="questionAnswers[0]" 
             :placeholder= "questionGuess" />
         </div>
-        
         <div class="answerRow">
           <h3>{{question2}}</h3>
           <input 
@@ -49,13 +47,11 @@
             v-model="questionAnswers[1]" 
             :placeholder= "questionGuess"/>
         </div>
-        
         <button 
           class="submitDestinationButton" 
           @click="submitQuestionAnswers()">
           {{lockInCityQuestions}}
         </button>
-        
         <div v-if="finalQuestionAnswers" class="writeAnswer">
           <div class="writeAnswerContent">
             <h2> {{ lockedAnswer }} </h2>
