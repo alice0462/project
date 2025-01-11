@@ -72,31 +72,17 @@ import soundFile from '@/assets/lat.mp3';
       return this.cities[this.currentCityIndex]?.name || "Unkown city";
 
     },
-
     currentClue() {
-        const cityClues = this.lang === "sv" ? cluesSv.ledtradar : cluesEn.clues;
-        return cityClues[this.translatedCityName]?.[this.currentClueIndex] || 
-        (this.lang === "sv" ? "Inga fler ledtrådar." : "No more clues.");
-    },
+      // Hämta aktuell ledtråd baserat på stad och index
+      
+      //INNAN NYTT CARRO 7/1
+      //const cityClues = cluesSv.ledtradar[this.currentCity] || [];
+      //return cityClues[this.currentClueIndex] || "Inga fler ledtrådar.";
 
-    translatedCityName() {
-        const citiesMap = {
-            sv: {
-                "Gothenburg": "Göteborg",
-                "Moscow": "Moskva",
-                "Lisbon": "Lissabon",
-                "Helsinki":"Helsingfors",
-                "Cape Town":"Kapstaden",
-                },
-            en: {
-                "Göteborg": "Gothenburg",
-                "Moskva": "Moscow",
-                "Helsingfors": "Helsinki",
-                "Kapstaden": "Cape Town",
-                }
-            };
-            return citiesMap[this.lang][this.currentCity] || this.currentCity;
-        },
+      //NYTT CARRO 7/1
+      const cityClues = this.lang === "sv" ? cluesSv.ledtradar : cluesEn.clues;
+      return cityClues[this.currentCity]?.[this.currentClueIndex] || "No more clues.";
+    },
 
     currentQuestions(){
         //INNAN NYTT CARRO 7/1
@@ -111,7 +97,7 @@ import soundFile from '@/assets/lat.mp3';
     currentPoint() {
         //return cluesPointsSv.poang[this.thisPoint] || "Okända poäng";
         //NYTT CARRO 7/1
-        const points = this.lang === "sv" ? cluesPointsSv.poang : cluesPointsEn.points;
+        const points = this.lang === "sv" ? cluesPointsSv.points : cluesPointsEn.points;
         return points[this.thisPoint] || (this.lang === "sv" ? "Okända poäng" : "Unknown points");
         
     },
