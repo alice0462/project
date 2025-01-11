@@ -64,7 +64,7 @@
 
 <script>
 import io from 'socket.io-client';
-const socket = io("localhost:3000");
+const socket = io(sessionStorage.getItem("currentNetwork"));
 import playersSV from "/src/assets/players-sv.json";
 import playersEN from "/src/assets/players-en.json";
 import gameMasterSv from '@/assets/gameMaster-sv.json';
@@ -95,6 +95,7 @@ export default {
       maxDrag: 250, 
       buttonOffset: 0,
       showBackground: false,
+      lastCity: false,
     }
   },
   created: function () {
@@ -118,10 +119,16 @@ export default {
         console.log("Mottagen stad:", this.currentCity);
       }
     });
-    
+    socket.on("finalDestination", (pollId) => {
+      this.lastCity = true;
+    });
+  
     socket.on("showScores", (pollId) => {
-      if (pollId === this.pollId) {
+      if (pollId === this.pollId && !this.lastCity) {
         this.$router.push("/points/" + this.pollId);
+      }
+      else if (pollId === this.pollId && this.lastCity) {
+        this.$router.push(`/podium/${this.pollId}`);
       }
     });
 

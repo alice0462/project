@@ -159,6 +159,9 @@ function sockets(io, socket, data) {
     io.to(pollId).emit("endOfJourney"); // Skicka en signal om att resan är slut
   }
 });
+socket.on("lastCity", (pollId) => {
+  io.to(pollId).emit("finalDestination", pollId);
+});
 
 socket.on("nextView", (pollId) => {
   io.to(pollId).emit("sendNextView", pollId);

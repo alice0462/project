@@ -6,10 +6,15 @@
     <p v-for="(answer, index) in correctAnswers" :key="index">
       <strong>{{ index === 0 ? answerQuestion1 : answerQuestion2 }}:</strong> {{ answer }}
     </p>
-</p>
-      <div class="waitForAnswer">
+    <button v-if="!lastCity" class="questionButton" @click="goToScores">{{showScores}}</button>
+    <button v-if="lastCity" class="questionButton" @click="goToSummary">Prispall</button>
+
+  </p>
+
+      <div v-if="destinationAnswers.length === 0 || questionAnswers.length === 0 && questionAnswer === true" class="waitForAnswer">
         {{ waitForParticipantAnswer }}
       </div>
+      
 
     <button class="questionButton" v-if ="!questionAnswer" @click="goToQuestions">{{questionsAboutCity}}</button>
     <div v-if="destinationAnswers.length > 0 && !questionAnswer">
@@ -60,7 +65,7 @@
         </div>
 
         <div v-if="!answer.confirmed">
-          <button class="confirm-btn" @click="confirmAnswer(index)">{{confirm3}}</button>
+          <button :disabled="!(confirmQuestion1 && confirmQuestion2)" class="confirm-btn" @click="confirmAnswer(index)">{{confirm3}}</button>
         </div>
 
         <div v-if="answer.confirmed">
@@ -68,7 +73,7 @@
         </div>
         </div>
         
-        <button class="questionButton" @click="goToScores">{{showScores}}</button>
+        
     </div>
   </body>
 
@@ -76,7 +81,7 @@
 
 <script>
 import io from 'socket.io-client';
-const socket = io("localhost:3000");
+const socket = io(sessionStorage.getItem("currentNetwork"));
 import gameMasterSv from '@/assets/gameMaster-sv.json';
 import gameMasterEn from '@/assets/gameMaster-en.json';
 import answersSv from '/src/assets/answers-sv.json';
@@ -99,6 +104,9 @@ export default {
             questionAnswers: [],
             currentCity: null,
             questionAnswer: false,
+            confirmQuestion1: false,
+            confirmQuestion2: false,
+            lastCity: false,
         }
     },
     created: function () {
@@ -124,6 +132,9 @@ export default {
       } else {
         this.currentAnswer = null;
       }*/
+    });
+    socket.on("finalDestination", (pollId) => {
+      this.lastCity = true;
     });
     socket.emit("joinPoll", this.pollId);
     
@@ -184,7 +195,7 @@ export default {
       const answer = this.destinationAnswers[index];
       if (answer) {
         answer.status = 'approved';
-        socket.emit("updatePoints", {
+        socket.emit("updatePoints", { //bytte ut approveAnswer till updatePoints (förut gavs frågepoängen dubbelt)
           pollId: this.pollId,
           user: answer.name,
           points: answer.points,
@@ -217,6 +228,9 @@ export default {
         } else {
           question.status = status; // Sätt till vald status
         }
+          // Kontrollera status för båda frågorna varje gång
+        this.confirmQuestion1 = answer.answers[0].status === 'approved' || answer.answers[0].status === 'rejected';
+        this.confirmQuestion2 = answer.answers[1].status === 'approved' || answer.answers[1].status === 'rejected';
 
         console.log(`Fråga ${questionIndex + 1} status ändrad till:`, question.status);
       },
@@ -272,6 +286,10 @@ export default {
         this.currentCity = null;
         console.log("Tidigare resa och svar är rensade")
       },
+      goToSummary () {
+        socket.emit("showScores", this.pollId);
+        this.$router.push(`/podium/${this.pollId}`);
+      }
   }
 }
   //},

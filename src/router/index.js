@@ -76,7 +76,7 @@ const router = createRouter({
     component: () => import('../views/Points.vue')
     },
 
-    {path: "/podium/",
+    {path: "/podium/:id",
       name: "Podium",
         component: () => import('../views/Podium.vue')
       },
