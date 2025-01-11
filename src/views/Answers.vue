@@ -1,15 +1,17 @@
 <template>
   <body>
     <h1>{{destination}}: {{ this.currentCity }}</h1>
-    <p v-if="questionAnswer && correctAnswers && correctAnswers.length > 0">
-  <strong>Facit:</strong>
-    <p v-for="(answer, index) in correctAnswers" :key="index">
-      <strong>{{ index === 0 ? answerQuestion1 : answerQuestion2 }}:</strong> {{ answer }}
-    </p>
+    <div v-if="questionAnswer && correctAnswers && correctAnswers.length > 0">
+    <div class="facitSection">
+      <strong>Facit:</strong>
+        <p v-for="(answer, index) in correctAnswers" :key="index">
+          <strong>{{ index === 0 ? answerQuestion1 : answerQuestion2 }}:</strong> {{ answer }}
+        </p>
+    </div>
     <button v-if="!lastCity" class="questionButton" @click="goToScores">{{showScores}}</button>
     <button v-if="lastCity" class="questionButton" @click="goToSummary">Prispall</button>
 
-  </p>
+  </div>
 
       <div v-if="destinationAnswers.length === 0 || questionAnswers.length === 0 && questionAnswer === true" class="waitForAnswer">
         {{ waitForParticipantAnswer }}
@@ -431,5 +433,16 @@ button:disabled {
   margin: 30px 
 }
 
+.facitSection {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  border: 2px solid black;
+  border-radius: 10px;
+  padding: 20px;
+  width: 300px;
+  margin: 20px auto;
+}
 
 </style>
