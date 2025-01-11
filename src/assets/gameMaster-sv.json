@@ -1,10 +1,10 @@
 {
     "youChooseDestination": "Välj destination",
     "maxThreeDestinations":"Välj vilka resmål du vill åka till. Max 3 resor per spelomgång.",
-    "choose":"Välj",
-    "confirm":"Bekräfta val",
-    "youChoose": "Du har valt",
-    "cancel":"Neka val",
+    "choose":"Godkänn",
+    "confirm":"Är du säker?",
+    "youChoose": "Dina destinationer",
+    "cancel":"Avbryt",
     "cities": {
         "Uppsala": "Uppsala",
         "Oslo": "Oslo",
@@ -40,9 +40,10 @@
     "status":"Status",
     "confirm3":"Godkänd",
     "decline":"Neka",
-    "questionsAboutCity":"Gå vidare till frågorna om staden",
+    "questionsAboutCity":"Gå till stadsfrågor",
     "answerQuestion1":"Svar på fråga 1",
     "answerQuestion2":"Svar på fråga 2",
+    "waitForParticipantAnswer":"Vänta på spelarnas svar...",
 
     "showScores": "Visa poängställning",
 

@@ -7,6 +7,9 @@
       <strong>{{ index === 0 ? answerQuestion1 : answerQuestion2 }}:</strong> {{ answer }}
     </p>
 </p>
+      <div class="waitForAnswer">
+        {{ waitForParticipantAnswer }}
+      </div>
 
     <button class="questionButton" v-if ="!questionAnswer" @click="goToQuestions">{{questionsAboutCity}}</button>
     <div v-if="destinationAnswers.length > 0 && !questionAnswer">
@@ -27,6 +30,7 @@
           </div>
         </div>
       </div>
+      
 
 
     </div>
@@ -99,11 +103,11 @@ export default {
     },
     created: function () {
     this.pollId = this.$route.params.id;
-    console.log("hejhej")
     socket.on("updateCurrentCity", (data) => {
       if (data.currentCity) {
+        this.resetAnswers();
         this.currentCity = data.currentCity;
-        console.log("Mottagen stad:", this.currentCity);
+        console.log("Ny mottagen stad:", this.currentCity);
       }
     });
     socket.on("submittedAnswersUpdate", (answers) => {
@@ -152,6 +156,9 @@ export default {
     questionsAboutCity() {
       return this.lang === "sv" ? gameMasterSv.questionsAboutCity : gameMasterEn.questionsAboutCity;
     },
+    waitForParticipantAnswer() {
+      return this.lang === "sv" ? gameMasterSv.waitForParticipantAnswer : gameMasterEn.waitForParticipantAnswer;
+    },
     answerQuestion1() {
       return this.lang === "sv" ? gameMasterSv.answerQuestion1 : gameMasterEn.answerQuestion1;
     },
@@ -177,7 +184,7 @@ export default {
       const answer = this.destinationAnswers[index];
       if (answer) {
         answer.status = 'approved';
-        socket.emit("approveAnswer", {
+        socket.emit("updatePoints", {
           pollId: this.pollId,
           user: answer.name,
           points: answer.points,
@@ -259,6 +266,12 @@ export default {
           points
         });
     },
+      resetAnswers() {
+        this.destinationAnswers = [];
+        this.questionAnswers = [];
+        this.currentCity = null;
+        console.log("Tidigare resa och svar är rensade")
+      },
   }
 }
   //},
@@ -341,11 +354,18 @@ h1 {
 }
 
 .questionButton {
-  background-color: #72a4f0;
-  border: 1px solid rgba(69, 87, 221, 0.717);
-  border-radius: 5px;
+  background-color: #94b8ee;
+  border: 2px solid rgba(69, 87, 221, 0.717);
+  margin: 10px;
+  border-radius: 10px;
   font-family: 'Futura';
-  font-size: 17px;
+  font-size: 15px;
+  width: 200px;
+  height: 60px;
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+
 }
 
 .questionButton:hover {
@@ -385,6 +405,12 @@ button:disabled {
 
 .confirm-btn:disabled {
   background-color: #6c757d; /* Grå */
+}
+
+.waitForAnswer {
+  font-size: 20px;
+  font-family: 'Futura', sans-serif;
+  margin: 30px 
 }
 
 

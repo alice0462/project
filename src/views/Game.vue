@@ -1,5 +1,5 @@
-"<template>
-    <body>
+<template>
+    <div>
     <div class="gameSite">
         <div class="circle" v-if="!showQuestions && !showFinalCityMessage">
             <div class="startTimer">
@@ -26,7 +26,7 @@
         </div>
     </div>
     </div>
-</body>
+</div>
 </template>
 
 <script>
@@ -69,6 +69,7 @@ import soundFile from '@/assets/lat.mp3';
     computed: {
     currentCity() {
       // Hämta namnet på den aktuella staden
+      console.log("currentCityIndex:", this.currentCityIndex, "cities:", this.cities);
       return this.cities[this.currentCityIndex]?.name || "Unkown city";
 
     },
@@ -91,6 +92,7 @@ import soundFile from '@/assets/lat.mp3';
 
         //NYTT CARRO 7/1
         const cityQuestions = this.lang === "sv" ? questionsSv.fragor : questionsEn.questions;
+        console.log("currentCity:", this.currentCity, "questions:", cityQuestions);
         return cityQuestions[this.currentCity] || [];
 
     },
@@ -115,9 +117,10 @@ import soundFile from '@/assets/lat.mp3';
         socket.emit( "getUILabels", this.lang );
 
         this.pollId = this.$route.params.id;
-        socket.on('chosenCities', (c) => {
-            console.log("Valda städer mottagna:", c);
-            this.cities = c;
+        socket.on('fullGame', (data) => {
+            console.log("Valda städer mottagna:", data.cities);
+            this.cities = data.cities;
+            this.currentCityIndex = data.currentCityIndex;
             //this.startCountdown();
         }); // admin väljer när allt ska skickas ut
         socket.on("gameStarted", (startTime) => {
@@ -133,6 +136,24 @@ import soundFile from '@/assets/lat.mp3';
             if (pollId === this.pollId) {
                 this.$router.push("/points/" + this.pollId);
             }
+        });
+        socket.on("goToNextCity", (cityIndex) => {
+        console.log("HALLIHALLÅ:", cityIndex);
+        this.currentCityIndex = cityIndex;
+            /*const cityIndex = this.cities.findIndex(city => city.name === data.currentCity.name);
+            console.log("CITIES ARRAY:", this.cities);
+            console.log("CURRENT CITY DATA:", data.currentCity);
+            console.log("CityIndex:", cityIndex);
+            if (cityIndex !== -1) {
+                this.currentCityIndex = cityIndex;
+                this.currentClueIndex = 0; // Återställ ledtrådsindex
+                this.showClues = true; // Visa ledtrådar igen
+                this.showFinalCityMessage = false;
+                this.thisPoint = 10; // Återställ poäng
+                //this.currentCity = data.currentCity;
+                console.log("Ny mottagen stad:", this.currentCity);
+            }*/
+        
         });
 
         this.startBackgroundAudio();
@@ -168,6 +189,7 @@ import soundFile from '@/assets/lat.mp3';
                 }
             });*/
             startTimer(startTime) {
+                socket.emit("currentCity", { currentCity: this.currentCity, pollId: this.pollId });
                 this.timeElapsed = Math.floor((Date.now() - startTime) / 1000) //Tid från när vi startade och nu i sek
                 this.timer =5 - (this.timeElapsed % 5); 
 
@@ -182,11 +204,11 @@ import soundFile from '@/assets/lat.mp3';
             },
         nextClueOrCity() {
             console.log(cluesSv)
-            console.log(this.currentCity)
-            socket.emit("currentCity", { currentCity: this.currentCity, pollId: this.pollId });
+            console.log("Nuvarande stad:",this.currentCity)
+            
             if (
-                this.currentClueIndex < cluesSv["ledtradar"][this.currentCity].length - 1
-            ) {
+                this.currentClueIndex < cluesSv["ledtradar"][this.currentCity].length - 1) 
+                {
                 this.currentClueIndex++;
                 this.nextPoint(); // visa nästa ledtråd från samma stad
             //} else if (this.currentCityIndex < this.selectedCities.length - 1) {
@@ -196,11 +218,11 @@ import soundFile from '@/assets/lat.mp3';
             else {  // Alla städer och ledtrådar är visade
                 this.showClues = false;
                 this.showFinalCityMessage = true;
-                 
-                
                 clearInterval(this.intervalId);
             }
         },
+
+
         showCity(){
            return `${this.uiLabels.reachedCity} ${this.currentCity}!`;
        },
@@ -236,11 +258,6 @@ import soundFile from '@/assets/lat.mp3';
 </script>
 
 <style scoped>
-html, body {
-    margin: 0px;
-    padding: 0px;
-    height: 100%;
-}
 .gameSite {
     display: flex;
     align-items: center;

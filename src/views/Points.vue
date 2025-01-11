@@ -8,7 +8,7 @@
           </p>
         </ol>
         <p v-else>{{noPlayersYet}}</p>
-        <button v-if="role === 'admin' "class="nextDestinationButton" @click="nextDestination">
+        <button v-if="role === 'admin' "class="nextDestinationButton" @click="goToNextDestination">
           {{nextDestination}}
         </button>
       </div>
@@ -25,11 +25,13 @@
     name: 'Points',
     data: function() {
       return {
+        role: localStorage.getItem("role"),//Hämtar den tilldelade rollen som bestäms startView
         pollId: "",
         // Exempeldata för poängställning
         leaderboard: [],
-        role: localStorage.getItem("role"), //Hämtar den tilldelade rollen som bestäms startView
-
+        cities: [],
+        currentCityIndex: 0,
+        gameEnd: false,
       };
       
     },
@@ -40,9 +42,32 @@
       socket.on("participantLeaderbord", (participants) => {
         console.log("Mottagna deltagare:", participants);
         this.sortLeaderboard(participants)});
+      socket.on("sendNextView", () => {
+        if (this.role === "admin") {
+          this.$router.push("/answers/" + this.pollId);
+        } else if (this.role === "player") {
+          this.$router.push("/participant-answer/" + this.pollId);
+        } else if (this.role === "screen"){
+          this.$router.push("/game/" + this.pollId);
+        }
+      });
+      socket.on('fullGame', (data) => {
+            console.log("Valda städer mottagna:", data.cities);
+            this.cities = data.cities;
+            this.currentCityIndex = data.currentCityIndex;
+            //this.startCountdown();
+        }); // admin väljer när allt ska skickas ut
       socket.emit("joinPoll", this.pollId);
       socket.emit("getScores", this.pollId);
+      
+
+
+      socket.on("endOfJourney", () => {
+        console.log("Resan är slut!");
+        this.$router.push(`/summary/${this.pollId}`); // Navigera till en summeringssida
+      });
     },
+
     methods: {
       // Metod för att sortera leaderboard om nödvändigt
       sortLeaderboard(participants) {
@@ -53,7 +78,15 @@
       } else {
         console.log("Inga deltagare att visa.");
       } // Sortera efter poäng, fallande
-      }
+      },
+
+      goToNextDestination() {
+        console.log("Begär nästa destination...");
+        socket.emit("nextCity", this.pollId); // Skicka begäran
+        socket.emit("nextView", this.pollId);
+
+      },
+
     },
 
   computed: {
