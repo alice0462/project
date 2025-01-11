@@ -100,7 +100,7 @@ import soundFile from '@/assets/lat.mp3';
     currentPoint() {
         //return cluesPointsSv.poang[this.thisPoint] || "Okända poäng";
         //NYTT CARRO 7/1
-        const points = this.lang === "sv" ? cluesPointsSv.points : cluesPointsEn.points;
+        const points = this.lang === "sv" ? cluesPointsSv.poang : cluesPointsEn.points;
         return points[this.thisPoint] || (this.lang === "sv" ? "Okända poäng" : "Unknown points");
         
     },
@@ -310,6 +310,7 @@ h1 {
     color: black;
     align-items: center; 
     justify-content: center;
+    position: absolute;
     top: 10px;
     right: 10px;
 
