@@ -31,7 +31,8 @@
     </div>
   </div>
  </template>
-  <script>
+
+<script>
  import { io } from "socket.io-client";
  const socket = io("http://localhost:3000");
  import gameMasterSv from '@/assets/gameMaster-sv.json';

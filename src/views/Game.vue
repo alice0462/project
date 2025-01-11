@@ -72,16 +72,14 @@ export default {
             return cityClues[this.currentCity]?.[this.currentClueIndex] || "No more clues.";
         },
         currentQuestions() {
-        const cityQuestions = this.lang === "sv" ? questionsSv.fragor : questionsEn.questions;
-        console.log("currentCity:", this.currentCity, "questions:", cityQuestions);
-        return cityQuestions[this.currentCity] || [];
+            const cityQuestions = this.lang === "sv" ? questionsSv.fragor : questionsEn.questions;
+            console.log("currentCity:", this.currentCity, "questions:", cityQuestions);
+            return cityQuestions[this.currentCity] || [];
 
-    },
-    currentPoint() {
-        //return cluesPointsSv.poang[this.thisPoint] || "Okända poäng";
-        //NYTT CARRO 7/1
-        const points = this.lang === "sv" ? cluesPointsSv.poang : cluesPointsEn.points;
-        return points[this.thisPoint] || (this.lang === "sv" ? "Okända poäng" : "Unknown points");
+        },
+        currentPoint() {
+            const points = this.lang === "sv" ? cluesPointsSv.poang : cluesPointsEn.points;
+            return points[this.thisPoint] || (this.lang === "sv" ? "Okända poäng" : "Unknown points");
         },
         questionNumber(){
             return this.lang === "sv" ? questionsSv.questionNumber : questionsEn.questionNumber;
@@ -163,7 +161,7 @@ export default {
                 this.currentClueIndex++;
                 this.nextPoint(); 
             } 
-            else {  // Alla städer och ledtrådar är visade
+            else {
                 this.showClues = false;
                 this.showFinalCityMessage = true;
                 clearInterval(this.intervalId);

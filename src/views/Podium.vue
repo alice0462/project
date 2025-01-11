@@ -1,20 +1,20 @@
 <template>
-    <div class="podium-container">
-      <div class="podium">
-        <div class="podium-column second">
-          <div class="name">NAMN</div>
-          <div class="position">2</div>
-        </div>
-        <div class="podium-column first">
-          <div class="name">NAMN</div>
-          <div class="position">1</div>
-        </div>
-        <div class="podium-column third">
-          <div class="name">NAMN</div>
-          <div class="position">3</div>
-        </div>
+  <div class="podium-container">
+    <div class="podium">
+      <div class="podium-column second" v-if="podium[1]">
+        <div class="name">{{ podium[1].name }}</div>
+        <div class="position">{{ podium[1].points }} poäng</div>
       </div>
-      <div class="remaining-players" v-if="remainingPlayers.length > 0">
+      <div class="podium-column first" v-if="podium[0]">
+        <div class="name">{{ podium[0].name }}</div>
+        <div class="position">{{ podium[0].points }} poäng</div>
+      </div>
+      <div class="podium-column third" v-if="podium[2]">
+        <div class="name">{{ podium[2].name }}</div>
+        <div class="position">{{ podium[2].points }} poäng</div>
+      </div>
+    </div>
+    <div class="remaining-players" v-if="remainingPlayers.length > 0">
       <h2>Resterande placeringar</h2>
       <ol>
         <p v-for="(player, index) in remainingPlayers" :key="index">
@@ -22,26 +22,41 @@
         </p>
       </ol>
     </div>
-      <button class="end-game-btn" @click="endGame">Avsluta spel</button>
-    </div>
-  </template>
+    <button class="end-game-btn" @click="endGame">Avsluta spel</button>
+  </div>
+</template>
   
   <script>
   import io from 'socket.io-client'; //dessa två rader ska vara här sen, men just nu finns det inga sockets att koppla till 
+  import secondSoundFile from '@/assets/lat2.mp3';
   const socket = io(sessionStorage.getItem("currentNetwork"));
 
   export default {
     name: "Podium",
     data() {
     return {
-      players: [
-        { name: "Spelare 1", points: 100 },
-        { name: "Spelare 2", points: 80 },
-        { name: "Spelare 3", points: 60 },
-        { name: "NAMN", points: 50 },
-        { name: "NAMN", points: 40 },
-      ],
+      players: [], // Börja med en tom lista
+      audio: null,
+      pollId: "",
     };
+  },
+
+  created: function () {
+    this.pollId = this.$route.params.id;
+    this.startAudio();
+
+    socket.on("stopSecondMusic", () => {
+      console.log("stopMusic-händelse mottagen i Game.vue");
+      this.stopAudio(); 
+        });
+
+    socket.on("participantLeaderbord", (participants) => {
+      console.log("Mottagna deltagare: MAMMA", participants);
+      this.sortLeaderboard(participants);
+    });
+    socket.emit("joinPoll", this.pollId);
+    socket.emit("getScores", this.pollId);
+
   },
 
   computed: {
@@ -53,13 +68,44 @@
     },
   },
 
-    methods: {
-      endGame() {
-        console.log("Spelet avslutades!");
-      },
+
+  methods: {
+    sortLeaderboard(participants) {
+      if (participants && participants.length > 0) {
+        this.players = [...participants].sort((a, b) => b.points - a.points);
+        console.log("Uppdaterad leaderboard:", this.players);
+      } else {
+        console.log("Inga deltagare att visa.");
+      }
     },
-  };
-  </script>
+
+    endGame() {
+      console.log("Spelet avslutades!");
+      socket.emit("stopSecondMusic", this.pollId);
+      socket.emit("resetGame", this.pollId);
+      this.$router.push("/");
+
+      },
+
+    startAudio() {
+      this.audio = new Audio(secondSoundFile); 
+      this.audio.loop = true; 
+      this.audio.play()
+      console.log("Ljudet spelar")
+    },
+
+    stopAudio() {
+      if (this.audio) {
+        console.log("Stoppar ljudet"); 
+        this.audio.pause();
+        this.audio.currentTime = 0; 
+      } else {
+          console.log("Ingen ljudinstans hittades");
+      }
+    },
+  },
+};
+</script>
   
   <style scoped>
   @import url('https://fonts.googleapis.com/css2?family=Agbalumo&family=Cormorant:wght@700&display=swap');
