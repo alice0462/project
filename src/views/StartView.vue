@@ -262,8 +262,6 @@ export default {
     background: linear-gradient(5deg, #fae0fad8, #fdc8ecb1);
     justify-self: end;
   }
-}
-
 .mainButtons {
   color: rgb(79, 80, 80);
   font-family: "futura", sans-serif;
