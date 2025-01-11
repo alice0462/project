@@ -14,11 +14,11 @@
   </div>
 </template>
   
-  <script>
-  import io from 'socket.io-client';
-  const socket = io(sessionStorage.getItem("currentNetwork"));
-  import gameMasterSv from '@/assets/gameMaster-sv.json';
-  import gameMasterEn from '@/assets/gameMaster-en.json';
+<script>
+import io from 'socket.io-client';
+const socket = io(sessionStorage.getItem("currentNetwork"));
+import gameMasterSv from '@/assets/gameMaster-sv.json';
+import gameMasterEn from '@/assets/gameMaster-en.json';
 
 export default {
   name: 'Points',
@@ -32,6 +32,7 @@ export default {
       gameEnd: false,
     };
   },
+
   created: function(){
     this.pollId = this.$route.params.id;
     console.log("pollId skickat till servern:", this.pollId);
@@ -51,14 +52,15 @@ export default {
     });
 
     socket.on('fullGame', (data) => {
-          console.log("Valda städer mottagna:", data.cities);
-          this.cities = data.cities;
-          this.currentCityIndex = data.currentCityIndex;
+      console.log("Valda städer mottagna:", data.cities);
+      this.cities = data.cities;
+      this.currentCityIndex = data.currentCityIndex;
     }); 
-      socket.on("endOfJourney", () => {
-        console.log("Resan är slut!");
-        this.$router.push(`/podium/${this.pollId}`); // Navigera till en summeringssida
-      });
+    
+    socket.on("endOfJourney", () => {
+      console.log("Resan är slut!");
+      this.$router.push(`/podium/${this.pollId}`); // Navigera till en summeringssida
+    });
 
     socket.emit("joinPoll", this.pollId);
     socket.emit("getScores", this.pollId);
