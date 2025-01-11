@@ -3,6 +3,7 @@
     "maxThreeDestinations":"Välj vilka resmål du vill åka till. Max 3 resor per spelomgång.",
     "choose":"Godkänn",
     "confirm":"Är du säker?",
+    "confirmJourney": "Bekräfta resa",
     "youChoose": "Dina destinationer",
     "cancel":"Avbryt",
     "cities": {
@@ -38,7 +39,8 @@
     "guess":"Gissning",
     "points":"Poäng",
     "status":"Status",
-    "confirm3":"Bekräfta",
+    "confirm3":"Godkänn",
+    "fullyConfirm": "Bekräfta",
     "decline":"Neka",
     "questionsAboutCity":"Gå till stadsfrågor",
     "answerQuestion1":"Svar på fråga 1",

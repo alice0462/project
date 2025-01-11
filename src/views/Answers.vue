@@ -1,15 +1,17 @@
 <template>
   <body>
     <h1>{{destination}}: {{ this.currentCity }}</h1>
-    <p v-if="questionAnswer && correctAnswers && correctAnswers.length > 0">
-  <strong>Facit:</strong>
-    <p v-for="(answer, index) in correctAnswers" :key="index">
-      <strong>{{ index === 0 ? answerQuestion1 : answerQuestion2 }}:</strong> {{ answer }}
-    </p>
+    <div v-if="questionAnswer && correctAnswers && correctAnswers.length > 0">
+    <div class="facitSection">
+      Facit:
+        <p v-for="(answer, index) in correctAnswers" :key="index">
+          {{ index === 0 ? answerQuestion1 : answerQuestion2 }}: <strong>{{ answer }}</strong>
+        </p>
+    </div>
     <button v-if="!lastCity" class="questionButton" @click="goToScores">{{showScores}}</button>
     <button v-if="lastCity" class="questionButton" @click="goToSummary">Prispall</button>
 
-  </p>
+  </div>
 
       <div v-if="destinationAnswers.length === 0 || questionAnswers.length === 0 && questionAnswer === true" class="waitForAnswer">
         {{ waitForParticipantAnswer }}
@@ -19,9 +21,9 @@
     <button class="questionButton" v-if ="!questionAnswer" @click="goToQuestions">{{questionsAboutCity}}</button>
     <div v-if="destinationAnswers.length > 0 && !questionAnswer">
       <div v-for="(answer, index) in destinationAnswers" :key="index" :class="['answerBox', answer.status]">
-        <p><strong>{{player}}:</strong> {{ answer.name }}</p>
-        <p><strong>{{guess}}:</strong> {{ answer.guess }}</p>
-        <p><strong>{{points}}:</strong> {{ answer.points }}</p>
+        <p>{{player}}: <strong>{{ answer.name }}</strong></p>
+        <p>{{guess}}: <strong>{{ answer.guess }}</strong></p>
+        <p>{{points}}: <strong>{{ answer.points }}</strong></p>
         <div v-if="answer.status === 'approved'">
           <p>{{status}}: <strong>{{confirm3}}</strong></p>
         </div>
@@ -42,8 +44,8 @@
       
     <div v-if="questionAnswers.length > 0 && questionAnswer">
       <div v-for="(answer, index) in questionAnswers" :key="index" :class="['answerBox', answer.status]">
-        <p><strong>{{player}}:</strong> {{ answer.name }}</p>
-        <p><strong>{{answerQuestion1}}:</strong> {{ answer.answers[0].guess }}</p>
+        <p>{{player}}: <strong> {{ answer.name }}</strong></p>
+        <p>{{answerQuestion1}}: <strong> {{ answer.answers[0].guess }}</strong></p>
         
         <div v-if="!answer.confirmed" class="buttons">
           <button class="approve-btn" :class="{ active: answer.answers[0].status === 'approved' }" @click="toggleAnswerStatus(index, 0, 'approved')">
@@ -54,7 +56,7 @@
           </button>
           </div>
 
-        <p><strong>{{answerQuestion2}}:</strong> {{ answer.answers[1].guess }}</p>
+        <p>{{answerQuestion2}}: <strong> {{ answer.answers[1].guess }}</strong></p>
         <div v-if="!answer.confirmed" class="buttons">
           <button class="approve-btn" :class="{ active: answer.answers[1].status === 'approved' }" @click="toggleAnswerStatus(index, 1, 'approved')">
             {{confirm3}}
@@ -65,11 +67,13 @@
         </div>
 
         <div v-if="!answer.confirmed">
-          <button :disabled="!(confirmQuestion1 && confirmQuestion2)" class="confirm-btn" @click="confirmAnswer(index)">{{confirm3}}</button>
+          <button :disabled="!(confirmQuestion1 && confirmQuestion2)" class="confirm-btn" @click="confirmAnswer(index)">
+            {{fullyConfirm}}
+          </button>
         </div>
 
         <div v-if="answer.confirmed">
-          <p><strong>{{points}}:</strong> {{ answer.points }}</p>
+          <p>{{points}}: <strong> {{ answer.points }} </strong></p>
         </div>
         </div>
         
@@ -160,6 +164,9 @@ export default {
     },
     confirm3() {
       return this.lang === "sv" ? gameMasterSv.confirm3 : gameMasterEn.confirm3;
+    },
+    fullyConfirm() {
+      return this.lang === "sv" ? gameMasterSv.fullyConfirm : gameMasterEn.fullyConfirm;
     },
     decline() {
       return this.lang === "sv" ? gameMasterSv.decline : gameMasterEn.decline;
@@ -351,15 +358,16 @@ h1 {
 }
 .approve-btn {
   background-color: #5dba73e3;
-  border:none;
+  border:2px solid rgb(16, 148, 49);
   border-radius: 5px;
   font-size: 15px;
   font-family: 'Futura';
+  padding: 10px;
 
 }
 .reject-btn {
   background-color: #db6874;
-  border: none;
+  border:2px solid rgb(156, 20, 20);
   border-radius: 5px;
   font-size: 15px;
   font-family: 'Futura';
@@ -367,7 +375,7 @@ h1 {
 }
 
 .approve-btn:hover, .reject-btn:hover {
-  opacity: 0.8;
+  transform: scale(1.1);
   cursor: pointer;
 }
 
@@ -403,9 +411,9 @@ h1 {
 
 .confirm-btn {
   background-color: #58a7fa; /* Blå */
-  color: white;
+  color: black;
   padding: 10px 20px;
-  border: none;
+  border: 2px solid rgb(46, 108, 196);
   border-radius: 5px;
   font-size: 16px;
   cursor: pointer;
@@ -415,14 +423,20 @@ h1 {
 
 .confirm-btn:hover {
   opacity: 0.9;
+  transform: scale(1.1);
+  cursor: pointer;
 }
 button:disabled {  
   opacity: 0.6; /* G%C3%B6r knappen genomskinlig */  
   cursor: not-allowed; /* Visar att knappen inte kan klickas */
+  transform: none;
 }
 
 .confirm-btn:disabled {
   background-color: #6c757d; /* Grå */
+  cursor: not-allowed;
+  transform: none;
+  border: none;
 }
 
 .waitForAnswer {
@@ -431,5 +445,16 @@ button:disabled {
   margin: 30px 
 }
 
+.facitSection {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  border: 2px solid black;
+  border-radius: 10px;
+  padding: 20px;
+  width: 300px;
+  margin: 20px auto;
+}
 
 </style>

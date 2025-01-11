@@ -22,7 +22,7 @@
       </ul>
       <div class="action-buttons">
         <button @click="generateRandomDestinations">{{uiLabels.generateNewDestination}}</button>
-        <button @click="acceptDestinations">{{uiLabels.confirm}}</button>
+        <button @click="acceptDestinations">{{uiLabels.confirmJourney}}</button>
       </div>
     </div>
   </div>
@@ -112,6 +112,7 @@
     display: flex;
     gap: 20px;
     margin-bottom: 20px;
+    font-family: 'Futura';
   }
   button {
     padding: 20px 30px;
@@ -130,7 +131,14 @@
   }
   .generate-button {
     background: linear-gradient(5deg, #fdff7d, #feffbd);
-    color: rgb(0, 0, 0);
+    color: #313131;
+    font-family: 'Futura';
+  }
+
+  .generate-button:hover {
+  opacity: 0.9;
+  transform: scale(1.1);
+  cursor: pointer;
   }
   .results {
     margin-top: 30px;
@@ -138,6 +146,7 @@
   .results h2 {
     font-size: 28px;
     margin-bottom: 20px;
+    color: #313131;
   }
   ul {
     list-style: none;
@@ -155,17 +164,28 @@
   .action-buttons button {
     padding: 30px 40px;
     font-size: 16px;
-    font-weight: bold;
     border-radius: 15px;
     cursor: pointer;
+    font-family: 'Futura';
   }
   .action-buttons button:first-child {
     background: linear-gradient(5deg, #639edd, #a9d2ff);
-    color: white;
+    color: #313131;
   }
   .action-buttons button:last-child {
     background: linear-gradient(5deg, #63b65f, #bcedbe);
-    color: white;
+    color: #313131;
+  }
+
+  .action-buttons button:first-child:hover {
+  opacity: 0.9;
+  transform: scale(1.1);
+  cursor: pointer;
+  }
+  .action-buttons button:last-child:hover {
+  opacity: 0.9;
+  transform: scale(1.1);
+  cursor: pointer;
   }
 </style>
  

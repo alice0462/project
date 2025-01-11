@@ -172,9 +172,6 @@
   cursor: pointer;
   transition: background-color 0.3s ease;
   text-align: center;
-  
-  
-  
  }
  
  
@@ -185,8 +182,11 @@
  
  
  button:hover {
-  background-color: #fff8d4;
+  opacity: 0.9;
+  transform: scale(1.1);
+  cursor: pointer;
  }
+
  .submit-btn {
   margin-top: 20px;
   background-color: #34e583; /* Ändra färg här */

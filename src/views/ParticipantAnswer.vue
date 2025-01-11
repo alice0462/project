@@ -21,6 +21,12 @@
           <p class="lockedAnswer"> {{ finalAnswer }}</p>
         </div>
       </div>
+      <div v-if="noAnswer && isTimeOut" class="writeAnswer">
+        <div class="writeAnswerContent">
+          <h2> {{ noAnswer }}</h2>
+          <p> {{ noAnswerText }}</p>
+        </div>
+      </div>
     </div>
     
     <div v-if="cityQuestion" class="questionsView">
@@ -96,6 +102,8 @@ export default {
       buttonOffset: 0,
       showBackground: false,
       lastCity: false,
+      noAnswer: false,
+      isTimeOut: false,
     }
   },
   created: function () {
@@ -137,7 +145,7 @@ export default {
     socket.emit("requestStartTime", this.pollId);
     socket.emit("requestCode", this.pollId);     
     socket.emit("getCurrentParticipant", (data) => {
-      this.participantName=data.name;
+      this.participantName = data.name;
     });
   },
 
@@ -178,6 +186,12 @@ export default {
     question3() {
       return this.lang === "sv" ? playersSV.question3 : playersEN.question3;
     },
+    noAnswer() {
+      return this.lang === "sv" ? playersSV.noAnswer : playersEN.noAnswer;
+    },
+    noAnswerText() {
+      return this.lang === "sv" ? playersSV.noAnswerText : playersEN.noAnswerText;
+    },
   },
 
   methods: {
@@ -192,8 +206,9 @@ export default {
             this.points -= 2;
             console.log("Nu är vi på nivå för:", this.points, "poäng")
             this.timer = 5; 
-          } else if(!this.finalAnswer){
+          } else if(!this.finalAnswer && this.points === 2 && !this.isTimeOut){
             this.stopTimer();
+            this.isTimeOut = true;
             this.missingAnswer();
           }
         }
@@ -205,7 +220,8 @@ export default {
     },
 
     missingAnswer() {
-      socket.emit("answerSubmit", {user: this.user, pollId: this.pollId, guess: "Inget svar", points: 0 });
+      this.noAnswer = true;
+      socket.emit("answerSubmit", {user: this.user, pollId: this.pollId, type: 'destination', guess: "Inget svar", points: 0 });
       console.log("inget svar registrerat för spelare:", this.user)
     },
 
