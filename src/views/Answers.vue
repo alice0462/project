@@ -184,7 +184,7 @@ export default {
       const answer = this.destinationAnswers[index];
       if (answer) {
         answer.status = 'approved';
-        socket.emit("approveAnswer", {
+        socket.emit("updatePoints", {
           pollId: this.pollId,
           user: answer.name,
           points: answer.points,
