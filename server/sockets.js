@@ -158,21 +158,30 @@ function sockets(io, socket, data) {
     console.log("Inga fler städer för pollId:", pollId);
     io.to(pollId).emit("endOfJourney"); // Skicka en signal om att resan är slut
   }
-});
-socket.on("lastCity", (pollId) => {
-  io.to(pollId).emit("finalDestination", pollId);
-});
+  });
+  socket.on("lastCity", (pollId) => {
+    io.to(pollId).emit("finalDestination", pollId);
+  });
 
-socket.on("nextView", (pollId) => {
-  io.to(pollId).emit("sendNextView", pollId);
-});
+  socket.on("nextView", (pollId) => {
+    io.to(pollId).emit("sendNextView", pollId);
+  });
 
   socket.on("stopMusic", (pollId) => {
     console.log(`Stoppa musiken för pollId: ${pollId}`);
     io.to(pollId).emit("stopMusic"); 
-});
+  });
 
+  socket.on("stopSecondMusic", (pollId) => {
+    console.log(`Stoppa musiken för pollId: ${pollId}`);
+    io.to(pollId).emit("stopSecondMusic"); 
+  });
 
+  socket.on("resetGame", (pollId) => {
+    console.log(`Återställer spelet för pollId: ${pollId}`);
+    //data.resetPoll(pollId);
+    io.to(pollId).emit("gameReset");
+  });
 }
 
 

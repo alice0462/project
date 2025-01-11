@@ -72,7 +72,14 @@ export default {
   created: function () {
     localStorage.removeItem("role"); 
     socket.on( "uiLabels", labels => this.uiLabels = labels );
+
+    socket.on("gameReset", () => {
+      console.log("Spelet har återställts. Navigerar tillbaka till StartView.");
+    });
+
     socket.emit( "getUILabels", this.lang );
+    socket.emit("joinPoll", this.pollId);
+
   },
 
   computed:{

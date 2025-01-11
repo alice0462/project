@@ -299,6 +299,13 @@ Data.prototype.getNextCity = function(pollId) {
   return null; // Om det inte finns fler städer
 };
 
+Data.prototype.resetPoll = function (pollId) {
+  if (this.pollExists(pollId)) {
+    delete this.polls[pollId]; // Radera alla data för omröstningen
+    console.log(`Spelet för pollId ${pollId} har återställts.`);
+  }
+}
+
 export { Data };
 
 
