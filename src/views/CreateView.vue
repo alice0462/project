@@ -49,7 +49,8 @@
 <script>
 import io from 'socket.io-client';
 import RandomDestination from '../components/RandomDestination.vue';
-const socket = io("localhost:3000");
+const socket = io(sessionStorage.getItem("currentNetwork"));
+
 
 export default {
   name: 'CreateView',

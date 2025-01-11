@@ -17,7 +17,7 @@
   
   <script>
   import io from 'socket.io-client';
-  const socket = io("localhost:3000");
+  const socket = io(sessionStorage.getItem("currentNetwork"));
   import gameMasterSv from '@/assets/gameMaster-sv.json';
   import gameMasterEn from '@/assets/gameMaster-en.json';
 
@@ -64,7 +64,7 @@
 
       socket.on("endOfJourney", () => {
         console.log("Resan är slut!");
-        this.$router.push(`/summary/${this.pollId}`); // Navigera till en summeringssida
+        this.$router.push(`/podium/${this.pollId}`); // Navigera till en summeringssida
       });
     },
 

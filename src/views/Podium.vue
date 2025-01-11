@@ -27,7 +27,11 @@
   </template>
   
   <script>
+  import io from 'socket.io-client'; //dessa två rader ska vara här sen, men just nu finns det inga sockets att koppla till 
+  const socket = io(sessionStorage.getItem("currentNetwork"));
+
   export default {
+    name: "Podium",
     data() {
     return {
       players: [

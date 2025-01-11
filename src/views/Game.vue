@@ -31,7 +31,7 @@
 
 <script>
 import io from 'socket.io-client';
-const socket = io("localhost:3000");
+const socket = io(sessionStorage.getItem("currentNetwork"));
 import cluesSv from '@/assets/clues-sv.json';
 import questionsSv from '@/assets/questions-sv.json';
 import cluesEn from '@/assets/clues-en.json';
@@ -63,6 +63,7 @@ import soundFile from '@/assets/lat.mp3';
             intervalId: null,
             lang: localStorage.getItem( "lang") || "en",
             audio: null,
+            lastCity: false,
         };
     },
 
@@ -146,9 +147,15 @@ import soundFile from '@/assets/lat.mp3';
             this.showClues = false;
             this.showFinalCityMessage = false;
         });
+        socket.on("finalDestination", (pollId) => {
+            this.lastCity = true;
+        });
         socket.on("showScores", (pollId) => {
-            if (pollId === this.pollId) {
+            if (pollId === this.pollId && !this.lastCity) {
                 this.$router.push("/points/" + this.pollId);
+            }
+            else if (pollId === this.pollId && this.lastCity) {
+                this.$router.push(`/podium/${this.pollId}`);
             }
         });
         socket.on("goToNextCity", (cityIndex) => {
@@ -233,6 +240,11 @@ import soundFile from '@/assets/lat.mp3';
                 this.showClues = false;
                 this.showFinalCityMessage = true;
                 clearInterval(this.intervalId);
+            }
+            if (this.currentCityIndex === this.cities.length - 1) {
+                this.lastCity = true;
+                console.log(this.currentCityIndex, "och", this.cities.length - 1, "Sista staden:", this.lastCity);
+                socket.emit("lastCity", this.pollId);
             }
         },
 

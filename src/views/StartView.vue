@@ -45,7 +45,13 @@
 
 import ResponsiveNav from '@/components/ResponsiveNav.vue';
 import io from 'socket.io-client';
-const socket = io("localhost:3000");
+//sessionStorage.setItem("currentNetwork","192.168.1.3:3000") //edvins nätverk (vi bör lägga in eduroam tex)
+sessionStorage.setItem("currentNetwork","localhost:3000") //detta var den ursprungliga servern
+//sessionStorage.setItem("currentNetwork", "130.243.218.223:3000") //Eduroam
+//sessionStorage.setItem("currentNetwork","130.243.148.112:3000") //UUGuest 
+//sessionStorage.setItem("currentNetwork", "172.20.10.2:3000") //edvin internetdelnig
+const socket = io(sessionStorage.getItem("currentNetwork")); //när det var localhost:3000 refererar det till den enhetens localhost, dvs funkar ej, byter till nätverk ist
+//ovan möjliggör externa enheter att connecta till servern
 
 export default {
   name: 'StartView',
