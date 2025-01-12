@@ -42,12 +42,13 @@ export default {
     this.pollId = this.$route.params.id;
     socket.on( "uiLabels", labels => this.uiLabels = labels );
     socket.on( "startPoll", () => this.$router.push("/poll/" + this.pollId) );
-    socket.emit( "joinPoll", this.pollId );
-    socket.emit( "getUILabels", this.lang );
     socket.on('participantsUpdate', (p) => {
       console.log("mottagna deltagare:", p);
       this.participants = p; });
+    socket.emit( "joinPoll", this.pollId );
+    socket.emit( "getUILabels", this.lang );
   },
+
 
   methods: {
     moveFocus(currentBox) {

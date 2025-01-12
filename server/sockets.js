@@ -151,6 +151,7 @@ function sockets(io, socket, data) {
   socket.on("nextCity", (pollId) => {
   const nextCity = data.getNextCity(pollId);
   if (nextCity !== null) {
+    data.updateStartTime(pollId);
     console.log(`Nästa stad för pollId ${pollId}:`, nextCity); 
     console.log("HÅLLKÄFTEN");
     io.to(pollId).emit("goToNextCity", nextCity); 
@@ -159,6 +160,7 @@ function sockets(io, socket, data) {
     io.to(pollId).emit("endOfJourney"); // Skicka en signal om att resan är slut
   }
   });
+
   socket.on("lastCity", (pollId) => {
     io.to(pollId).emit("finalDestination", pollId);
   });

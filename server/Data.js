@@ -283,6 +283,14 @@ Data.prototype.startTime = function (pollId) {
   }
   return null;
 };
+Data.prototype.updateStartTime = function (pollId) {
+  if (this.pollExists(pollId)) {
+    this.polls[pollId].startTime = Date.now();
+    console.log("Starttiden uppdaterad för pollId:", pollId, this.polls[pollId].startTime);
+    return this.polls[pollId].startTime;
+  }
+  return null;
+}
 
 Data.prototype.getNextCity = function(pollId) {
   if (this.pollExists(pollId)) {
@@ -305,7 +313,9 @@ Data.prototype.resetPoll = function (pollId) {
     delete this.polls[pollId]; // Radera alla data för omröstningen
     console.log(`Spelet för pollId ${pollId} har återställts.`);
   }
-}
+};
+
+
 
 export { Data };
 
