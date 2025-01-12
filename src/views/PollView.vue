@@ -11,7 +11,7 @@ import io from 'socket.io-client';
 const socket = io(sessionStorage.getItem("currentNetwork"));
 
 export default {
-  name: "Lobby",
+  name: "PollView",
   data: function () {
     return {
       pollId: "",
@@ -23,7 +23,6 @@ export default {
       role: localStorage.getItem("role"), 
     }
   },
-  
   created: function () {
     socket.on("goToLobby", pollId => {
       localStorage.setItem("role", "screen");

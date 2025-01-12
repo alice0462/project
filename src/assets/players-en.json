@@ -14,6 +14,7 @@
     "letsGo":"Start Game",
     "question3": "Question",
     "noAnswer": "The time has run out!",
-    "noAnswerText": "You have not locked in an answer"
+    "noAnswerText": "You have not locked in an answer",
+    "correctAnswer": "Correct answer question"
 
 }

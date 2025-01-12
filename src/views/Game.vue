@@ -17,7 +17,7 @@
                 {{ showCity() }}
             </div>
             <div class="city-questions" v-if="showQuestions">
-                <p>{{questionsAbout}} {{ this.currentCity }}</p>
+                <p>{{questionsAbout}} {{ currentCity }}</p>
                 <div v-for="(question, index) in currentQuestions" :key="index">
                     <h3>{{questionNumber}} {{ index + 1 }}</h3>
                     <p>{{ question }}</p>
@@ -44,6 +44,7 @@ export default {
     name: "Game",
     data: function () {
         return {
+            uiLabels: {}, 
             pollId: "",
             timer: 30,
             cities: [],
@@ -136,7 +137,7 @@ export default {
         socket.emit("joinPoll", this.pollId);
         socket.emit("requestCities", this.pollId); 
         socket.emit("requestStartTime", this.pollId);
-        socket.emit( "getUILabels", this.lang );
+        socket.emit("getUILabels", this.lang );
     },
   
     methods: {

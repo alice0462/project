@@ -7,20 +7,13 @@
         <p v-for="(answer, index) in correctAnswers" :key="index">
           {{ index === 0 ? answerQuestion1 : answerQuestion2 }}: <strong>{{ answer }}</strong>
         </p>
-    </div>
+      </div>
     <button v-if="!lastCity" class="questionButton" @click="goToScores">{{showScores}}</button>
     <button v-if="lastCity" class="questionButton" @click="goToSummary">{{showPodium}}</button>
-
-  </div>
-
+     </div>
       <div v-if="destinationAnswers.length === 0 || questionAnswers.length === 0 && questionAnswer === true" class="waitForAnswer">
         {{ waitForParticipantAnswer }}
       </div>
-      <button v-if="!lastCity" class="questionButton" @click="goToScores">{{showScores}}</button>
-      <button v-if="lastCity" class="questionButton" @click="goToSummary">Prispall</button>
-    <div v-if="destinationAnswers.length === 0 || questionAnswers.length === 0 && questionAnswer === true" class="waitForAnswer">
-      {{ waitForParticipantAnswer }}
-    </div>
     <button class="questionButton" v-if ="!questionAnswer" @click="goToQuestions">{{questionsAboutCity}}</button>
     <div v-if="destinationAnswers.length > 0 && !questionAnswer">
       <div v-for="(answer, index) in destinationAnswers" :key="index" :class="['answerBox', answer.status]">

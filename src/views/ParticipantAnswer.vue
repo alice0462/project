@@ -57,6 +57,9 @@
             <h2> {{ lockedAnswer }} </h2>
             <p v-for="(answer, index) in finalQuestionAnswers" :key="index"> 
               {{ question3 }} {{ index + 1 }}: {{ answer }}</p>
+            <p v-for="(answer, index) in correctAnswers" :key="index" class="correctAnswer"><small><em>
+              {{ correctAnswer }} {{ index + 1 }}: {{ answer }}
+            </em></small></p>
           </div>
         </div>
       </div>
@@ -71,6 +74,8 @@ import playersSV from "/src/assets/players-sv.json";
 import playersEN from "/src/assets/players-en.json";
 import gameMasterSv from '@/assets/gameMaster-sv.json';
 import gameMasterEn from '@/assets/gameMaster-en.json';
+import answersSv from '/src/assets/answers-sv.json';
+import answersEn from '/src/assets/answers-en.json';
 
 export default {
   name: 'ParticipantAnswer',
@@ -190,6 +195,22 @@ export default {
     noAnswerText() {
       return this.lang === "sv" ? playersSV.noAnswerText : playersEN.noAnswerText;
     },
+    answerQuestion1() {
+      return this.lang === "sv" ? gameMasterSv.answerQuestion1 : gameMasterEn.answerQuestion1;
+    },
+    answerQuestion2() {
+      return this.lang === "sv" ? gameMasterSv.answerQuestion2 : gameMasterEn.answerQuestion2;
+    },
+    correctAnswer() {
+      return this.lang === "sv" ? playersSV.correctAnswer : playersEN.correctAnswer;
+    },
+    correctAnswers() {
+      const answers = this.lang === "sv" ? answersSv.svar : answersEn.answers;
+      const result = answers[this.currentCity] || [];
+      console.log('Facit', this.currentCity, result);
+      return result;
+    },
+    
   },
 
   methods: {
@@ -460,6 +481,9 @@ export default {
     }
     body.showBackground {
       background-size: cover; 
+    }
+    .correctAnswer{
+      color: #939191;
     }
   }
 </style>

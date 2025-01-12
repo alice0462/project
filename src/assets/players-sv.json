@@ -14,7 +14,8 @@
     "letsGo":"Starta Spel",
     "question3": "Fråga",
     "noAnswer": "Tiden har gått ut!",
-    "noAnswerText": "Du har inte låst in något svar"
+    "noAnswerText": "Du har inte låst in något svar",
+    "correctAnswer": "Rätt svar fråga"
 
 
 }
