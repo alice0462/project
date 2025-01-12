@@ -78,6 +78,10 @@ export default {
     },
 
     participateInPoll: function () {
+      if (this.userName.trim() === "") {
+        alert(this.uiLabels.mustName);
+      return;
+      }
       if(this.pollId.length === 4 && !this.participants.some(participant => participant.name === this.userName)) {
         localStorage.setItem( "participantName", this.userName)
         socket.emit( "participateInPoll", {pollId: this.pollId, name: this.userName} )

@@ -17,7 +17,8 @@
 	"participateDescription": "Retrieve the game code from the game master and enter it here to jump into the game!",
 	"waitingForHost": "Waiting for host to start game...",
 	"reachedCity": "We have arrived to ...",
-	"headline": "Where are we going?"
+	"headline": "Where are we going?",
+	"mustName":"You must enter a response before you can lock it!"
 	
 
 }
