@@ -288,7 +288,7 @@ export default {
         window.addEventListener("mousemove", this.drag);
         window.addEventListener("mouseup", this.stopDrag);
       } else if (event.type === "touchstart"){
-        window.addEventListener("touchmove", this.drag, { passive: false }); // Viktigt att använda { passive: false }
+        window.addEventListener("touchmove", this.drag, { passive: false });
         window.addEventListener("touchend", this.stopDrag);
       }
     },

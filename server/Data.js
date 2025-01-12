@@ -257,6 +257,13 @@ Data.prototype.submitQuestionAnswers = function (user, pollId, correctCity, answ
   }
 };
 
+Data.prototype.resetAnswer = function (pollId) {
+  if (this.pollExists(pollId)) {
+    this.polls[pollId].guesses = [];
+    this.polls[pollId].answer = [];
+  }
+};
+
 Data.prototype.getSubmittedAnswers = function(pollId) {
   console.log("Hämtar svar för pollId:", pollId);
 

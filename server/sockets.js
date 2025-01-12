@@ -152,6 +152,7 @@ function sockets(io, socket, data) {
   const nextCity = data.getNextCity(pollId);
   if (nextCity !== null) {
     data.updateStartTime(pollId);
+    data.resetAnswer(pollId);
     console.log(`Nästa stad för pollId ${pollId}:`, nextCity); 
     console.log("HÅLLKÄFTEN");
     io.to(pollId).emit("goToNextCity", nextCity); 

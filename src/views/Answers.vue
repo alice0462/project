@@ -1,280 +1,289 @@
 <template>
-  <body>
-    <h1>{{destination}}: {{ this.currentCity }}</h1>
-    <div v-if="questionAnswer && correctAnswers && correctAnswers.length > 0">
-      <div class="facitSection">
-        Facit:
-        <p v-for="(answer, index) in correctAnswers" :key="index">
-          {{ index === 0 ? answerQuestion1 : answerQuestion2 }}: <strong>{{ answer }}</strong>
-        </p>
-      </div>
-    <button v-if="!lastCity" class="questionButton" @click="goToScores">{{showScores}}</button>
-    <button v-if="lastCity" class="questionButton" @click="goToSummary">{{showPodium}}</button>
-     </div>
-      <div v-if="destinationAnswers.length === 0 || questionAnswers.length === 0 && questionAnswer === true" class="waitForAnswer">
-        {{ waitForParticipantAnswer }}
-      </div>
-    <button class="questionButton" v-if ="!questionAnswer" @click="goToQuestions">{{questionsAboutCity}}</button>
-    <div v-if="destinationAnswers.length > 0 && !questionAnswer">
-      <div v-for="(answer, index) in destinationAnswers" :key="index" :class="['answerBox', answer.status]">
-        <p>{{player}}: <strong>{{ answer.name }}</strong></p>
-        <p>{{guess}}: <strong>{{ answer.guess }}</strong></p>
-        <p>{{points}}: <strong>{{ answer.points }}</strong></p>
-        <div v-if="answer.status === 'approved'">
-          <p>{{status}}: <strong>{{confirm3}}</strong></p>
-        </div>
-        <div v-else-if="answer.status === 'rejected'">
-          <p>{{status}}: <strong>{{decline}}</strong></p>
-        </div>
-        <div v-else>
-          <div class="buttons">
-            <button class="approve-btn" @click="approveAnswer(index)">{{confirm3}}</button>
-            <button class="reject-btn" @click="rejectAnswer(index)">{{decline}}</button>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div v-if="questionAnswers.length > 0 && questionAnswer">
-      <div v-for="(answer, index) in questionAnswers" :key="index" :class="['answerBox', answer.status]">
-        <p>{{player}}: <strong> {{ answer.name }}</strong></p>
-        <p>{{answerQuestion1}}: <strong> {{ answer.answers[0].guess }}</strong></p>
-        <div v-if="!answer.confirmed" class="buttons">
-          <button class="approve-btn" :class="{ active: answer.answers[0].status === 'approved' }" @click="toggleAnswerStatus(index, 0, 'approved')">
-            {{confirm3}}
-          </button>
-          <button class="reject-btn" :class="{ active: answer.answers[0].status === 'rejected' }" @click="toggleAnswerStatus(index, 0, 'rejected')">
-            {{decline}}
-          </button>
-        </div>
-        <p>{{answerQuestion2}}: <strong> {{ answer.answers[1].guess }}</strong></p>
-        <div v-if="!answer.confirmed" class="buttons">
-          <button class="approve-btn" :class="{ active: answer.answers[1].status === 'approved' }" @click="toggleAnswerStatus(index, 1, 'approved')">
-            {{confirm3}}
-          </button>
-          <button class="reject-btn" :class="{ active: answer.answers[1].status === 'rejected' }" @click="toggleAnswerStatus(index, 1, 'rejected')">
-            {{decline}}
-          </button>
-        </div>
-        <div v-if="!answer.confirmed">
-          <button :disabled="!(confirmQuestion1 && confirmQuestion2)" class="confirm-btn" @click="confirmAnswer(index)">
-            {{fullyConfirm}}
-          </button>
-        </div>
-        <div v-if="answer.confirmed">
-          <p>{{points}}: <strong> {{ answer.points }} </strong></p>
-        </div>
-      </div>
-    </div>
-  </body>
-</template>
+    <body>
+      <h1>{{destination}}: {{ this.currentCity }}</h1>
+      <div v-if="questionAnswer && correctAnswers && correctAnswers.length > 0">
+        <div class="facitSection">
+          Facit:
+          <p v-for="(answer, index) in correctAnswers" :key="index">
+            {{ index === 0 ? answerQuestion1 : answerQuestion2 }}: <strong>{{ answer }}</strong>
+          </p>
+        </div>
+      <button v-if="!lastCity" class="questionButton" @click="goToScores">{{showScores}}</button>
+      <button v-if="lastCity" class="questionButton" @click="goToSummary">{{showPodium}}</button>
+       </div>
+        <div v-if="destinationAnswers.length === 0 && !questionAnswer|| questionAnswers.length === 0 && questionAnswer === true" class="waitForAnswer">
+          {{ waitForParticipantAnswer }}
+        </div>
+      <button class="questionButton" v-if ="!questionAnswer" @click="goToQuestions">{{questionsAboutCity}}</button>
+      <div v-if="destinationAnswers.length > 0 && !questionAnswer">
+        <div v-for="(answer, index) in destinationAnswers" :key="index" :class="['answerBox', answer.status]">
+          <p>{{player}}: <strong>{{ answer.name }}</strong></p>
+          <p>{{guess}}: <strong>{{ answer.guess }}</strong></p>
+          <p>{{points}}: <strong>{{ answer.points }}</strong></p>
+          <div v-if="answer.status === 'approved'">
+            <p>{{status}}: <strong>{{confirm3}}</strong></p>
+          </div>
+          <div v-else-if="answer.status === 'rejected'">
+            <p>{{status}}: <strong>{{decline}}</strong></p>
+          </div>
+          <div v-else>
+            <div class="buttons">
+              <button class="approve-btn" @click="approveAnswer(index)">{{confirm3}}</button>
+              <button class="reject-btn" @click="rejectAnswer(index)">{{decline}}</button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div v-if="questionAnswers.length > 0 && questionAnswer">
+        <div v-for="(answer, index) in questionAnswers" :key="answer.id" :class="['answerBox', answer.status]">
+          <p>{{player}}: <strong> {{ answer.name }}</strong></p>
+          <p>{{answerQuestion1}}: <strong> {{ answer.answers[0].guess }}</strong></p>
+          <div v-if="!answer.confirmed" class="buttons">
+            <button class="approve-btn" :class="{ active: answer.answers[0].status === 'approved' }" @click="toggleAnswerStatus(index, 0, 'approved')">
+              {{confirm3}}
+            </button>
+            <button class="reject-btn" :class="{ active: answer.answers[0].status === 'rejected' }" @click="toggleAnswerStatus(index, 0, 'rejected')">
+              {{decline}}
+            </button>
+          </div>
+          <p>{{answerQuestion2}}: <strong> {{ answer.answers[1].guess }}</strong></p>
+          <div v-if="!answer.confirmed" class="buttons">
+            <button class="approve-btn" :class="{ active: answer.answers[1].status === 'approved' }" @click="toggleAnswerStatus(index, 1, 'approved')">
+              {{confirm3}}
+            </button>
+            <button class="reject-btn" :class="{ active: answer.answers[1].status === 'rejected' }" @click="toggleAnswerStatus(index, 1, 'rejected')">
+              {{decline}}
+            </button>
+          </div>
+          <div v-if="!answer.confirmed">
+            <button :disabled="!(confirmStatus[index]?.question1 && confirmStatus[index]?.question2)" class="confirm-btn" @click="confirmAnswer(index)"> 
+              {{fullyConfirm}}
+            </button>
+          </div>
+          <div v-if="answer.confirmed">
+            <p>{{points}}: <strong> {{ answer.points }} </strong></p>
+          </div>
+        </div>
+      </div>
+    </body>
+  </template>
+  
+  <script>
+  import io from 'socket.io-client';
+  const socket = io(sessionStorage.getItem("currentNetwork"));
+  import gameMasterSv from '@/assets/gameMaster-sv.json';
+  import gameMasterEn from '@/assets/gameMaster-en.json';
+  import answersSv from '/src/assets/answers-sv.json';
+  import answersEn from '/src/assets/answers-en.json';
+  
+  export default {
+    name: "Answers",
+    data: function () {
+      return {
+        pollId: "",
+        uiLabels: {},
+        lang: localStorage.getItem("lang") || "en",
+        participants: [],
+        selectedToGameCode: "",
+        selectedCities: [],
+        role: localStorage.getItem("role"), 
+        destinationAnswers: [],     
+        questionAnswers: [],
+        confirmStatus: {}, 
+        currentCity: null,
+        questionAnswer: false,
+        lastCity: false,
+      }
+    },
+      
+    created: function () {
+      this.pollId = this.$route.params.id;
+      
+      socket.on("updateCurrentCity", (data) => {
+        if (data.currentCity) {
+          this.resetAnswers();
+          this.currentCity = data.currentCity;
+          console.log("Ny mottagen stad:", this.currentCity);
+        }
+      });
+  
+      socket.on("submittedAnswersUpdate", (answers) => {
+        console.log("inkommande svar:", answers);
+        if (!this.questionAnswer) {
+          this.destinationAnswers = answers.filter((a) => a.type === "destination");
+        } else {
+          this.questionAnswers = answers.filter((a) => a.type === "questions");
+        }
+        this.questionAnswers.forEach((index) => { 
+          if (!this.confirmStatus[index]) {
+            this.confirmStatus[index] = {question1: false, question2: false,}
+          }
+        });
+      });
+  
+      socket.on("finalDestination", (pollId) => {
+        this.lastCity = true;
+      });
+  
+      socket.emit("joinPoll", this.pollId);
+      
+      socket.emit("getSubmittedAnswers", this.pollId);
+    },
+  
+    computed: {
+      destination() {
+        return this.lang === "sv" ? gameMasterSv.destination : gameMasterEn.destination;
+      },
+      player() {
+        return this.lang === "sv" ? gameMasterSv.player : gameMasterEn.player;
+      },
+      guess() {
+        return this.lang === "sv" ? gameMasterSv.guess : gameMasterEn.guess;
+      },
+      points() {
+        return this.lang === "sv" ? gameMasterSv.points : gameMasterEn.points;
+      },
+      status() {
+        return this.lang === "sv" ? gameMasterSv.status : gameMasterEn.status;
+      },
+      confirm3() {
+        return this.lang === "sv" ? gameMasterSv.confirm3 : gameMasterEn.confirm3;
+      },
+      fullyConfirm() {
+        return this.lang === "sv" ? gameMasterSv.fullyConfirm : gameMasterEn.fullyConfirm;
+      },
+      decline() {
+        return this.lang === "sv" ? gameMasterSv.decline : gameMasterEn.decline;
+      },
+      questionsAboutCity() {
+        return this.lang === "sv" ? gameMasterSv.questionsAboutCity : gameMasterEn.questionsAboutCity;
+      },
+      waitForParticipantAnswer() {
+        return this.lang === "sv" ? gameMasterSv.waitForParticipantAnswer : gameMasterEn.waitForParticipantAnswer;
+      },
+      answerQuestion1() {
+        return this.lang === "sv" ? gameMasterSv.answerQuestion1 : gameMasterEn.answerQuestion1;
+      },
+      answerQuestion2() {
+        return this.lang === "sv" ? gameMasterSv.answerQuestion2 : gameMasterEn.answerQuestion2;
+      },
+      showScores() {
+        return this.lang === "sv" ? gameMasterSv.showScores : gameMasterEn.showScores;
+      },
+      showPodium () {
+        return this.lang === 'sv' ? gameMasterSv.podium : gameMasterEn.podium;
+      },
+      
+      correctAnswers() {
+        const answers = this.lang === "sv" ? answersSv.svar : answersEn.answers;
+        const result = answers[this.currentCity] || [];
+        console.log('Facit', this.currentCity, result);
+        return result;
+      },
+    },
+  
+    methods: {
+      approveAnswer(index) {
+        const answer = this.destinationAnswers[index];
+        if (answer) {
+          answer.status = 'approved';
+          socket.emit("updatePoints", { 
+            pollId: this.pollId,
+            user: answer.name,
+            points: answer.points,
+          });
+          console.log("Godkänt svar:", answer);
+        }
+      },  
+  
+      rejectAnswer(index) {
+        const answer = this.destinationAnswers[index];
+        answer.status = "rejected";
+        socket.emit("rejectAnswer", {
+          pollId: this.pollId,
+          user: answer.name,
+          points: 0,
+        });
+        console.log("Nekade svar:", answer);
+        this.currentAnswer = null;
+      },
+  
+      toggleAnswerStatus(index, questionIndex, status) {
+        const answer = this.questionAnswers[index];
+        const question = answer.answers[questionIndex];
+        if (question.status === status) {
+          question.status = null; 
+        } else {
+          question.status = status; 
+        }
+        if (!this.confirmStatus[index]) {
+          this.confirmStatus[index] = { question1: false, question2: false };
+        }
 
-<script>
-import io from 'socket.io-client';
-const socket = io(sessionStorage.getItem("currentNetwork"));
-import gameMasterSv from '@/assets/gameMaster-sv.json';
-import gameMasterEn from '@/assets/gameMaster-en.json';
-import answersSv from '/src/assets/answers-sv.json';
-import answersEn from '/src/assets/answers-en.json';
-
-export default {
-  name: "Answers",
-  data: function () {
-    return {
-      pollId: "",
-      uiLabels: {},
-      lang: localStorage.getItem("lang") || "en",
-      participants: [],
-      selectedToGameCode: "",
-      selectedCities: [],
-      role: localStorage.getItem("role"), 
-      destinationAnswers: [],     
-      questionAnswers: [],
-      currentCity: null,
-      questionAnswer: false,
-      confirmQuestion1: false,
-      confirmQuestion2: false,
-      lastCity: false,
-    }
-  },
-    
-  created: function () {
-    this.pollId = this.$route.params.id;
-    
-    socket.on("updateCurrentCity", (data) => {
-      if (data.currentCity) {
-        this.resetAnswers();
-        this.currentCity = data.currentCity;
-        console.log("Ny mottagen stad:", this.currentCity);
-      }
-    });
-
-    socket.on("submittedAnswersUpdate", (answers) => {
-      console.log("inkommande svar:", answers);
-      //const relevantAnswers = answers.filter((a) => a.type === (this.questionAnswer ? "questions" : "destination") && a.correctCity === this.currentCity // Kontrollera stad
-      if (!this.questionAnswer) {
-        this.destinationAnswers = answers.filter((a) => a.type === "destination");
-      } else {
-        this.questionAnswers = answers.filter((a) => a.type === "questions");
-      }
-    });
-
-    socket.on("finalDestination", (pollId) => {
-      this.lastCity = true;
-    });
-
-    socket.emit("joinPoll", this.pollId);
-    
-    socket.emit("getSubmittedAnswers", this.pollId);
-  },
-
-  computed: {
-    destination() {
-      return this.lang === "sv" ? gameMasterSv.destination : gameMasterEn.destination;
-    },
-    player() {
-      return this.lang === "sv" ? gameMasterSv.player : gameMasterEn.player;
-    },
-    guess() {
-      return this.lang === "sv" ? gameMasterSv.guess : gameMasterEn.guess;
-    },
-    points() {
-      return this.lang === "sv" ? gameMasterSv.points : gameMasterEn.points;
-    },
-    status() {
-      return this.lang === "sv" ? gameMasterSv.status : gameMasterEn.status;
-    },
-    confirm3() {
-      return this.lang === "sv" ? gameMasterSv.confirm3 : gameMasterEn.confirm3;
-    },
-    fullyConfirm() {
-      return this.lang === "sv" ? gameMasterSv.fullyConfirm : gameMasterEn.fullyConfirm;
-    },
-    decline() {
-      return this.lang === "sv" ? gameMasterSv.decline : gameMasterEn.decline;
-    },
-    questionsAboutCity() {
-      return this.lang === "sv" ? gameMasterSv.questionsAboutCity : gameMasterEn.questionsAboutCity;
-    },
-    waitForParticipantAnswer() {
-      return this.lang === "sv" ? gameMasterSv.waitForParticipantAnswer : gameMasterEn.waitForParticipantAnswer;
-    },
-    answerQuestion1() {
-      return this.lang === "sv" ? gameMasterSv.answerQuestion1 : gameMasterEn.answerQuestion1;
-    },
-    answerQuestion2() {
-      return this.lang === "sv" ? gameMasterSv.answerQuestion2 : gameMasterEn.answerQuestion2;
-    },
-    showScores() {
-      return this.lang === "sv" ? gameMasterSv.showScores : gameMasterEn.showScores;
-    },
-    showPodium () {
-      return this.lang === 'sv' ? gameMasterSv.podium : gameMasterEn.podium;
-    },
-    
-    correctAnswers() {
-      const answers = this.lang === "sv" ? answersSv.svar : answersEn.answers;
-      const result = answers[this.currentCity] || [];
-      console.log('Facit', this.currentCity, result);
-      return result;
-    },
-  },
-
-  methods: {
-    approveAnswer(index) {
-      const answer = this.destinationAnswers[index];
-      if (answer) {
-        answer.status = 'approved';
-        socket.emit("updatePoints", { //bytte ut approveAnswer till updatePoints (förut gavs frågepoängen dubbelt)
-          pollId: this.pollId,
-          user: answer.name,
-          points: answer.points,
-        });
-        console.log("Godkänt svar:", answer);
-      }
-    },  
-
-    rejectAnswer(index) {
-      const answer = this.destinationAnswers[index];
-      answer.status = "rejected";
-      socket.emit("rejectAnswer", {
-        pollId: this.pollId,
-        user: answer.name,
-        points: 0,
-      });
-      console.log("Nekade svar:", answer);
-      this.currentAnswer = null;
-    },
-
-    toggleAnswerStatus(index, questionIndex, status) {
-      const answer = this.questionAnswers[index];
-      const question = answer.answers[questionIndex];
-      if (question.status === status) {
-        question.status = null; 
-      } else {
-        question.status = status; 
-      }
-      this.confirmQuestion1 = answer.answers[0].status === 'approved' || answer.answers[0].status === 'rejected';
-      this.confirmQuestion2 = answer.answers[1].status === 'approved' || answer.answers[1].status === 'rejected';
-      console.log(`Fråga ${questionIndex + 1} status ändrad till:`, question.status);
-    },
-
-    confirmAnswer(index) {
-      const answer = this.questionAnswers[index];
-      const correctCount = answer.answers.filter(q => q.status === 'approved').length;
-      if (correctCount === 2) {
-        answer.points = 3; 
-        answer.status = "approved";
-      } else if (correctCount === 1) {
-        answer.points = 1; 
-        answer.status = "partially-approved";
-      } else {
-        answer.points = 0; 
-        answer.status = "rejected";
-      }
-      answer.confirmed = true;
-      console.log("Bekräftade poäng efter frågor:", answer.points);
-      socket.emit("confirmQuestionAnswers", {
-        pollId: this.pollId,
-        user: answer.name,
-        points: answer.points,
-      });
-      this.updatePoints(answer.name, answer.points); 
-    },
-      
-    goToQuestions() {
-      console.log("stopMusic-händelse mottagen");
-      socket.emit("stopMusic", this.pollId);
-      this.questionAnswer = true;
-      socket.emit("startQuestions", this.pollId);
-      this.resetAnswers();
-    },
-
-    goToScores(){
-      socket.emit("showScores", this.pollId);
-      this.$router.push('/points/' + this.pollId);
-      this.resetAnswers();
-    },
-
-    updatePoints(user, points) {
-      socket.emit("updatePoints", {
-        pollId: this.pollId,
-        user,
-        points
-      });
-    },
-
-    resetAnswers() {
-      this.destinationAnswers = [];
-      this.questionAnswers = [];
-      console.log("Tidigare resa och svar är rensade")
-    },
-    goToSummary () {
-      socket.emit("showScores", this.pollId);
-      this.$router.push(`/podium/${this.pollId}`);
-    }
+          this.confirmStatus[index][`question${questionIndex + 1}`] =
+            question.status === 'approved' || question.status === 'rejected'; 
+  
+          console.log(`Updating confirmStatus for index: ${index}, question: ${questionIndex + 1}`);
+          console.log(this.confirmStatus[index]);
+      },
+  
+      confirmAnswer(index) {
+        const answer = this.questionAnswers[index];
+        const correctCount = answer.answers.filter(q => q.status === 'approved').length;
+        if (correctCount === 2) {
+          answer.points = 3; 
+          answer.status = "approved";
+        } else if (correctCount === 1) {
+          answer.points = 1; 
+          answer.status = "partially-approved";
+        } else {
+          answer.points = 0; 
+          answer.status = "rejected";
+        }
+        answer.confirmed = true;
+        console.log("Bekräftade poäng efter frågor:", answer.points);
+        socket.emit("confirmQuestionAnswers", {
+          pollId: this.pollId,
+          user: answer.name,
+          points: answer.points,
+        });
+        this.updatePoints(answer.name, answer.points); 
+      },
+        
+      goToQuestions() {
+        console.log("stopMusic-händelse mottagen");
+        socket.emit("stopMusic", this.pollId);
+        this.questionAnswer = true;
+        socket.emit("startQuestions", this.pollId);
+        this.resetAnswers();
+      },
+  
+      goToScores(){
+        socket.emit("showScores", this.pollId);
+        this.$router.push('/points/' + this.pollId);
+        this.resetAnswers();
+      },
+  
+      updatePoints(user, points) {
+        socket.emit("updatePoints", {
+          pollId: this.pollId,
+          user,
+          points
+        });
+      },
+  
+      resetAnswers() {
+        this.destinationAnswers = [];
+        this.questionAnswers = [];
+        console.log("Tidigare resa och svar är rensade")
+      },
+      goToSummary () {
+        socket.emit("showScores", this.pollId);
+        this.$router.push(`/podium/${this.pollId}`);
+      }
+    }
   }
-}
-</script>
+  </script>
 
 <style scoped>
   body {
