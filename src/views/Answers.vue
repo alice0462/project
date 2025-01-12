@@ -18,7 +18,6 @@
       </div>
       <button v-if="!lastCity" class="questionButton" @click="goToScores">{{showScores}}</button>
       <button v-if="lastCity" class="questionButton" @click="goToSummary">Prispall</button>
-    </div>
     <div v-if="destinationAnswers.length === 0 || questionAnswers.length === 0 && questionAnswer === true" class="waitForAnswer">
       {{ waitForParticipantAnswer }}
     </div>
