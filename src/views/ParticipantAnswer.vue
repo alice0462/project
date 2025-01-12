@@ -1,7 +1,8 @@
 <template>
   <body :class="{ showBackground }">
     <div v-if="!cityQuestion">
-      <div class="answerButtonContainer" @mousedown="startDrag" @mouseup="stopDrag" @mousemove="drag">
+      <div class="answerButtonContainer" @mousedown="startDrag" @mouseup="stopDrag" @mousemove="drag" 
+      @touchstart="startDrag" @touchend="stopDrag" @touchmove="drag">>
         <button type="button" class="answerButton" :style="{ transform: `translateY(${buttonOffset}px)` }">
           <img src="/public/nodbroms.png"/>
         </button>
@@ -282,14 +283,20 @@ export default {
     startDrag(event) {
       event.preventDefault();
       this.isDragging = true;
-      this.dragStartY = event.clientY;
-      window.addEventListener("mousemove", this.drag);
-      window.addEventListener("mouseup", this.stopDrag);
+      this.dragStartY = event.type === "mousedown" ? event.clientY : event.touches[0].clientY;
+      if (event.type === "mousedown") {
+        window.addEventListener("mousemove", this.drag);
+        window.addEventListener("mouseup", this.stopDrag);
+      } else if (event.type === "touchstart"){
+        window.addEventListener("touchmove", this.drag, { passive: false }); // Viktigt att använda { passive: false }
+        window.addEventListener("touchend", this.stopDrag);
+      }
     },
 
     drag(event) {
+      event.preventDefault();
       if (this.isDragging) {
-        const dragAmount = event.clientY - this.dragStartY;
+        const dragAmount = (event.type === "mousemove" ? event.clientY : event.touches[0].clientY) - this.dragStartY;
         this.buttonOffset = Math.min(Math.max(dragAmount, 0), this.maxDrag);
         if (dragAmount >= this.maxDrag) {
           this.triggerButton();
@@ -303,6 +310,8 @@ export default {
         this.isDragging = false;
         window.removeEventListener("mousemove", this.drag);
         window.removeEventListener("mouseup", this.stopDrag);
+        window.removeEventListener("touchmove", this.drag);
+        window.removeEventListener("touchend", this.stopDrag);
         if (this.buttonOffset < this.maxDrag) {
           this.buttonOffset = 0; 
         }
@@ -470,6 +479,7 @@ export default {
       object-fit: cover; 
       object-position: top center;
       right: 90%; 
+      touch-action: none;
     }
     .answerRow {
       flex-direction: column; 
