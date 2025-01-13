@@ -52,6 +52,8 @@
     "points1":"Points",
     "noPlayersYet":"No participants yet...",
     "nextDestination":"Next Destination",
-    "podium":"Podium"
+    "podium":"Podium",
+
+    "endGame": "End game"
       
 }

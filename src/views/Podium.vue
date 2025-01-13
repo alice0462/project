@@ -3,31 +3,32 @@
     <div class="podium">
       <div class="podium-column second" v-if="podium[1]">
         <div class="name">{{ podium[1].name }}</div>
-        <div class="position">{{ podium[1].points }} poäng</div>
+        <div class="position">{{ podium[1].points }} {{points}}</div>
       </div>
       <div class="podium-column first" v-if="podium[0]">
         <div class="name">{{ podium[0].name }}</div>
-        <div class="position">{{ podium[0].points }} poäng</div>
+        <div class="position">{{ podium[0].points }} {{points}}</div>
       </div>
       <div class="podium-column third" v-if="podium[2]">
         <div class="name">{{ podium[2].name }}</div>
-        <div class="position">{{ podium[2].points }} poäng</div>
+        <div class="position">{{ podium[2].points }} {{points}}</div>
       </div>
     </div>
     <div class="remaining-players" v-if="remainingPlayers.length > 0">
-      <h2>Resterande placeringar</h2>
       <ol>
         <p v-for="(player, index) in remainingPlayers" :key="index">
-          {{ index + 4 }}. {{ player.name }} - {{ player.points }} poäng
+          {{ index + 4 }}. {{ player.name }} - {{ player.points }} {{points}}
         </p>
       </ol>
     </div>
-    <button class="end-game-btn" @click="endGame">Avsluta spel</button>
+    <button class="end-game-btn" @click="endGame">{{endingGame}}</button>
   </div>
 </template>
   
 <script>
 import io from 'socket.io-client'; //dessa två rader ska vara här sen, men just nu finns det inga sockets att koppla till 
+import gameMasterSv from '@/assets/gameMaster-sv.json';
+import gameMasterEn from '@/assets/gameMaster-en.json';
 import secondSoundFile from '@/assets/lat2.mp3';
 const socket = io(sessionStorage.getItem("currentNetwork"));
 
@@ -66,6 +67,12 @@ export default {
     remainingPlayers() {
       return this.players.slice(3); 
     },
+    endingGame() {
+      return this.lang === "sv" ? gameMasterSv.endGame : gameMasterEn.endGame;
+      },
+    points() {
+      return this.lang === "sv" ? gameMasterSv.points : gameMasterEn.points;
+      },
   },
 
   methods: {
@@ -198,6 +205,7 @@ export default {
   }
   .end-game-btn:hover {
     transform: scale(1.1);
+    font-family: 'Futura';
   }
   .remaining-players {
     margin-top: 20px;

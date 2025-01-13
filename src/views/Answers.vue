@@ -102,7 +102,7 @@
       socket.on("updateCurrentCity", (data) => {
         if (data.currentCity) {
           this.resetAnswers();
-          this.currentCity = data.currentCity;
+          this.currentCity = data.currentCity.name;
           console.log("Ny mottagen stad:", this.currentCity);
         }
       });

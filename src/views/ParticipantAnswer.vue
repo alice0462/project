@@ -126,7 +126,7 @@ export default {
 
     socket.on("updateCurrentCity", (data) => {
       if (data.currentCity) {
-        this.currentCity = data.currentCity;
+        this.currentCity = data.currentCity.name;
         console.log("Mottagen stad:", this.currentCity);
       }
     });
@@ -147,7 +147,8 @@ export default {
     socket.emit( "getUILabels", this.lang );
     socket.emit("joinPoll", this.pollId);
     socket.emit("requestStartTime", this.pollId);
-    socket.emit("requestCode", this.pollId);     
+    socket.emit("requestCode", this.pollId);
+    socket.emit("currentCity", { currentCity: this.currentCity, pollId: this.pollId });     
     socket.emit("getCurrentParticipant", (data) => {
       this.participantName = data.name;
     });

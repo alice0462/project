@@ -323,6 +323,14 @@ Data.prototype.resetPoll = function (pollId) {
 };
 
 
+Data.prototype.getCurrentCity = function(pollId) {
+  if (this.pollExists(pollId)) {
+    const poll = this.polls[pollId]
+      return poll.cities[poll.currentCityIndex];
+  }
+  return null; // Om det inte finns fler städer
+};
+
 
 export { Data };
 

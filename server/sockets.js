@@ -67,7 +67,7 @@ function sockets(io, socket, data) {
 
   socket.on("currentCity", (d) => {
     console.log("Aktuell stad skickas:", d.currentCity, "för pollId:", d.pollId);
-    io.to(d.pollId).emit("updateCurrentCity", { currentCity: d.currentCity });
+    io.to(d.pollId).emit("updateCurrentCity", { currentCity: data.getCurrentCity (d.pollId) });
   });
 
   socket.on("showScores", (pollId) => {
