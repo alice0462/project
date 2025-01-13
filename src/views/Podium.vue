@@ -21,7 +21,7 @@
         </p>
       </ol>
     </div>
-    <button class="end-game-btn" @click="endGame">{{endingGame}}</button>
+    <button class="end-game-btn" @click="endGame">{{ endingGame }}</button>
   </div>
 </template>
   
@@ -68,7 +68,7 @@ export default {
       return this.players.slice(3); 
     },
     endingGame() {
-      return this.lang === "sv" ? gameMasterSv.endGame : gameMasterEn.endGame;
+      return this.lang === "sv" ? gameMasterSv.endingGame : gameMasterEn.endingGame;
       },
     points() {
       return this.lang === "sv" ? gameMasterSv.points : gameMasterEn.points;

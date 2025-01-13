@@ -19,18 +19,24 @@
     <br>
     <button class="mainButtons" id="createPollClass" v-on:click="createPoll">
       {{ uiLabels.createPoll }}
+      <p>{{uiLabels.createPollText}}</p>
     </button>
     <button class="mainButtons" id="participatePollClass" v-on:click="participatePoll">
       {{ uiLabels.participatePoll }}
+      <p>{{uiLabels.participatePollText}}</p>
     </button>    
     <router-link to="/poll/">
     <button class="mainButtons" id="screenViewerClass" v-on:click="screenViewer">
       {{ uiLabels.screenViewer }}
+      <p>{{uiLabels.screenViewerText}}</p>
     </button>
     </router-link>
     <div v-if="showRulesText" class="showRulesTextClass">
       <div class="showRulesTextClass-content">
         <span class="close" @click="closeRulesText">&times;</span>
+        <h3>{{uiLabels.preperation}}</h3>
+        <p>{{ uiLabels.preperationText }}
+        </p>
         <h3> {{ uiLabels.rulesTitle }}</h3>
           {{ uiLabels.rules }}
       </div>
@@ -42,7 +48,7 @@
 import ResponsiveNav from '@/components/ResponsiveNav.vue';
 import io from 'socket.io-client';
 //sessionStorage.setItem("currentNetwork","192.168.1.3:3000") //edvins nätverk (vi bör lägga in eduroam tex)
-sessionStorage.setItem("currentNetwork","localhost:3000") //detta var den ursprungliga servern
+//sessionStorage.setItem("currentNetwork","localhost:3000") //detta var den ursprungliga servern
 //sessionStorage.setItem("currentNetwork", "130.243.218.223:3000") //Eduroam
 //sessionStorage.setItem("currentNetwork","130.243.148.112:3000") //UUGuest 
 //sessionStorage.setItem("currentNetwork", "172.20.10.2:3000") //edvin internetdelnig
@@ -199,6 +205,11 @@ export default {
     border-radius: 20px;
     margin: 0 20px 20px;
     cursor: pointer;
+  }
+  .mainButtons p {
+    font-size: 13px;
+
+
   }
   #createPollClass {
     background: linear-gradient(5deg, #ffa82f, #eaceaf);

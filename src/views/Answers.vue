@@ -101,7 +101,7 @@
       
       socket.on("updateCurrentCity", (data) => {
         if (data.currentCity) {
-          this.resetAnswers();
+          //this.resetAnswers();
           this.currentCity = data.currentCity.name;
           console.log("Ny mottagen stad:", this.currentCity);
         }
@@ -255,13 +255,13 @@
         socket.emit("stopMusic", this.pollId);
         this.questionAnswer = true;
         socket.emit("startQuestions", this.pollId);
-        this.resetAnswers();
+        //this.resetAnswers();
       },
   
       goToScores(){
         socket.emit("showScores", this.pollId);
         this.$router.push('/points/' + this.pollId);
-        this.resetAnswers();
+        //this.resetAnswers();
       },
   
       updatePoints(user, points) {
@@ -272,11 +272,11 @@
         });
       },
   
-      resetAnswers() {
+      /*resetAnswers() {
         this.destinationAnswers = [];
         this.questionAnswers = [];
         console.log("Tidigare resa och svar är rensade")
-      },
+      },*/
       goToSummary () {
         socket.emit("showScores", this.pollId);
         this.$router.push(`/podium/${this.pollId}`);

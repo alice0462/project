@@ -41,12 +41,12 @@
     "confirm3":"Accept",
     "fullyConfirm": "Confirm",
     "decline":"Decline",
-    "questionsAboutCity":"Go to questions about city",
+    "questionsAboutCity":"Continue",
     "answerQuestion1":"Answer to question 1",
     "answerQuestion2":"Answer to question 2",
     "waitForParticipantAnswer":"Wait for participant answers...",
 
-    "showScores": "Show scores",
+    "showScores": "Continue to scoreboard",
 
     "currentScore":"Scores",
     "points1":"Points",
@@ -54,6 +54,6 @@
     "nextDestination":"Next Destination",
     "podium":"Podium",
 
-    "endGame": "End game"
+    "endingGame": "End game"
       
 }

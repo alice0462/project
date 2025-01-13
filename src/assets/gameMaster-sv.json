@@ -42,12 +42,12 @@
     "confirm3":"Godkänn",
     "fullyConfirm": "Bekräfta",
     "decline":"Neka",
-    "questionsAboutCity":"Gå till stadsfrågor",
+    "questionsAboutCity":"Gå vidare",
     "answerQuestion1":"Svar på fråga 1",
     "answerQuestion2":"Svar på fråga 2",
     "waitForParticipantAnswer":"Vänta på spelarnas svar...",
 
-    "showScores": "Visa poängställning",
+    "showScores": "Gå vidare till poängställning",
 
     "currentScore":"Poängställning",
     "points1":"poäng",
@@ -55,7 +55,7 @@
     "nextDestination":"Nästa destination",
     "podium":"Prispall",
 
-    "endGame": "Avsluta spel"
+    "endingGame": "Avsluta spel"
 
 
 

@@ -2,7 +2,7 @@
 	"sales-pitch": "Simply. Great. Polling.",
 	"subHeading": "A simple polling tool",
 	"invite": "Invite participants with this link:",
-	"createPoll": "Start Game",
+	"createPoll": "Create Game",
 	"participatePoll": "Join Game",
 	"question": "Question",
 	"changeLanguage": "Svenska",
@@ -18,7 +18,12 @@
 	"waitingForHost": "Waiting for host to start game...",
 	"reachedCity": "We have arrived to ...",
 	"headline": "Where are we going?",
-	"mustName":"You must enter a response before you can lock it!"
+	"mustName":"You must enter a response before you can lock it!",
+	"createPollText":"Click here to become the game master",
+	"participatePollText":"Click here to participate in game",
+	"screenViewerText":"Click here to open the game view",
+	"preperation":"Preperations",
+	"preperationText": "Start by opening the big screen on a separate device that will be displayed to all participants during the game. The clues and questions will be visible on this screen. When the big screen is displayed, all people can click into the game, one as the game leader and the rest as participants. The game leader will not participate in the guessing, but will act as a judge during the game."
 	
 
 }
