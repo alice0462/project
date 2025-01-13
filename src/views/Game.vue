@@ -143,7 +143,7 @@ export default {
     methods: {
         startTimer(startTime) {
             socket.emit("currentCity", { currentCity: this.currentCity, pollId: this.pollId });
-            this.timeElapsed = Math.floor((Date.now() - startTime) / 1000) //Tid från när vi startade och nu i sek
+            this.timeElapsed = Math.floor((Date.now() - startTime) / 1000)
             this.timer = 30 - (this.timeElapsed % 30); 
             this.intervalId = setInterval (() => {
                 if (this.timer > 0) {

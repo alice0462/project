@@ -271,15 +271,7 @@ export default {
           { questionNumber: 2, guess: this.questionAnswers[1] },
         ],
       });
-      //this.resetAnswers();
-      
     },
-
-    /*resetAnswers() {
-        this.destinationAnswers = [];
-        this.questionAnswers = [];
-        console.log("Tidigare resa och svar är rensade")
-    },*/
 
     startDrag(event) {
       event.preventDefault();

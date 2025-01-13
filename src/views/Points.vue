@@ -155,36 +155,36 @@ export default {
   @media screen and (max-width: 768px) {
   .pointContainer {
     padding: 10px;
-    min-height: 100vh; /* Låt sidan fylla hela höjden */
+    min-height: 100vh; 
   }
 
   h1 {
-    font-size: 2rem; /* Anpassa rubrikstorlek för mindre skärmar */
+    font-size: 2rem; 
     margin-bottom: 15px;
   }
 
   .pointBox {
-    width: 90%; /* Gör boxen bredare på små skärmar */
-    padding: 15px; /* Minska inre padding */
-    font-size: 1rem; /* Anpassa textstorleken */
+    width: 90%; 
+    padding: 15px; 
+    font-size: 1rem;
   }
 
   ol {
-    font-size: 0.9rem; /* Minska textstorlek för listan */
+    font-size: 0.9rem; 
   }
 
   p {
-    margin: 5px 0; /* Minska mellanrum mellan listobjekt */
+    margin: 5px 0;
   }
 
   .nextDestinationButton {
-    width: 90%; /* Gör knappen bredare för att fylla utrymmet */
-    max-width: 300px; /* Sätt en maxbredd */
-    padding: 10px; /* Justera padding */
-    font-size: 0.9rem; /* Anpassa textstorlek för mobilen */
-    position: static; /* Flytta knappen till en mer naturlig position */
-    margin-top: 20px; /* Lägg till avstånd ovanför knappen */
-    align-self: center; /* Centrera knappen */
+    width: 90%; 
+    max-width: 300px; 
+    padding: 10px; 
+    font-size: 0.9rem; 
+    position: static; 
+    margin-top: 20px; 
+    align-self: center; 
   }
 }
 

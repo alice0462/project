@@ -101,7 +101,7 @@ export default {
     justify-content: center;
     align-items: center;
   }
-    .destination-buttons button {
+  .destination-buttons button {
     display: flex;
     justify-content: center;
     align-items: center; 

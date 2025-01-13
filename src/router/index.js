@@ -2,7 +2,6 @@ import { createRouter, createWebHistory } from 'vue-router'
 import StartView from '../views/StartView.vue'
 import RandomDestination from "../components/RandomDestination.vue";
 import ChooseDestination from "../components/ChooseDestination.vue";
-import goToCode from '../components/goToCode.vue';
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -42,11 +41,7 @@ const router = createRouter({
       name: 'ChooseDestination',
       component: ChooseDestination, // Länkar till din komponent
     },
-    {
-      path: '/go-to-code/:id',
-      name: 'goToCode',
-      component: goToCode,
-    },
+    
     {
       path: "/lobby/:id",
       name: "Lobby",
