@@ -48,7 +48,7 @@
 import ResponsiveNav from '@/components/ResponsiveNav.vue';
 import io from 'socket.io-client';
 //sessionStorage.setItem("currentNetwork","192.168.1.3:3000") //edvins nätverk (vi bör lägga in eduroam tex)
-//sessionStorage.setItem("currentNetwork","localhost:3000") //detta var den ursprungliga servern
+sessionStorage.setItem("currentNetwork","localhost:3000") //detta var den ursprungliga servern
 //sessionStorage.setItem("currentNetwork", "130.243.218.223:3000") //Eduroam
 //sessionStorage.setItem("currentNetwork","130.243.148.112:3000") //UUGuest 
 //sessionStorage.setItem("currentNetwork", "172.20.10.2:3000") //edvin internetdelnig
@@ -260,7 +260,7 @@ export default {
     border-radius: 15px; 
     width: 60%; 
     max-width: 700px; 
-    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2); /* Skugga */
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2); 
     color: black;
     font-size: 1.1rem;
     position: relative;
@@ -351,7 +351,7 @@ export default {
     border-radius: 15px; 
     width: 60%; 
     max-width: 700px; 
-    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2); /* Skugga */
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2); 
     color: black;
     font-size: 1.1rem;
     position: relative;

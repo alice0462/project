@@ -80,7 +80,7 @@ export default {
     confirmSelection () {
       console.log(this.data);
       socket.emit("sendCities", {data: this.data, pollId: this.pollId});
-      socket.emit("updateScreen", this.pollId); //Skapar ett rop som vi kommer behöva lyssna på, med ropet skickar vi med data (städer)
+      socket.emit("updateScreen", this.pollId);
       this.$router.push("/lobby/" + this.pollId);
     },
   },
@@ -98,9 +98,9 @@ export default {
     font-family: 'Futura';
     display: flex;
     flex-direction: column;
-    align-items: center; /* Centrerar horisontellt */
-    justify-content: center; /* Centrerar vertikalt */
-    text-align: center; /* Centrerar text */
+    align-items: center;
+    justify-content: center; 
+    text-align: center; 
   }
   header{
     font-size: 2.5rem;
