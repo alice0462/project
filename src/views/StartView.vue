@@ -184,20 +184,18 @@ export default {
     width: 100%;
   }
   .ruleButton {
-    font-size: 12px !important; /* Mindre textstorlek */
-    height: 40px !important; /* Mindre höjd */
-    width: 70px !important; /* Mindre bredd */
-    padding: 5px !important; /* Mindre fyllning */
-    border-radius: 3px !important; /* Mindre avrundade hörn */
-    
-  }
-
+    font-size: 12px !important; 
+    height: 40px !important; 
+    width: 70px !important; 
+    padding: 5px !important; 
+    border-radius: 3px !important;
+    }
   .mainButtons {
-    font-size: 20px !important; /* Mindre textstorlek */
-    height: 80px !important; /* Mindre höjd */
-    width: 300px !important; /* Mindre bredd */
-    margin: 10px !important; /* Mindre marginal */
-  }
+    font-size: 20px !important; 
+    height: 80px !important; 
+    width: 300px !important;
+    margin: 10px !important; 
+    }
   }
   .mainButtons {
     color: rgb(79, 80, 80);
