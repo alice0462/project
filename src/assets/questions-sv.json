@@ -1,13 +1,13 @@
 { 
     "fragor": {
         "Linköping":[
-            "Vad heter den stora kyrkan i Linköping som är en av Sveriges bäst bevarade medeltida katedraler och ett ikoniskt landmärke i staden?",
+            "Vilken av Vättern och Värnen ligger närmas Linköping?",
             "Vilket flyg- och försvarsföretag, känt för bland annat stridsflygplan, har sitt huvudkontor i Linköping?"
-    ],
+       ],
         "Stockholm": [
              "Vilken ö i Stockholms skärgård är känd för sina rika hällristningar från bronsåldern och sitt marina forskningscenter?",
              "I vilken stadsdel i Stockholm hittar man den historiska plats där Gustav Vasa valdes till kung 1523?"
-    ],
+       ],
        "Paris": [
             "Vilken ikonisk byggnad i Paris fungerade tidigare som ett kungligt palats och är idag ett av världens största konstmuseer?",
             "Vilken välkänd gata i Paris sträcker sig från Place de la Concorde till Triumfbågen och är berömd för sina butiker och kaféer?"
@@ -15,7 +15,6 @@
        "Uppsala": [
           "Uppsala universitet är Sveriges äldsta universitet. Vilket år uppstartade det?",
           "Uppsala domkyrka är Nordens största domkyrka, hur hög och lång är kyrkan?"
-
        ],
        "Oslo": [
             "I vilken klubb spelar den norska fotbollsspelaren Erling Haaland i?",
@@ -25,57 +24,46 @@
           "Vad heter floden som rinner genom Seoul och är en av stadens populära platser för promenader och picknick?",
           "Vilket känt torn i Seoul är en populär utsiktsplats och ett av stadens mest besökta landmärken?"
         ],
-        
+
        "Toronto": [
             "Vad heter det ikoniska tornet i Toronto som en gång var världens högsta fristående struktur och som idag erbjuder spektakulär utsikt över staden?",
             "Vilken stor insjö ligger vid Torontos kust och är en del av de stora sjöarna i Nordamerika?"
-
        ],
        "Tokyo": [
             "Vilken stadsdel i Tokyo är känd som världens teknik- och spelmecka, där man hittar mängder av elektronikbutiker och animekultur?",
             "Vilken välkänd fiskmarknad i Tokyo är känd för sin tonfiskauktion och sitt utbud av färsk sushi?"
-
        ],
        "Barcelona": [
-            "Vilken stor park i Barcelona, designad av Antoni Gaudí, är känd för sina mosaikdekorationer och sin ikoniska bänk med utsikt över staden?",
+            "Vilken arktiekt skapade Sagrada Familia?",
             "Vilket stadion i Barcelona är Europas största fotbollsarena och hemmaplan för FC Barcelona?"
-
        ],
-
        "New York": [
             "Vad heter ön i New York som var den huvudsakliga porten för immigranter till USA mellan 1892 och 1954 och som idag är ett museum för invandringshistoria?",
             "Vilken smal park i New York, byggd på en övergiven järnvägslinje ovanför marken, sträcker sig genom stadsdelarna Meatpacking District och Chelsea?"
-
        ],
        "Singapore": [
           "Singapore är en av de så kallade tigerekonomierna. Vilka är det övriga tre?",
-          "Vad innehåller den kända drinken som du hittar på Raffles Hotel?"
+          "Vad heter den kända drinken som du hittar på Raffles Hotel?"
        ],
        "Bangkok": [
             "På systembolaget finns två ganska kända thailändska ölmärken, vilka är ölmärkerna?",
             "Vad heter det berömda templet i Bangkok som är hem till en av världens största liggande Buddha-statyer, som mäter hela 46 meter i längd?"
-
        ],
        "Hanoi": [
             "Vad heter sjön i centrala Hanoi som enligt en legend är kopplad till ett magiskt svärd som återlämnades till en gyllene sköldpadda?",
             "Vad heter den vietnamesiska baguettesmörgåsen som ofta fylls med en kombination av kött, picklade grönsaker, koriander och ibland chili?"
-
        ],
        "Nairobi": [
           "Kenya är känt för sina vidsträckta savanner och för många som är på safaritur är det en höjdpunkt att se 'The Big Five', vilka djur räknas till dessa? ",
           "Vilket kenyanskt folk, känt för sina färgstarka kläder och hoppdans, bor i regioner nära Nairobi och är en stor del av stadens kulturella identitet?"
-
-
        ],
        "Buenos Aires": [
             "Vad heter det färgglada område i Buenos Aires, känt för sina charmiga hus, konstnärliga atmosfär och koppling till tangon?",
             "Vad heter den historiska kyrkogården i Buenos Aires, känd för sina utsmyckade mausoleer och som den sista viloplatsen för Eva Perón?"
-
        ],
        "Rio de Janerio": [
             "Vad heter den ikoniska statyn som står på toppen av berget Corcovado och är en av världens mest kända symboler för Brasilien?",
             "Vad heter den berömda stranden i Rio de Janeiro som är känd för sin vita sand, sina höga hotell och den ikoniska mosaikpromenaden?"
-
        ]
     },
     "questionNumber":"Fråga"
