@@ -42,15 +42,12 @@ function sockets(io, socket, data) {
     console.log("Valda städer:", d);
     data.addCities(d.pollId, d.data);
     socket.emit('chosenCities', data.getCities(d.pollId))
-    // Broadcast till alla anslutna klienter
-    //io.to(d.pollId).emit("selectedCities", d);//
   });
 
   socket.on("sendToGamecode", (d) => {
     console.log("Gå till spelkod:", d);
     data.readySetGo(d.pollId, d.data);
     socket.emit("selectedToGameCode", data.getCode(d.pollId));
-    // Broadcast till alla anslutna klienter
   });
 
   socket.on("getParticipants", pollId => {
@@ -72,29 +69,11 @@ function sockets(io, socket, data) {
 
   socket.on("showScores", (pollId) => {
     console.log(`Visa poängställning för omröstning ${pollId}`);
-    socket.to(pollId).emit("showScores", pollId); // Skicka till alla i pollId-rummet
+    socket.to(pollId).emit("showScores", pollId); 
   });
-  
-
-
-
-
-  //socket.on("sendCities", (d) => {
-    //console.log("Mottagna städer med index:", d.data.cities);
-    //data.addCities(d.pollId, d.data); // Spara datan (städer med index)
-  //});
 
   socket.on("getCurrentParticipant", (d) => {
-  })
-
-  /*socket.on("answerSubmit", (d) => {
-    console.log("Mottog answerSubmit med data:", d);
-    data.destinationAnswer(d.user, d.pollId, d.type, d.guess, d.points)
-    const updatedAnswers = data.getSubmittedAnswers(d.pollId);
-    io.to(d.pollId).emit('submittedAnswersUpdate', data.getSubmittedAnswers(d.pollId));
-    console.log("Uppdaterade svar som skickas:", updatedAnswers, d.pollId);
-
-  });*/
+  });
 
   socket.on("answerSubmit", (d) => {
     console.log("Mottog answerSubmit med data:", d);
@@ -116,7 +95,7 @@ function sockets(io, socket, data) {
   
   socket.on("registerScreen", () => {
     console.log("Storskärm registrerad:", socket.id);
-    socket.join("screens"); // Lägg storskärmen i ett unikt rum
+    socket.join("screens");
   });
 
   socket.on("updateScreen", pollId => {
@@ -137,9 +116,8 @@ function sockets(io, socket, data) {
 
   socket.on("updatePoints", (d) => {
     console.log(`Uppdaterar poäng för användare ${d.user}:`, d.points);
-    data.addPoints(d.pollId, d.user, d.points); // Lägg till poäng
+    data.addPoints(d.pollId, d.user, d.points); 
     io.to(d.pollId).emit("participantLeaderbord",  data.getLeaderboard(d.pollId));
-    //io.to(d.pollId).emit("participantLeaderbord", data.getParticipants(d.pollId)); // Skicka uppdaterade deltagarlistan
   });
 
   socket.on("getScores", pollId => {
@@ -158,7 +136,7 @@ function sockets(io, socket, data) {
     io.to(pollId).emit("goToNextCity", nextCity); 
   } else {
     console.log("Inga fler städer för pollId:", pollId);
-    io.to(pollId).emit("endOfJourney"); // Skicka en signal om att resan är slut
+    io.to(pollId).emit("endOfJourney"); 
   }
   });
 
@@ -182,7 +160,6 @@ function sockets(io, socket, data) {
 
   socket.on("resetGame", (pollId) => {
     console.log(`Återställer spelet för pollId: ${pollId}`);
-    //data.resetPoll(pollId);
     io.to(pollId).emit("gameReset");
   });
 }
