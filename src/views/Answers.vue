@@ -255,13 +255,11 @@
         socket.emit("stopMusic", this.pollId);
         this.questionAnswer = true;
         socket.emit("startQuestions", this.pollId);
-        //this.resetAnswers();
       },
   
       goToScores(){
         socket.emit("showScores", this.pollId);
         this.$router.push('/points/' + this.pollId);
-        //this.resetAnswers();
       },
   
       updatePoints(user, points) {
@@ -272,11 +270,6 @@
         });
       },
   
-      /*resetAnswers() {
-        this.destinationAnswers = [];
-        this.questionAnswers = [];
-        console.log("Tidigare resa och svar är rensade")
-      },*/
       goToSummary () {
         socket.emit("showScores", this.pollId);
         this.$router.push(`/podium/${this.pollId}`);
