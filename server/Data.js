@@ -1,19 +1,11 @@
 'use strict';
 import {readFileSync} from "fs";
 
-// Store data in an object to keep the global namespace clean. In an actual implementation this would be interfacing a database...
 function Data() {
   this.polls = {};
   this.polls['test'] = {
     lang: "en",
-    questions: [
-      {q: "How old are you?", 
-       a: ["0-13", "14-18", "19-25", "26-35", "36-45","45-"]
-      },
-      {q: "How much do you enjoy coding?", 
-       a: ["1", "2", "3", "4", "5"]
-      }
-    ],
+    questions: [],
     answers: [],
     currentQuestion: 0,
     participants: [],
@@ -21,18 +13,11 @@ function Data() {
   }
 }
 
-/***********************************************
-For performance reasons, methods are added to the
-prototype of the Data object/class
-https://developer.mozilla.org/en-US/docs/Web/JavaScript/Closures
-***********************************************/
-
 Data.prototype.pollExists = function (pollId) {
   return typeof this.polls[pollId] !== "undefined"
 }
 
 Data.prototype.getUILabels = function (lang) {
-  //check if lang is valid before trying to load the dictionary file
   if (!["en", "sv"].some( el => el === lang))
     lang = "en";
   const labels = readFileSync("./server/data/labels-" + lang + ".json");
@@ -79,26 +64,14 @@ Data.prototype.addPoints = function(pollId, user, points) {
   if (this.pollExists(pollId)) {
     const poll = this.polls[pollId];
 
-    // Leta efter deltagaren
     const participant = poll.participants.find(p => p.name === user);
-    participant.points = (participant.points || 0) + points; // Addera poängen
+    participant.points = (participant.points || 0) + points; 
     
     console.log(`Totala poäng för ${user}:`, participant ? participant.points : points);
   } else {
     console.log(`Poll finns inte: ${pollId}`);
   }
 };
-
-
-/*Data.prototype.getLeaderboard = function (pollId) {
-  if (this.pollExists(pollId)) {
-    return this.polls[pollId].participants.map(p => ({
-      name: p.name,
-      points: p.points || 0, // Om deltagaren inte har några poäng ännu, sätt till 0
-    }));
-  }
-  return [];
-};*/
 
 Data.prototype.getLeaderboard = function (pollId) {
   if (this.pollExists(pollId)) {
@@ -156,17 +129,14 @@ Data.prototype.submitAnswer = function(pollId, answer) {
   if (this.pollExists(pollId)) {
     const poll = this.polls[pollId];
     let answers = poll.answers[poll.currentQuestion];
-    // create answers object if no answers have yet been submitted
     if (typeof answers !== 'object') {
       answers = {};
       answers[answer] = 1;
       poll.answers.push(answers);
     }
-    // create answer property if that specific answer has not yet been submitted
     else if (typeof answers[answer] === 'undefined') {
       answers[answer] = 1;
     }
-    // if the property already exists, increase the number
     else
       answers[answer] += 1
     console.log("answers looks like ", answers, typeof answers);
@@ -175,18 +145,9 @@ Data.prototype.submitAnswer = function(pollId, answer) {
 
 Data.prototype.addCities = function(pollId, data) {
   console.log(data);
-  //this.polls[pollId] = { pollId: pollId }; // Skapar en ny objektstruktur
-  this.polls[pollId].cities = data.cities; // Tilldelar cities till objektet
+  this.polls[pollId].cities = data.cities; 
   console.log("INFO!!!!:", data)
 };
-
-/*Data.prototype.readySetGo = function(pollId, data) {
-  console.log(data);
-  //this.polls[pollId] = { pollId: pollId }; // Skapar en ny objektstruktur
-  this.polls[pollId].level = data.level;
-  console.log("INFO!!!!:", data);
-  console.log(this.polls[pollId])
-};*/
 
 Data.prototype.getCities = function(pollId, data) {
   const poll = this.polls[pollId];
@@ -214,15 +175,13 @@ Data.prototype.destinationAnswer = function(user, pollId, type, correctCity, gue
   if (this.pollExists(pollId)) {
     const poll = this.polls[pollId];
 
-    // Kontrollera att guesses finns
     if (!poll.guesses) {
       poll.guesses = [];
     }
 
-    // Kontrollera om användaren redan har skickat ett svar
     const existingAnswer = poll.guesses.find(g => g.name === user && g.type === "destination");
     if (existingAnswer) {
-      existingAnswer.guess = guess; // Uppdatera tidigare svar
+      existingAnswer.guess = guess; 
       existingAnswer.points = points;
       console.log("Destinationssvar uppdaterat för:", user, guess, points);
     } else {
@@ -245,7 +204,7 @@ Data.prototype.submitQuestionAnswers = function (user, pollId, correctCity, answ
     const userAnswers = poll.guesses.find(g => g.name === user && g.type === "questions");
 
     if (userAnswers) {
-      userAnswers.answers = answers; // Uppdatera befintliga svar
+      userAnswers.answers = answers; 
     } else {
       poll.guesses.push({
         name: user,
@@ -267,11 +226,9 @@ Data.prototype.resetAnswer = function (pollId) {
 Data.prototype.getSubmittedAnswers = function(pollId) {
   console.log("Hämtar svar för pollId:", pollId);
 
-  // Kontrollera om omröstningen existerar i datalagret
   if (this.pollExists(pollId)) {
     console.log("Hittade omröstning:", this.polls[pollId]);
 
-    // Returnera listan av guesses om den existerar, annars en tom array
     return this.polls[pollId].guesses;
   } else {
     console.log("Poll finns inte för getSubmittedAnswers:", pollId);
@@ -283,7 +240,7 @@ Data.prototype.getSubmittedAnswers = function(pollId) {
 Data.prototype.startTime = function (pollId) {
   if (this.pollExists(pollId)) {
     if (!this.polls[pollId].startTime){
-      this.polls[pollId].startTime = Date.now(); //Sparar akturell tid i millisekunder
+      this.polls[pollId].startTime = Date.now();
       console.log("Starttid är satt för pollId:", pollId, this.polls[pollId].startTime);
     }
     return this.polls[pollId].startTime;
@@ -304,20 +261,17 @@ Data.prototype.getNextCity = function(pollId) {
     const poll = this.polls[pollId];
     console.log(`Hämtar nästa stad. Nuvarande index: ${poll.currentCityIndex}, Totalt: ${poll.cities.length}`);
     if (poll.currentCityIndex < poll.cities.length) {
-      poll.currentCityIndex += 1; // Öka indexet
-      //const nextCity = poll.cities[poll.currentCityIndex];
-      //this.polls[pollId] = poll; // Uppdatera lagret
+      poll.currentCityIndex += 1; 
       console.log(`Ny currentCityIndex sparad: ${poll.currentCityIndex}`);
-      //console.log(`Nästa stad skickas: ${nextCity.name}, Uppdaterad index: ${poll.currentCityIndex}`);
       return poll.currentCityIndex;
     }
   }
-  return null; // Om det inte finns fler städer
+  return null; 
 };
 
 Data.prototype.resetPoll = function (pollId) {
   if (this.pollExists(pollId)) {
-    delete this.polls[pollId]; // Radera alla data för omröstningen
+    delete this.polls[pollId]; 
     console.log(`Spelet för pollId ${pollId} har återställts.`);
   }
 };
@@ -328,9 +282,8 @@ Data.prototype.getCurrentCity = function(pollId) {
     const poll = this.polls[pollId]
       return poll.cities[poll.currentCityIndex];
   }
-  return null; // Om det inte finns fler städer
+  return null; 
 };
-
 
 export { Data };
 
