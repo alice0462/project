@@ -415,4 +415,7 @@
     width: 300px;
     margin: 20px auto;
   }
+  .answerBox p {
+    margin: 0px;
+  }
 </style>
