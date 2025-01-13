@@ -145,4 +145,36 @@ button{
   background: linear-gradient(5deg, #63b65f, #bcedbe);
   margin-top: 30px;
 }
+@media screen and (max-width: 640px) {
+  h1 {
+    font-size: 30px;
+    padding: 50px 0 10px; 
+  }
+  p {
+    font-size: 16px; 
+    margin-bottom: 10px;
+  }
+  .usernameBox {
+    height: 30px;
+    width: 100%; 
+    max-width: 300px; 
+    margin-bottom: 20px;
+  }
+  .poll-id-container {
+    flex-direction: row; 
+    gap: 10px; 
+    align-items: center;
+  }
+  .poll-id-box {
+    width: 50px; 
+    height: 60px; 
+    font-size: 1.5rem; 
+  }
+  button {
+    width: 100%; 
+    max-width: 200px; 
+    font-size: 14px; 
+  }
+}
+
 </style>
