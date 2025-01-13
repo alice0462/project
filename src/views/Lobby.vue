@@ -168,12 +168,12 @@
   }
   @media screen and (max-width: 768px) {
   .lobby-container {
-    justify-content: space-between; /* Fördela utrymmet jämnt */
+    justify-content: space-between; 
   }
 
   .lobby-info {
-    justify-content: flex-start; /* Justerar allt till toppen */
-    gap: 10px; /* Lägger till avstånd mellan elementen */
+    justify-content: flex-start; 
+    gap: 10px;
   }
 
   h1 {
@@ -194,12 +194,12 @@
   }
 
   .game-visual {
-    margin-top: auto; /* Trycker ned tåget mot botten */
-    margin-bottom: 20px; /* Lägger till lite extra utrymme nedanför tåget */
+    margin-top: auto; 
+    margin-bottom: 20px; 
   }
 
   .train-image {
-    width: 60%; /* Anpassa storlek för mobilen */
+    width: 60%; 
     height: auto;
   }
 
