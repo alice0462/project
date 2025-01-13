@@ -229,7 +229,7 @@ export default {
         max-width: 700px; 
         box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
         color: black;
-        font-size: 1.1rem;
+        font-size: 2rem;
         position: relative;
         font-family: 'Futura';
     }
