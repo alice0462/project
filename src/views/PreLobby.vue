@@ -102,15 +102,11 @@ h1{
   margin: 0px 0px 40px 0px;
   padding: 90px 0 20px;
   font-size: 55px;
-  color: rgb(75, 76, 76);
+  margin-bottom: 20px;
+  font-family: 'Futura', sans-serif;
 }
 h1, p{
-  font-family: 'Futura', sans-serif;
   color: rgb(75, 76, 76);
-  margin-bottom: 20px;
-}
-p {
-  font-size: 20px;
 }
 .usernameBox{
   height: 30px;
@@ -176,5 +172,4 @@ button{
     font-size: 14px; 
   }
 }
-
 </style>
