@@ -226,7 +226,7 @@ export default {
           if (this.points > 2) {
             this.points -= 2;
             console.log("Nu är vi på nivå för:", this.points, "poäng")
-            this.timer =30; 
+            this.timer = 30; 
           } else if(!this.finalAnswer && this.points === 2 && !this.isTimeOut){
             this.stopTimer();
             this.isTimeOut = true;
@@ -271,15 +271,15 @@ export default {
           { questionNumber: 2, guess: this.questionAnswers[1] },
         ],
       });
-      this.resetAnswers();
+      //this.resetAnswers();
       
     },
 
-    resetAnswers() {
+    /*resetAnswers() {
         this.destinationAnswers = [];
         this.questionAnswers = [];
         console.log("Tidigare resa och svar är rensade")
-    },
+    },*/
 
     startDrag(event) {
       event.preventDefault();

@@ -2,13 +2,13 @@
 	"sales-pitch": "Svar. Helt. Enkelt.",
 	"subHeading": "Ett enkelt enkätverktyg",
 	"invite": "Bjud in deltagare med den här länken:",
-	"createPoll": "Starta spel",
+	"createPoll": "Skapa spel",
 	"participatePoll": "Anslut till spel",
 	"question": "Fråga",
 	"changeLanguage": "English",
 	"about": "Spelregler",
 	"participateInPoll": "Anslut till spel",
-	"screenViewer":"Spelskärm",
+	"screenViewer":"Storbild",
 	"rulesTitle": "Spelregler",
 	"rules": "Vi besöker en okänd destination, en stad i världen, och ditt jobb är att lista ut vart vi är påväg! Du får höra ett antal ledtrådar värda 10p, 8p, 6p, 4p och 2p. Uppe i högra hörnet ser du en timer och du måste svara inom den givna tiden. När du tror du vet destinationen, drar du i nödbromsen och skriver in ditt svar! När destinationen är officiell, ska du svara på två frågor kopplade till destinationen. Rätt svar på 1 fråga ger 1 poäng, rätt svar på 2 frågor ger 3 poäng. Den med flest poäng när spelet avslutas vinner!",
 	"chooseDestination": "Välj egen destination",
@@ -18,7 +18,12 @@
 	"waitingForHost": "Väntar på att värden ska starta spelet...",
 	"reachedCity": "Vi har kommit till ...",
 	"headline": "Vart är vi påväg?",
-	"mustName":"Du måste skriva in ett svar innan du kan låsa in det!"
+	"mustName":"Du måste skriva in ett svar innan du kan låsa in det!",
+	"createPollText":"Klicka här för att bli spelledare",
+	"participatePollText":"Klicka här för att delta",
+	"screenViewerText":"Klicka här för att få upp storbildsskärm",
+	"preperation":"Förberedelser",
+	"preperationText": "Börja med att öppna storbild på en separat enhet som ska visas för alla deltagare under spelets gång. På denna skärm kommer ledtrådarna och frågorna synas. När storbilden visas kan samtliga personer klicka in sig på spelet, en som spelledare och resterande som deltagare. Spelledaren kommer inte att delta i gissningarna, utan som en domare under spelets gång."
 
 
 
