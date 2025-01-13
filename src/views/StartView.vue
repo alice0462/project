@@ -48,6 +48,7 @@ import io from 'socket.io-client';
 //sessionStorage.setItem("currentNetwork", "172.20.10.2:3000") //edvin internetdelnig
 //sessionStorage.setItem("currentNetwork", "172.20.10.3:3000") //sara internetdelnig
 //sessionStorage.setItem("currentNetwork", "172.20.10.3:3000") //Carros internetdelning
+sessionStorage.setItem("currentNetwork", "172.20.10.8:3000") //Alice internetdelning
 const socket = io(sessionStorage.getItem("currentNetwork")); //när det var localhost:3000 refererar det till den enhetens localhost, dvs funkar ej, byter till nätverk ist
 //ovan möjliggör externa enheter att connecta till servern 
 
@@ -129,6 +130,16 @@ export default {
 </script>
 
 <style scoped>
+  html, body {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    height: 100%; /* Täck hela höjden */
+    background: linear-gradient(5deg, rgb(123, 168, 205), #d3d3f5); /* Gradientbakgrund */
+    background-size: cover; /* Se till att täcka hela ytan */
+    background-repeat: no-repeat;
+    overflow: hidden;
+  }
   body{
     background: linear-gradient(5deg, rgb(123, 168, 205), #d3d3f5);
     height: 100%; 
@@ -155,23 +166,38 @@ export default {
     vertical-align: bottom;
     margin-right: 0.5rem; 
   }
-
-  @media screen and (max-width:50em) {
+  @media screen and (max-width:768px) {
     .logo {
       font-size: clamp(16px, 5vw, 50px);
       display: flex;
       align-items: center;
       justify-content: center;
     }
-    .hamburger::before {
-      content: "☰";
-    }
-    .close::before {
-      content: "✕";
-    }
     .hide {
       left:-12em;
     }
+    body {
+      background-size: cover;
+    }
+    .showRulesTextClass{
+    left: 10%; 
+    width: 100%;
+  }
+  .ruleButton {
+    font-size: 12px !important; /* Mindre textstorlek */
+    height: 40px !important; /* Mindre höjd */
+    width: 70px !important; /* Mindre bredd */
+    padding: 5px !important; /* Mindre fyllning */
+    border-radius: 3px !important; /* Mindre avrundade hörn */
+    
+  }
+
+  .mainButtons {
+    font-size: 20px !important; /* Mindre textstorlek */
+    height: 80px !important; /* Mindre höjd */
+    width: 300px !important; /* Mindre bredd */
+    margin: 10px !important; /* Mindre marginal */
+  }
   }
   .mainButtons {
     color: rgb(79, 80, 80);
