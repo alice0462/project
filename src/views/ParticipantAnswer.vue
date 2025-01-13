@@ -485,8 +485,12 @@ export default {
       flex-direction: column; 
       align-items: stretch; 
     }
+
+    .answerRow h3 {
+      font-size: 17px;
+    }
     .questionsView h2 {
-      font-size: 18px; 
+      font-size: 25px; 
       text-align: center;
     }
     body.showBackground {
