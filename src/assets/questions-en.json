@@ -1,7 +1,7 @@
 {
     "questions": {
         "Linköping": [
-            "What is the name of the large church in Linköping that is one of Sweden's best-preserved medieval cathedrals and an iconic landmark in the city?",
+            "Which one of Vättern and Värnen is closest to Linköping?",
             "Which aerospace and defense company, known for its fighter jets among other things, has its headquarters in Linköping?"
         ],
         "Stockholm": [
@@ -33,7 +33,7 @@
             "Which well-known fish market in Tokyo is famous for its tuna auction and its selection of fresh sushi?"
         ],
         "Barcelona": [
-            "Which large park in Barcelona, designed by Antoni Gaudí, is known for its mosaic decorations and iconic bench with views of the city?",
+            "Which architect designed Sagrada Familia?",
             "Which stadium in Barcelona is the largest football arena in Europe and the home of FC Barcelona?"
         ],
         "New York": [
