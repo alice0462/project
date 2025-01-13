@@ -26,7 +26,7 @@
 </template>
   
 <script>
-import io from 'socket.io-client'; //dessa två rader ska vara här sen, men just nu finns det inga sockets att koppla till 
+import io from 'socket.io-client'; 
 import gameMasterSv from '@/assets/gameMaster-sv.json';
 import gameMasterEn from '@/assets/gameMaster-en.json';
 import secondSoundFile from '@/assets/lat2.mp3';
@@ -36,7 +36,7 @@ export default {
   name: "Podium",
   data() {
     return {
-      players: [], // Börja med en tom lista
+      players: [], 
       audio: null,
       pollId: "",
     };

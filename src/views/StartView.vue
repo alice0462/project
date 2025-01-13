@@ -260,7 +260,7 @@ export default {
     border-radius: 15px; 
     width: 60%; 
     max-width: 700px; 
-    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2); /* Skugga */
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2); 
     color: black;
     font-size: 1.1rem;
     position: relative;
@@ -351,7 +351,7 @@ export default {
     border-radius: 15px; 
     width: 60%; 
     max-width: 700px; 
-    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2); /* Skugga */
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2); 
     color: black;
     font-size: 1.1rem;
     position: relative;
