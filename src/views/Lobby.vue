@@ -112,7 +112,7 @@
   }
   .participant-list {
     text-align: center; 
-    margin-top: -300px;
+    margin-top: -250px;
   }
   .participant-list p {
     margin: 5px 0; 
@@ -166,4 +166,70 @@
     transform: scale(1.1);
     color: #fff;
   }
+  @media screen and (max-width: 768px) {
+  .lobby-container {
+    display: flex;
+    flex-direction: column; /* Stapla innehåll vertikalt */
+    align-items: center;
+    justify-content: space-between; /* Fördela utrymmet jämnt */
+    padding: 20px;
+    height: 100vh; /* Fyll hela höjden på skärmen */
+  }
+
+  .lobby-info {
+    display: flex;
+    flex-direction: column; /* Staplar innehållet vertikalt */
+    justify-content: flex-start; /* Justerar allt till toppen */
+    align-items: center; /* Centrerar innehållet horisontellt */
+    text-align: center;
+    gap: 10px; /* Lägger till avstånd mellan elementen */
+  }
+
+  h1 {
+    font-size: 1.8rem;
+    margin-bottom: 10px;
+  }
+
+  h2 {
+    font-size: 1.5em;
+    margin-top: 20px;
+    position: absolute;
+    top: 20%;
+  }
+
+  .participant-list {
+    text-align: center; 
+    margin-top: 200px;
+  }
+  .participant-list p {
+    margin: 5px 0; 
+    font-size: 1rem; 
+  }
+
+  .pollId {
+    font-size: 1.5rem;
+  }
+
+  .game-visual {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: auto; /* Trycker ned tåget mot botten */
+    margin-bottom: 20px; /* Lägger till lite extra utrymme nedanför tåget */
+  }
+
+  .train-image {
+    width: 60%; /* Anpassa storlek för mobilen */
+    height: auto;
+  }
+
+  .start-button {
+    font-size: 1.2rem;
+    padding: 10px 20px;
+    width: 80%;
+    max-width: 250px;
+    margin-top: 20px;
+  }
+}
 </style>
