@@ -318,7 +318,6 @@
     gap: 10px;
     margin-top: 5px;
     padding: 5px 10px;
-    cursor: pointer;
     font-size: 20px;
   }
   .approve-btn {
